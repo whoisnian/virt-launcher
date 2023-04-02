@@ -1,0 +1,19 @@
+{
+  "Name": "ubuntu18.04",
+  "Version": "20230329",
+  "Upstream": "https://cloud-images.ubuntu.com/",
+  "Images": [
+    {
+      "Arch": "amd64",
+      "Account": "ubuntu",
+      "Url": "https://cloud-images.ubuntu.com/bionic/20230329/bionic-server-cloudimg-amd64.img",
+      "Hash": "https://cloud-images.ubuntu.com/bionic/20230329/SHA256SUMS"
+    },
+    {
+      "Arch": "arm64",
+      "Account": "ubuntu",
+      "Url": "https://cloud-images.ubuntu.com/bionic/20230329/bionic-server-cloudimg-arm64.img",
+      "Hash": "https://cloud-images.ubuntu.com/bionic/20230329/SHA256SUMS"
+    }
+  ]
+}

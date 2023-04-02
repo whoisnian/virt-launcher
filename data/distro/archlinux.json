@@ -1,0 +1,13 @@
+{
+  "Name": "archlinux",
+  "Version": "20230401.139781",
+  "Upstream": "https://gitlab.archlinux.org/archlinux/arch-boxes/",
+  "Images": [
+    {
+      "Arch": "amd64",
+      "Account": "arch",
+      "Url": "https://geo.mirror.pkgbuild.com/images/v20230401.139781/Arch-Linux-x86_64-cloudimg-20230401.139781.qcow2",
+      "Hash": "https://geo.mirror.pkgbuild.com/images/v20230401.139781/Arch-Linux-x86_64-cloudimg-20230401.139781.qcow2.SHA256"
+    }
+  ]
+}
