@@ -3,14 +3,19 @@ package image
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 	"path"
 	"sort"
 
 	"github.com/whoisnian/glb/logger"
 	"github.com/whoisnian/virt-launcher/data"
+	"github.com/whoisnian/virt-launcher/global"
 )
 
-var distroMap = make(map[string]*Distro)
+var (
+	distroMap    = make(map[string]*Distro)
+	cacheDirName = ""
+)
 
 type Distro struct {
 	Name     string
@@ -95,5 +100,16 @@ func Init() {
 			logger.Fatal("Duplicated distro ", distro.Name)
 		}
 		distroMap[distro.Name] = distro
+	}
+
+	userCacheDir, err := os.UserCacheDir()
+	if err != nil {
+		logger.Fatal(err)
+	}
+	cacheDirName = path.Join(userCacheDir, global.AppName)
+	logger.Debug("Use cache dir ", cacheDirName)
+	err = os.MkdirAll(cacheDirName, os.ModePerm)
+	if err != nil {
+		logger.Fatal(err)
 	}
 }
