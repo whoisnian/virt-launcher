@@ -4,11 +4,16 @@ import (
 	"os/exec"
 
 	"github.com/whoisnian/glb/logger"
+	"github.com/whoisnian/virt-launcher/global"
 )
 
 var qemuImgBinary = "qemu-img"
 
-func ResizeImage(imagePath string, size string) {
-	cmd := exec.Command(qemuImgBinary, "resize", imagePath, size)
-	logger.Info(cmd.String())
+func ResizeImage(imagePath string) {
+	cmd := exec.Command(qemuImgBinary, "resize", imagePath, global.CFG.Size)
+	if global.CFG.DryRun {
+		logger.Info("[DRY-RUN] ", cmd.String())
+	} else {
+		cmd.Run()
+	}
 }

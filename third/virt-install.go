@@ -4,15 +4,28 @@ import (
 	"os/exec"
 
 	"github.com/whoisnian/glb/logger"
+	"github.com/whoisnian/virt-launcher/global"
 )
 
 var virtInstallBinary = "virt-install"
 
-func CreateVM(name string, os string, imagePath string) {
+func CreateVM(disk string) {
 	cmd := exec.Command(virtInstallBinary,
-		"--name", name,
-		"--install", os,
-		"--disk", imagePath,
+		"--import",
+		"--name", global.CFG.Name,
+		"--os-variant", global.CFG.Os,
+		"--disk", disk,
+		"--vcpus", global.CFG.Cpu,
+		"--memory", global.CFG.Mem,
+		"--virt-type", "kvm",
+		"--graphics", "none",
+		"--noautoconsole",
+		"--connect", global.CFG.Connect,
+		// --cloud-init
 	)
-	logger.Info(cmd.String())
+	if global.CFG.DryRun {
+		logger.Info("[DRY-RUN] ", cmd.String())
+	} else {
+		cmd.Run()
+	}
 }

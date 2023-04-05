@@ -2,6 +2,9 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"os/exec"
+	"path/filepath"
 	"runtime"
 
 	"github.com/whoisnian/glb/config"
@@ -9,6 +12,7 @@ import (
 	"github.com/whoisnian/virt-launcher/global"
 	"github.com/whoisnian/virt-launcher/image"
 	"github.com/whoisnian/virt-launcher/third"
+	"github.com/whoisnian/virt-launcher/util"
 )
 
 func setupPackages() {
@@ -46,11 +50,22 @@ func main() {
 	}
 
 	logger.Info("Start downloading image to ", img.CacheFilePath())
-	if err := img.Download(); err != nil {
+	if err = img.Download(); err != nil {
+		logger.Error(err)
+		return
+	}
+	fName, err := util.CopyToTemp(img.CacheFilePath(), "*."+global.CFG.Name+".qcow2")
+	if err != nil {
 		logger.Error(err)
 		return
 	}
 
-	third.ResizeImage(img.CacheFilePath(), "20G")
-	third.CreateVM("testing", global.CFG.Os, img.CacheFilePath())
+	disk := filepath.Join(global.CFG.Storage + global.CFG.Name + ".qcow2")
+	third.ResizeImage(disk)
+	if global.CFG.DryRun {
+		logger.Info("[DRY-RUN] ", exec.Command("mv", fName, disk).String())
+	} else {
+		os.Rename(fName, disk)
+	}
+	third.CreateVM(disk)
 }
