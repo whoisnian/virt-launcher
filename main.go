@@ -8,7 +8,14 @@ import (
 	"github.com/whoisnian/glb/logger"
 	"github.com/whoisnian/virt-launcher/global"
 	"github.com/whoisnian/virt-launcher/image"
+	"github.com/whoisnian/virt-launcher/third"
 )
+
+func setupPackages() {
+	image.SetupIndex()
+	image.SetupCache()
+	third.SetupThird()
+}
 
 func main() {
 	err := config.FromCommandLine(&global.CFG)
@@ -17,35 +24,33 @@ func main() {
 	}
 	logger.SetDebug(global.CFG.Debug)
 
+	setupPackages()
+
 	if global.CFG.Version {
 		fmt.Printf("%s %s(%s)\n", global.AppName, global.Version, global.BuildTime)
 		return
 	}
-
-	image.Init()
-	if global.CFG.List {
+	if global.CFG.ListAll {
 		image.ListAll()
 		return
 	}
 
-	distro := image.LookupDistro(global.CFG.Distro)
-	if distro == nil {
-		logger.Error("Unknown distro ", global.CFG.Distro)
+	if global.CFG.Arch == "" {
+		logger.Warn("Automatically detect architecture: ", runtime.GOARCH)
+		global.CFG.Arch = runtime.GOARCH
+	}
+	img, err := image.LookupImage(global.CFG.Os, global.CFG.Arch)
+	if err != nil {
+		logger.Error("LookupImage(", global.CFG.Os, ",", global.CFG.Arch, "): ", err)
 		return
 	}
 
-	arch := global.CFG.Arch
-	if arch == "" {
-		arch = runtime.GOARCH
-		logger.Warn("Automatically detect GOARCH: ", arch)
-	}
-	img := distro.LookupByArch(arch)
-	if img == nil {
-		logger.Error("Unknown arch ", arch, " for distro ", global.CFG.Distro)
-		return
-	}
-
+	logger.Info("Start downloading image to ", img.CacheFilePath())
 	if err := img.Download(); err != nil {
 		logger.Error(err)
+		return
 	}
+
+	third.ResizeImage(img.CacheFilePath(), "20G")
+	third.CreateVM("testing", global.CFG.Os, img.CacheFilePath())
 }

@@ -2,7 +2,6 @@ package image
 
 import (
 	"bufio"
-	"crypto"
 	"crypto/sha256"
 	"crypto/sha512"
 	"encoding/hex"
@@ -11,20 +10,21 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"path"
+	"path/filepath"
 	"strings"
 
 	"github.com/whoisnian/glb/logger"
 )
 
-func (img *Image) HashType() crypto.Hash {
+func (img *Image) Hasher() (hash.Hash, error) {
 	url := strings.ToLower(img.Hash)
 	if strings.Contains(url, "sha256") {
-		return crypto.SHA256
+		return sha256.New(), nil
 	} else if strings.Contains(url, "sha512") {
-		return crypto.SHA512
+		return sha512.New(), nil
+	} else {
+		return nil, errors.New("unknown hash type")
 	}
-	return 0
 }
 
 func (img *Image) RemoteHash() (string, error) {
@@ -35,7 +35,7 @@ func (img *Image) RemoteHash() (string, error) {
 	}
 	defer resp.Body.Close()
 
-	fileName := path.Base(img.Url)
+	fileName := filepath.Base(img.Url)
 	scanner := bufio.NewScanner(resp.Body)
 	for scanner.Scan() {
 		line := scanner.Text()
@@ -46,23 +46,19 @@ func (img *Image) RemoteHash() (string, error) {
 	return "", errors.New("remote hash not found")
 }
 
-func (img *Image) LocalHash(filePath string) (string, error) {
-	hashType := img.HashType()
-
-	var hasher hash.Hash
-	if hashType == crypto.SHA256 {
-		hasher = sha256.New()
-	} else if hashType == crypto.SHA512 {
-		hasher = sha512.New()
-	} else {
-		return "", errors.New("unknown hash type")
-	}
-
-	logger.Debug("Calc local hash from ", filePath)
-	fi, err := os.Open(filePath)
+func (img *Image) LocalHash() (string, error) {
+	hasher, err := img.Hasher()
 	if err != nil {
 		return "", err
 	}
+
+	logger.Debug("Calc local hash from ", img.CacheFilePath())
+	fi, err := os.Open(img.CacheFilePath())
+	if err != nil {
+		return "", err
+	}
+	defer fi.Close()
+
 	_, err = io.CopyBuffer(hasher, fi, make([]byte, 4*1024*1024))
 	if err != nil {
 		return "", err

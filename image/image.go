@@ -2,22 +2,18 @@ package image
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
-	"os"
-	"path"
+	"path/filepath"
 	"sort"
 
 	"github.com/whoisnian/glb/logger"
 	"github.com/whoisnian/virt-launcher/data"
-	"github.com/whoisnian/virt-launcher/global"
 )
 
-var (
-	distroMap    = make(map[string]*Distro)
-	cacheDirName = ""
-)
+var osMap = make(map[string]*Os)
 
-type Distro struct {
+type Os struct {
 	Name     string
 	Version  string
 	Upstream string
@@ -31,34 +27,35 @@ type Image struct {
 	Hash    string
 }
 
-func (d *Distro) LookupByArch(arch string) *Image {
-	for i := range d.Images {
-		if d.Images[i].Arch == arch {
-			return &d.Images[i]
+func LookupImage(os string, arch string) (*Image, error) {
+	o, ok := osMap[os]
+	if !ok {
+		return nil, errors.New("os not found")
+	}
+	for i := range o.Images {
+		if o.Images[i].Arch == arch {
+			return &o.Images[i], nil
 		}
 	}
-	return nil
+	return nil, errors.New("arch not found")
 }
 
-func LookupDistro(name string) *Distro {
-	return distroMap[name]
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
 
 func ListAll() {
-	nameLen, archLen, versionLen := 6, 4, 7
-	list := [][]string{{"distro", "arch", "version"}, {"------", "----", "-------"}}
-	for _, dt := range distroMap {
-		for _, img := range dt.Images {
-			if len(dt.Name) > nameLen {
-				nameLen = len(dt.Name)
-			}
-			if len(img.Arch) > archLen {
-				archLen = len(img.Arch)
-			}
-			if len(dt.Version) > versionLen {
-				versionLen = len(dt.Version)
-			}
-			list = append(list, []string{dt.Name, img.Arch, dt.Version})
+	nameLen, archLen, versionLen := 4, 4, 7
+	list := [][]string{{"name", "arch", "version"}, {"----", "----", "-------"}}
+	for _, o := range osMap {
+		for _, img := range o.Images {
+			nameLen = max(nameLen, len(o.Name))
+			archLen = max(archLen, len(img.Arch))
+			versionLen = max(versionLen, len(o.Version))
+			list = append(list, []string{o.Name, img.Arch, o.Version})
 		}
 	}
 	sort.Slice(list[2:], func(i, j int) bool {
@@ -67,18 +64,18 @@ func ListAll() {
 		}
 		return list[i+2][0] < list[j+2][0]
 	})
-	for _, it := range list {
-		fmt.Printf("| %-*s | %-*s | %-*s |\n", nameLen, it[0], archLen, it[1], versionLen, it[2])
+	for _, item := range list {
+		fmt.Printf("| %-*s | %-*s | %-*s |\n", nameLen, item[0], archLen, item[1], versionLen, item[2])
 	}
 }
 
-func Init() {
-	dirName := "distro"
-	files, err := data.FS.ReadDir(dirName)
+func SetupIndex() {
+	dataOsDir := "os"
+	files, err := data.FS.ReadDir(dataOsDir)
 	if err != nil {
 		logger.Fatal(err)
 	}
-	logger.Debug("Found ", len(files), " distro files")
+	logger.Debug("Found ", len(files), " os files")
 
 	for _, file := range files {
 		if file.IsDir() {
@@ -86,30 +83,19 @@ func Init() {
 		}
 
 		logger.Debug("Read and parse '", file.Name(), "'...")
-		content, err := data.FS.ReadFile(path.Join(dirName, file.Name()))
+		content, err := data.FS.ReadFile(filepath.Join(dataOsDir, file.Name()))
 		if err != nil {
 			logger.Fatal(err)
 		}
 
-		distro := &Distro{}
-		err = json.Unmarshal(content, distro)
+		o := &Os{}
+		err = json.Unmarshal(content, o)
 		if err != nil {
 			logger.Fatal(err)
 		}
-		if _, ok := distroMap[distro.Name]; ok {
-			logger.Fatal("Duplicated distro ", distro.Name)
+		if _, ok := osMap[o.Name]; ok {
+			logger.Fatal("Duplicated os ", o.Name)
 		}
-		distroMap[distro.Name] = distro
-	}
-
-	userCacheDir, err := os.UserCacheDir()
-	if err != nil {
-		logger.Fatal(err)
-	}
-	cacheDirName = path.Join(userCacheDir, global.AppName)
-	logger.Debug("Use cache dir ", cacheDirName)
-	err = os.MkdirAll(cacheDirName, os.ModePerm)
-	if err != nil {
-		logger.Fatal(err)
+		osMap[o.Name] = o
 	}
 }

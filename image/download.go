@@ -6,7 +6,6 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"path"
 	"strconv"
 	"time"
 
@@ -23,12 +22,12 @@ type progressWriter struct {
 func (pw *progressWriter) Write(p []byte) (int, error) {
 	n, err := pw.w.Write(p)
 	pw.cur += n
-	pw.Show()
+	pw.showProgress()
 	return n, err
 }
 
-func (pw *progressWriter) Show() {
-	if time.Since(pw.last) < 3*time.Second && pw.cur < pw.sum {
+func (pw *progressWriter) showProgress() {
+	if time.Since(pw.last) < 2*time.Second && pw.cur < pw.sum {
 		return
 	}
 	if pw.sum > 0 {
@@ -40,23 +39,21 @@ func (pw *progressWriter) Show() {
 }
 
 func (img *Image) Download() error {
-	fileName := path.Base(img.Url)
-	filePath := path.Join(cacheDirName, fileName)
-
-	logger.Info("Start downloading image to ", filePath)
 	rHash, err := img.RemoteHash()
 	if err != nil {
 		return err
 	}
 	logger.Debug("File remote hash: ", rHash)
 
+	// check image file exists
+	filePath := img.CacheFilePath()
 	if _, err := os.Stat(filePath); err == nil {
 		logger.Info("File already exists, start verifying")
-		lHash, err := img.LocalHash(filePath)
+		lHash, err := img.LocalHash()
 		if err != nil {
 			return err
 		}
-		logger.Debug("File local hash: ", rHash)
+		logger.Debug("File local hash: ", lHash)
 		if lHash == rHash {
 			logger.Info("Hash verification ok, skip downloading")
 			return nil
@@ -70,12 +67,33 @@ func (img *Image) Download() error {
 		return err
 	}
 
-	fi, err := os.Create(filePath)
+	// download image file
+	if err = img.download(); err != nil {
+		return err
+	}
+
+	// verify image file
+	lHash, err := img.LocalHash()
+	if err != nil {
+		return err
+	}
+	logger.Debug("File local hash: ", lHash)
+	if lHash == rHash {
+		logger.Info("Hash verification ok")
+		return nil
+	} else {
+		return errors.New("hash verification failed")
+	}
+}
+
+func (img *Image) download() error {
+	fi, err := os.Create(img.CacheFilePath())
 	if err != nil {
 		return err
 	}
 	defer fi.Close()
 
+	logger.Debug("Start downloading image from ", img.Url)
 	resp, err := http.Get(img.Url)
 	if err != nil {
 		return err
@@ -85,23 +103,13 @@ func (img *Image) Download() error {
 	length, err := strconv.Atoi(resp.Header.Get("content-length"))
 	if err != nil {
 		logger.Debug("Content-Length atoi ", err)
+	} else {
+		logger.Debug("Get Content-Length ", length)
 	}
 
 	_, err = io.CopyBuffer(&progressWriter{w: fi, sum: length}, resp.Body, make([]byte, 4*1024*1024))
 	if err != nil {
 		return err
 	}
-	fi.Close()
-
-	lHash, err := img.LocalHash(filePath)
-	if err != nil {
-		return err
-	}
-	logger.Debug("File local hash: ", rHash)
-	if lHash == rHash {
-		logger.Info("Hash verification ok")
-		return nil
-	} else {
-		return errors.New("hash verification failed")
-	}
+	return fi.Close()
 }

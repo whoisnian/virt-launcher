@@ -4,5 +4,5 @@ import (
 	"embed"
 )
 
-//go:embed distro/*.json
+//go:embed os/*.json
 var FS embed.FS
