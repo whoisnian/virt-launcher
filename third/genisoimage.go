@@ -23,8 +23,14 @@ func CreateCloudInitIso(cacheDir, isoPath string) ([]byte, error) {
 	}
 
 	logger.Debug("Start writing cloud-init data files to ", cacheDir)
-	createFileWith(filepath.Join(cacheDir, "meta-data"), metaDataContent())
-	createFileWith(filepath.Join(cacheDir, "user-data"), userDataContent())
+	for _, params := range [][]string{
+		{filepath.Join(cacheDir, "meta-data"), metaDataContent()},
+		{filepath.Join(cacheDir, "user-data"), userDataContent()},
+	} {
+		if _, err := createFileWith(params[0], params[1]); err != nil {
+			return nil, err
+		}
+	}
 
 	logger.Debug("Start creating cloud-init iso file to ", isoPath)
 	cmd := exec.Command(genisoimageBinary, "-output", isoPath, "-volid", "cidata", "-joliet", "-input-charset", "utf8", "-rational-rock", cacheDir)
@@ -32,6 +38,7 @@ func CreateCloudInitIso(cacheDir, isoPath string) ([]byte, error) {
 		logger.Info("[DRY-RUN] ", cmd.String())
 		return nil, nil
 	} else {
+		logger.Debug(cmd.String())
 		return cmd.CombinedOutput()
 	}
 }

@@ -71,12 +71,19 @@ func main() {
 
 	disk := filepath.Join(global.CFG.Storage, finalImageName)
 	cdrom := filepath.Join(global.CFG.Storage, cloudIsoName)
-	if global.CFG.DryRun {
-		logger.Info("[DRY-RUN] ", exec.Command("mv", finalImagePath, disk).String())
-		logger.Info("[DRY-RUN] ", exec.Command("mv", cloudIsoPath, cdrom).String())
-	} else {
-		os.Rename(finalImagePath, disk)
-		os.Rename(cloudIsoPath, cdrom)
+	for _, params := range [][]string{
+		{finalImagePath, disk},
+		{cloudIsoPath, cdrom},
+	} {
+		if global.CFG.DryRun {
+			logger.Info("[DRY-RUN] ", exec.Command("mv", params[0], params[1]).String())
+		} else {
+			logger.Debug(exec.Command("mv", params[0], params[1]).String())
+			if err = os.Rename(params[0], params[1]); err != nil {
+				logger.Error(err)
+				return
+			}
+		}
 	}
 
 	output, err = third.CreateVM(disk, cdrom)
@@ -84,4 +91,9 @@ func main() {
 		logger.Error(string(output))
 		return
 	}
+
+	logger.Info("[POST-INSTALL] ", exec.Command("virsh", "--connect", "qemu:///system", "detach-disk", "--persistent", "--domain", global.CFG.Name, cdrom).String())
+	logger.Info("[POST-INSTALL] ", exec.Command("virsh", "--connect", "qemu:///system", "reboot", "--domain", global.CFG.Name).String())
+	logger.Info("[POST-INSTALL] ", exec.Command("virsh", "--connect", "qemu:///system", "domifaddr", " --domain", global.CFG.Name).String())
+	logger.Info("[POST-INSTALL] ", exec.Command("rm", cdrom).String())
 }

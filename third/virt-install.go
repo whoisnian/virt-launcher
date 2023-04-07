@@ -13,9 +13,9 @@ func CreateVM(disk, cdrom string) ([]byte, error) {
 	cmd := exec.Command(virtInstallBinary,
 		"--import",
 		"--name", global.CFG.Name,
-		"--os-variant", global.CFG.Os,
+		"--osinfo", global.CFG.Os,
 		"--disk", disk,
-		"--cdrom", cdrom,
+		"--disk", cdrom,
 		"--vcpus", global.CFG.Cpu,
 		"--memory", global.CFG.Mem,
 		"--virt-type", "kvm",
@@ -27,6 +27,7 @@ func CreateVM(disk, cdrom string) ([]byte, error) {
 		logger.Info("[DRY-RUN] ", cmd.String())
 		return nil, nil
 	} else {
+		logger.Debug(cmd.String())
 		return cmd.CombinedOutput()
 	}
 }

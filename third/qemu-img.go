@@ -15,6 +15,7 @@ func ResizeImage(imagePath string) ([]byte, error) {
 		logger.Info("[DRY-RUN] ", cmd.String())
 		return nil, nil
 	} else {
+		logger.Debug(cmd.String())
 		return cmd.CombinedOutput()
 	}
 }
