@@ -46,14 +46,14 @@ func (img *Image) RemoteHash() (string, error) {
 	return "", errors.New("remote hash not found")
 }
 
-func (img *Image) LocalHash() (string, error) {
+func (img *Image) LocalHashFrom(filePath string) (string, error) {
 	hasher, err := img.Hasher()
 	if err != nil {
 		return "", err
 	}
 
-	logger.Debug("Calc local hash from ", img.CacheFilePath())
-	fi, err := os.Open(img.CacheFilePath())
+	logger.Debug("Calc local hash from ", filePath)
+	fi, err := os.Open(filePath)
 	if err != nil {
 		return "", err
 	}

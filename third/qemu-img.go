@@ -9,11 +9,12 @@ import (
 
 var qemuImgBinary = "qemu-img"
 
-func ResizeImage(imagePath string) {
+func ResizeImage(imagePath string) ([]byte, error) {
 	cmd := exec.Command(qemuImgBinary, "resize", imagePath, global.CFG.Size)
 	if global.CFG.DryRun {
 		logger.Info("[DRY-RUN] ", cmd.String())
+		return nil, nil
 	} else {
-		cmd.Run()
+		return cmd.CombinedOutput()
 	}
 }

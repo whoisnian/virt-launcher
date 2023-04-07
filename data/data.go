@@ -6,3 +6,5 @@ import (
 
 //go:embed os/*.json
 var FS embed.FS
+
+const OsDir = "os"

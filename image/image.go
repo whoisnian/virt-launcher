@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"path"
 	"path/filepath"
 	"sort"
 
@@ -25,6 +26,10 @@ type Image struct {
 	Account string
 	Url     string
 	Hash    string
+}
+
+func (img *Image) BaseName() string {
+	return path.Base(img.Url)
 }
 
 func LookupImage(os string, arch string) (*Image, error) {
@@ -69,9 +74,8 @@ func ListAll() {
 	}
 }
 
-func SetupIndex() {
-	dataOsDir := "os"
-	files, err := data.FS.ReadDir(dataOsDir)
+func Setup() {
+	files, err := data.FS.ReadDir(data.OsDir)
 	if err != nil {
 		logger.Fatal(err)
 	}
@@ -83,7 +87,7 @@ func SetupIndex() {
 		}
 
 		logger.Debug("Read and parse '", file.Name(), "'...")
-		content, err := data.FS.ReadFile(filepath.Join(dataOsDir, file.Name()))
+		content, err := data.FS.ReadFile(filepath.Join(data.OsDir, file.Name()))
 		if err != nil {
 			logger.Fatal(err)
 		}

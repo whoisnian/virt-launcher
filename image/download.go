@@ -38,7 +38,7 @@ func (pw *progressWriter) showProgress() {
 	pw.last = time.Now()
 }
 
-func (img *Image) Download() error {
+func (img *Image) Download(filePath string) error {
 	rHash, err := img.RemoteHash()
 	if err != nil {
 		return err
@@ -46,10 +46,9 @@ func (img *Image) Download() error {
 	logger.Debug("File remote hash: ", rHash)
 
 	// check image file exists
-	filePath := img.CacheFilePath()
 	if _, err := os.Stat(filePath); err == nil {
 		logger.Info("File already exists, start verifying")
-		lHash, err := img.LocalHash()
+		lHash, err := img.LocalHashFrom(filePath)
 		if err != nil {
 			return err
 		}
@@ -68,12 +67,12 @@ func (img *Image) Download() error {
 	}
 
 	// download image file
-	if err = img.download(); err != nil {
+	if err = img.download(filePath); err != nil {
 		return err
 	}
 
 	// verify image file
-	lHash, err := img.LocalHash()
+	lHash, err := img.LocalHashFrom(filePath)
 	if err != nil {
 		return err
 	}
@@ -86,8 +85,8 @@ func (img *Image) Download() error {
 	}
 }
 
-func (img *Image) download() error {
-	fi, err := os.Create(img.CacheFilePath())
+func (img *Image) download(filePath string) error {
+	fi, err := os.Create(filePath)
 	if err != nil {
 		return err
 	}
@@ -111,5 +110,5 @@ func (img *Image) download() error {
 	if err != nil {
 		return err
 	}
-	return fi.Close()
+	return nil
 }

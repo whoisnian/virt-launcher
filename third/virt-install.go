@@ -9,23 +9,24 @@ import (
 
 var virtInstallBinary = "virt-install"
 
-func CreateVM(disk string) {
+func CreateVM(disk, cdrom string) ([]byte, error) {
 	cmd := exec.Command(virtInstallBinary,
 		"--import",
 		"--name", global.CFG.Name,
 		"--os-variant", global.CFG.Os,
 		"--disk", disk,
+		"--cdrom", cdrom,
 		"--vcpus", global.CFG.Cpu,
 		"--memory", global.CFG.Mem,
 		"--virt-type", "kvm",
 		"--graphics", "none",
 		"--noautoconsole",
 		"--connect", global.CFG.Connect,
-		// --cloud-init
 	)
 	if global.CFG.DryRun {
 		logger.Info("[DRY-RUN] ", cmd.String())
+		return nil, nil
 	} else {
-		cmd.Run()
+		return cmd.CombinedOutput()
 	}
 }
