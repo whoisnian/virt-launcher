@@ -26,12 +26,6 @@ func CreateCloudInitIso(cacheDir, isoPath string) ([]byte, error) {
 	createFileWith(filepath.Join(cacheDir, "meta-data"), metaDataContent())
 	createFileWith(filepath.Join(cacheDir, "user-data"), userDataContent())
 
-	fi, err := os.Create(isoPath)
-	if err != nil {
-		return nil, err
-	}
-	fi.Close()
-
 	logger.Debug("Start creating cloud-init iso file to ", isoPath)
 	cmd := exec.Command(genisoimageBinary, "-output", isoPath, "-volid", "cidata", "-joliet", "-input-charset", "utf8", "-rational-rock", cacheDir)
 	if global.CFG.DryRun {
