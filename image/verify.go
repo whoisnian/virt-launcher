@@ -11,10 +11,13 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 
 	"github.com/whoisnian/glb/logger"
 )
+
+var hexReg = regexp.MustCompile(`[A-Za-z0-9]{64,128}`)
 
 func (img *Image) Hasher() (hash.Hash, error) {
 	url := strings.ToLower(img.Hash)
@@ -40,7 +43,7 @@ func (img *Image) RemoteHash() (string, error) {
 	for scanner.Scan() {
 		line := scanner.Text()
 		if strings.Contains(line, fileName) {
-			return strings.TrimSpace(strings.ReplaceAll(line, fileName, "")), nil
+			return hexReg.FindString(line), nil
 		}
 	}
 	return "", errors.New("remote hash not found")
