@@ -43,8 +43,11 @@ func (img *Image) RemoteHash() (string, error) {
 		scanner := bufio.NewScanner(resp.Body)
 		for scanner.Scan() {
 			line := scanner.Text()
-			if strings.Contains(line, fileName) {
-				return hexReg.FindString(line), nil
+			if !strings.Contains(line, fileName) {
+				continue
+			}
+			if res := hexReg.FindString(line); res != "" {
+				return res, nil
 			}
 		}
 	} else if strings.HasPrefix(img.Hash, "sha256sum:") || strings.HasPrefix(img.Hash, "sha512sum:") {
