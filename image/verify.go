@@ -32,20 +32,25 @@ func (img *Image) Hasher() (hash.Hash, error) {
 
 func (img *Image) RemoteHash() (string, error) {
 	logger.Debug("Get remote hash from ", img.Hash)
-	resp, err := http.Get(img.Hash)
-	if err != nil {
-		return "", err
-	}
-	defer resp.Body.Close()
-
-	fileName := filepath.Base(img.Url)
-	scanner := bufio.NewScanner(resp.Body)
-	for scanner.Scan() {
-		line := scanner.Text()
-		if strings.Contains(line, fileName) {
-			return hexReg.FindString(line), nil
+	if strings.HasPrefix(img.Hash, "https://") || strings.HasPrefix(img.Hash, "http://") {
+		resp, err := http.Get(img.Hash)
+		if err != nil {
+			return "", err
 		}
+		defer resp.Body.Close()
+
+		fileName := filepath.Base(img.Url)
+		scanner := bufio.NewScanner(resp.Body)
+		for scanner.Scan() {
+			line := scanner.Text()
+			if strings.Contains(line, fileName) {
+				return hexReg.FindString(line), nil
+			}
+		}
+	} else if strings.HasPrefix(img.Hash, "sha256sum:") || strings.HasPrefix(img.Hash, "sha512sum:") {
+		return hexReg.FindString(img.Hash), nil
 	}
+
 	return "", errors.New("remote hash not found")
 }
 

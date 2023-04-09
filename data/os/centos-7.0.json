@@ -7,13 +7,13 @@
       "Arch": "amd64",
       "Account": "centos",
       "Url": "https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-2211.qcow2",
-      "Hash": "https://cloud.centos.org/centos/7/images/sha256sum.txt"
+      "Hash": "sha256sum:284aab2b23d91318f169ff464bce4d53404a15a0618ceb34562838c59af4adea"
     },
     {
       "Arch": "arm64",
       "Account": "centos",
       "Url": "https://cloud.centos.org/centos/7/images/CentOS-7-aarch64-GenericCloud-2211.qcow2",
-      "Hash": "https://cloud.centos.org/centos/7/images/sha256sum.txt"
+      "Hash": "sha256sum:6af6f9e596deb6c514d05209ae289369d19bce7ddf02297e9b08a18b5b276847"
     }
   ]
 }
