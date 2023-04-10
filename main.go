@@ -94,8 +94,25 @@ func main() {
 		return
 	}
 
-	logger.Info("[POST-INSTALL] ", exec.Command("virsh", "--connect", "qemu:///system", "detach-disk", "--persistent", "--domain", global.CFG.Name, cdrom).String())
-	logger.Info("[POST-INSTALL] ", exec.Command("virsh", "--connect", "qemu:///system", "reboot", "--domain", global.CFG.Name).String())
-	logger.Info("[POST-INSTALL] ", exec.Command("virsh", "--connect", "qemu:///system", "domifaddr", " --domain", global.CFG.Name).String())
-	logger.Info("[POST-INSTALL] ", exec.Command("rm", cdrom).String())
+	output, err = third.WaitForVMOff()
+	if err != nil {
+		logger.Error(string(output))
+		return
+	}
+
+	output, err = third.DetachCloudInitIso(cdrom)
+	if err != nil {
+		logger.Error(string(output))
+		return
+	}
+	defer os.Remove(cdrom)
+
+	output, err = third.StartVM()
+	if err != nil {
+		logger.Error(string(output))
+		return
+	}
+
+	logger.Info("[NOTE] cloud image default user: ", img.Account)
+	logger.Info("[NOTE] fetch vm ip addr: ", exec.Command("virsh", "--connect", "qemu:///system", "domifaddr", "--domain", global.CFG.Name).String())
 }

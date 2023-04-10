@@ -62,6 +62,12 @@ func metaDataContent(timeStr string) string {
 func userDataContent() string {
 	sb := &strings.Builder{}
 	sb.WriteString("#cloud-config\n")
+	sb.WriteString("power_state:\n")
+	sb.WriteString("  delay: now\n")
+	sb.WriteString("  mode: poweroff\n")
+	sb.WriteString("  message: Powering off\n")
+	sb.WriteString("  timeout: 30\n")
+	sb.WriteString("  condition: true\n")
 	if global.CFG.Pass != "" {
 		sb.WriteString("ssh_pwauth: true\n")
 		sb.WriteString(fmt.Sprintf("password: %s\n", global.CFG.Pass))

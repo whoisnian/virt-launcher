@@ -39,4 +39,5 @@ func Setup() {
 	resolveBinaryPath(&qemuImgBinary)
 	resolveBinaryPath(&virtInstallBinary)
 	resolveBinaryPath(&genisoimageBinary)
+	resolveBinaryPath(&virshBinary)
 }
