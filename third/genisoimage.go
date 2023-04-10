@@ -6,7 +6,6 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
-	"time"
 
 	"github.com/whoisnian/glb/logger"
 	"github.com/whoisnian/virt-launcher/global"
@@ -14,7 +13,7 @@ import (
 
 var genisoimageBinary = "xorrisofs|genisoimage"
 
-func CreateCloudInitIso(cacheDir, isoPath string) ([]byte, error) {
+func CreateCloudInitIso(cacheDir, isoPath, timeStr string) ([]byte, error) {
 	if err := os.MkdirAll(cacheDir, os.ModePerm); err != nil {
 		return nil, err
 	}
@@ -24,7 +23,7 @@ func CreateCloudInitIso(cacheDir, isoPath string) ([]byte, error) {
 
 	logger.Debug("Start writing cloud-init data files to ", cacheDir)
 	for _, params := range [][]string{
-		{filepath.Join(cacheDir, "meta-data"), metaDataContent()},
+		{filepath.Join(cacheDir, "meta-data"), metaDataContent(timeStr)},
 		{filepath.Join(cacheDir, "user-data"), userDataContent()},
 	} {
 		if _, err := createFileWith(params[0], params[1]); err != nil {
@@ -53,21 +52,23 @@ func createFileWith(filePath string, content string) (int, error) {
 	return fi.WriteString(content)
 }
 
-func metaDataContent() string {
-	return fmt.Sprintf(strings.TrimSpace(`
-instance-id: i-%x
-local-hostname: %s
-`), time.Now().UnixMilli(), global.CFG.Name)
+func metaDataContent(timeStr string) string {
+	sb := &strings.Builder{}
+	sb.WriteString(fmt.Sprintf("instance-id: i-%s\n", timeStr))
+	sb.WriteString(fmt.Sprintf("local-hostname: %s\n", global.CFG.Name))
+	return sb.String()
 }
 
 func userDataContent() string {
-	if global.CFG.Key == "" {
-		return "#cloud-config"
-	} else {
-		return fmt.Sprintf(strings.TrimSpace(`
-#cloud-config
-ssh_authorized_keys:
-  - %s
-`), global.CFG.Key)
+	sb := &strings.Builder{}
+	sb.WriteString("#cloud-config\n")
+	if global.CFG.Pass != "" {
+		sb.WriteString("ssh_pwauth: true\n")
+		sb.WriteString(fmt.Sprintf("password: %s\n", global.CFG.Pass))
 	}
+	if global.CFG.Key != "" {
+		sb.WriteString("ssh_authorized_keys:\n")
+		sb.WriteString(fmt.Sprintf("  - %s\n", global.CFG.Key))
+	}
+	return sb.String()
 }

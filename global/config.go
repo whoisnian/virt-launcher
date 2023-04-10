@@ -19,6 +19,7 @@ type Config struct {
 	Cpu  string `flag:"cpu,1,Number of vCPUs for the guest vm"`
 	Mem  string `flag:"mem,1024,Memory allocated to the guest vm"`
 	Key  string `flag:"key,,Authorized keys for default user"`
+	Pass string `flag:"pass,,Login password for default user"`
 
 	Storage string `flag:"storage,/var/lib/libvirt/images,Directory of libvirt storage pool"`
 	Connect string `flag:"connect,qemu:///system,Connect to hypervisor with libvirt URI"`

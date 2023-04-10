@@ -6,6 +6,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"strconv"
 	"time"
 
 	"github.com/whoisnian/glb/logger"
@@ -47,7 +48,8 @@ func main() {
 		logger.Error(err)
 		return
 	}
-	finalImageName := fmt.Sprintf("%s.%x.qcow2", global.CFG.Name, time.Now().UnixMilli())
+	timeStr := strconv.FormatInt(time.Now().UnixMilli(), 36)
+	finalImageName := fmt.Sprintf("%s.%s.qcow2", global.CFG.Name, timeStr)
 	finalImagePath := cache.Boot(finalImageName)
 	if err = cache.CopyFile(oriImagePath, finalImagePath); err != nil {
 		logger.Error(err)
@@ -60,10 +62,10 @@ func main() {
 		return
 	}
 
-	cloudIsoCacheDir := cache.CloudInit(fmt.Sprintf("%s.%x", global.CFG.Name, time.Now().UnixMilli()))
-	cloudIsoName := fmt.Sprintf("%s.%x.iso", global.CFG.Name, time.Now().UnixMilli())
+	cloudIsoCacheDir := cache.CloudInit(fmt.Sprintf("%s.%s", global.CFG.Name, timeStr))
+	cloudIsoName := fmt.Sprintf("%s.%s.iso", global.CFG.Name, timeStr)
 	cloudIsoPath := cache.Boot(cloudIsoName)
-	output, err = third.CreateCloudInitIso(cloudIsoCacheDir, cloudIsoPath)
+	output, err = third.CreateCloudInitIso(cloudIsoCacheDir, cloudIsoPath, timeStr)
 	if err != nil {
 		logger.Error(string(output))
 		return
