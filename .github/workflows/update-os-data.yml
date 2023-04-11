@@ -1,0 +1,30 @@
+name: update-os-data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 0"
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up golang
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.20"
+          check-latest: true
+          cache: true
+
+      - name: Update os data
+        run: go run scripts/update-os-data/main.go
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ./data
+          git commit -m "UPG: upgrade cloud image"
+          git push
