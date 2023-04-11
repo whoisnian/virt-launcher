@@ -1,7 +1,7 @@
 {
   "Name": "ubuntu18.04",
   "Version": "20230405",
-  "Upstream": "https://cloud-images.ubuntu.com/",
+  "Upstream": "https://cloud-images.ubuntu.com/bionic/",
   "Images": [
     {
       "Arch": "amd64",

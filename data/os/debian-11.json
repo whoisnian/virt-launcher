@@ -1,7 +1,7 @@
 {
   "Name": "debian11",
   "Version": "20230124-1270",
-  "Upstream": "https://cdimage.debian.org/images/cloud/",
+  "Upstream": "https://cdimage.debian.org/images/cloud/bullseye/",
   "Images": [
     {
       "Arch": "amd64",

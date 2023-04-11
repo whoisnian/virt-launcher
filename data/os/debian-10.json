@@ -1,7 +1,7 @@
 {
   "Name": "debian10",
   "Version": "20230222-1299",
-  "Upstream": "https://cdimage.debian.org/images/cloud/",
+  "Upstream": "https://cdimage.debian.org/images/cloud/buster/",
   "Images": [
     {
       "Arch": "amd64",

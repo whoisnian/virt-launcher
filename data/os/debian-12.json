@@ -1,7 +1,7 @@
 {
   "Name": "debian12",
   "Version": "20230402-1338",
-  "Upstream": "https://cdimage.debian.org/images/cloud/",
+  "Upstream": "https://cdimage.debian.org/images/cloud/bookworm/daily/",
   "Images": [
     {
       "Arch": "amd64",

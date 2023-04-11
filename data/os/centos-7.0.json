@@ -1,7 +1,7 @@
 {
   "Name": "centos7.0",
   "Version": "2211",
-  "Upstream": "https://cloud.centos.org/",
+  "Upstream": "https://cloud.centos.org/centos/7/images/",
   "Images": [
     {
       "Arch": "amd64",

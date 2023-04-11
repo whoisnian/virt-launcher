@@ -1,7 +1,7 @@
 {
   "Name": "ubuntu20.04",
   "Version": "20230215",
-  "Upstream": "https://cloud-images.ubuntu.com/",
+  "Upstream": "https://cloud-images.ubuntu.com/focal/",
   "Images": [
     {
       "Arch": "amd64",

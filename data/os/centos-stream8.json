@@ -1,7 +1,7 @@
 {
   "Name": "centos-stream8",
   "Version": "20230404.0",
-  "Upstream": "https://cloud.centos.org/",
+  "Upstream": "https://cloud.centos.org/centos/8-stream/x86_64/images/",
   "Images": [
     {
       "Arch": "amd64",
