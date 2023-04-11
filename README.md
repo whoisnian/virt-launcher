@@ -1,4 +1,5 @@
 # virt-launcher
+[![Release Status](https://github.com/whoisnian/virt-launcher/workflows/release/badge.svg)](https://github.com/whoisnian/virt-launcher/actions?query=workflow%3Arelease)  
 Launch virtual machine from cloud image using libvirt.
 
 ## dependencies
