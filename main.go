@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/whoisnian/glb/logger"
+	"github.com/whoisnian/glb/util/osutil"
 	"github.com/whoisnian/virt-launcher/cache"
 	"github.com/whoisnian/virt-launcher/global"
 	"github.com/whoisnian/virt-launcher/image"
@@ -51,7 +52,8 @@ func main() {
 	timeStr := strconv.FormatInt(time.Now().UnixMilli(), 36)
 	finalImageName := fmt.Sprintf("%s.%s.qcow2", global.CFG.Name, timeStr)
 	finalImagePath := cache.Boot(finalImageName)
-	if err = cache.CopyFile(oriImagePath, finalImagePath); err != nil {
+	logger.Debug("Start copying file from ", oriImagePath, " to ", finalImagePath)
+	if _, err = osutil.CopyFile(oriImagePath, finalImagePath); err != nil {
 		logger.Error(err)
 		return
 	}

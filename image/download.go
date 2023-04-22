@@ -7,36 +7,12 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"sync"
 	"time"
 
 	"github.com/whoisnian/glb/logger"
+	"github.com/whoisnian/glb/util/ioutil"
 )
-
-type progressWriter struct {
-	w    io.Writer
-	cur  int
-	sum  int
-	last time.Time
-}
-
-func (pw *progressWriter) Write(p []byte) (int, error) {
-	n, err := pw.w.Write(p)
-	pw.cur += n
-	pw.showProgress()
-	return n, err
-}
-
-func (pw *progressWriter) showProgress() {
-	if time.Since(pw.last) < 2*time.Second && pw.cur < pw.sum {
-		return
-	}
-	if pw.sum > 0 {
-		logger.Info(fmt.Sprintf("%3d MiB of %3d MiB downloaded (%d%%)", pw.cur/1024/1024, pw.sum/1024/1024, pw.cur*100/pw.sum))
-	} else {
-		logger.Info(fmt.Sprintf("%3d MiB downloaded", pw.cur/1024/1024))
-	}
-	pw.last = time.Now()
-}
 
 func (img *Image) Download(filePath string) error {
 	rHash, err := img.RemoteHash()
@@ -106,9 +82,34 @@ func (img *Image) download(filePath string) error {
 		logger.Debug("Get Content-Length ", length)
 	}
 
-	_, err = io.CopyBuffer(&progressWriter{w: fi, sum: length}, resp.Body, make([]byte, 4*1024*1024))
+	wg := &sync.WaitGroup{}
+	pw := ioutil.NewProgressWriter(fi)
+
+	wg.Add(1)
+	go showProgress(wg, pw, length)
+
+	_, err = io.Copy(pw, resp.Body)
 	if err != nil {
 		return err
 	}
+	pw.Close()
+	wg.Wait()
 	return nil
+}
+
+func showProgress(wg *sync.WaitGroup, pw *ioutil.ProgressWriter, total int) {
+	defer wg.Done()
+
+	var last time.Time
+	for sum := range pw.Status() {
+		if time.Since(last) < 2*time.Second && sum < total {
+			continue
+		}
+		if total > 0 {
+			logger.Info(fmt.Sprintf("%3d MiB of %3d MiB downloaded (%d%%)", sum/1024/1024, total/1024/1024, sum*100/total))
+		} else {
+			logger.Info(fmt.Sprintf("%3d MiB downloaded", sum/1024/1024))
+		}
+		last = time.Now()
+	}
 }

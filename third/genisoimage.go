@@ -1,13 +1,14 @@
 package third
 
 import (
+	"bytes"
 	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
-	"strings"
 
 	"github.com/whoisnian/glb/logger"
+	"github.com/whoisnian/glb/util/osutil"
 	"github.com/whoisnian/virt-launcher/global"
 )
 
@@ -22,11 +23,14 @@ func CreateCloudInitIso(cacheDir, isoPath, timeStr string) ([]byte, error) {
 	}
 
 	logger.Debug("Start writing cloud-init data files to ", cacheDir)
-	for _, params := range [][]string{
+	for _, param := range []struct {
+		name string
+		data []byte
+	}{
 		{filepath.Join(cacheDir, "meta-data"), metaDataContent(timeStr)},
 		{filepath.Join(cacheDir, "user-data"), userDataContent()},
 	} {
-		if _, err := createFileWith(params[0], params[1]); err != nil {
+		if err := os.WriteFile(param.name, param.data, osutil.DefaultFileMode); err != nil {
 			return nil, err
 		}
 	}
@@ -42,39 +46,29 @@ func CreateCloudInitIso(cacheDir, isoPath, timeStr string) ([]byte, error) {
 	}
 }
 
-func createFileWith(filePath string, content string) (int, error) {
-	fi, err := os.Create(filePath)
-	if err != nil {
-		return 0, err
-	}
-	defer fi.Close()
-
-	return fi.WriteString(content)
+func metaDataContent(timeStr string) []byte {
+	buf := &bytes.Buffer{}
+	buf.WriteString(fmt.Sprintf("instance-id: i-%s\n", timeStr))
+	buf.WriteString(fmt.Sprintf("local-hostname: %s\n", global.CFG.Name))
+	return buf.Bytes()
 }
 
-func metaDataContent(timeStr string) string {
-	sb := &strings.Builder{}
-	sb.WriteString(fmt.Sprintf("instance-id: i-%s\n", timeStr))
-	sb.WriteString(fmt.Sprintf("local-hostname: %s\n", global.CFG.Name))
-	return sb.String()
-}
-
-func userDataContent() string {
-	sb := &strings.Builder{}
-	sb.WriteString("#cloud-config\n")
-	sb.WriteString("power_state:\n")
-	sb.WriteString("  delay: now\n")
-	sb.WriteString("  mode: poweroff\n")
-	sb.WriteString("  message: Powering off\n")
-	sb.WriteString("  timeout: 30\n")
-	sb.WriteString("  condition: true\n")
+func userDataContent() []byte {
+	buf := &bytes.Buffer{}
+	buf.WriteString("#cloud-config\n")
+	buf.WriteString("power_state:\n")
+	buf.WriteString("  delay: now\n")
+	buf.WriteString("  mode: poweroff\n")
+	buf.WriteString("  message: Powering off\n")
+	buf.WriteString("  timeout: 30\n")
+	buf.WriteString("  condition: true\n")
 	if global.CFG.Pass != "" {
-		sb.WriteString("ssh_pwauth: true\n")
-		sb.WriteString(fmt.Sprintf("password: %s\n", global.CFG.Pass))
+		buf.WriteString("ssh_pwauth: true\n")
+		buf.WriteString(fmt.Sprintf("password: %s\n", global.CFG.Pass))
 	}
 	if global.CFG.Key != "" {
-		sb.WriteString("ssh_authorized_keys:\n")
-		sb.WriteString(fmt.Sprintf("  - %s\n", global.CFG.Key))
+		buf.WriteString("ssh_authorized_keys:\n")
+		buf.WriteString(fmt.Sprintf("  - %s\n", global.CFG.Key))
 	}
-	return sb.String()
+	return buf.Bytes()
 }
