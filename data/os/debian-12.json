@@ -1,19 +1,19 @@
 {
   "Name": "debian12",
-  "Version": "20230520-1386",
+  "Version": "20230527-1393",
   "Upstream": "https://cdimage.debian.org/images/cloud/bookworm/daily/",
   "Images": [
     {
       "Arch": "amd64",
       "Account": "debian",
-      "Url": "https://cdimage.debian.org/images/cloud/bookworm/daily/20230520-1386/debian-12-genericcloud-amd64-daily-20230520-1386.qcow2",
-      "Hash": "https://cdimage.debian.org/images/cloud/bookworm/daily/20230520-1386/SHA512SUMS"
+      "Url": "https://cdimage.debian.org/images/cloud/bookworm/daily/20230527-1393/debian-12-genericcloud-amd64-daily-20230527-1393.qcow2",
+      "Hash": "https://cdimage.debian.org/images/cloud/bookworm/daily/20230527-1393/SHA512SUMS"
     },
     {
       "Arch": "arm64",
       "Account": "debian",
-      "Url": "https://cdimage.debian.org/images/cloud/bookworm/daily/20230520-1386/debian-12-genericcloud-arm64-daily-20230520-1386.qcow2",
-      "Hash": "https://cdimage.debian.org/images/cloud/bookworm/daily/20230520-1386/SHA512SUMS"
+      "Url": "https://cdimage.debian.org/images/cloud/bookworm/daily/20230527-1393/debian-12-genericcloud-arm64-daily-20230527-1393.qcow2",
+      "Hash": "https://cdimage.debian.org/images/cloud/bookworm/daily/20230527-1393/SHA512SUMS"
     }
   ]
 }
