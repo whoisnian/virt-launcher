@@ -1,19 +1,19 @@
 {
   "Name": "ubuntu18.04",
-  "Version": "20230530",
+  "Version": "20230607",
   "Upstream": "https://cloud-images.ubuntu.com/bionic/",
   "Images": [
     {
       "Arch": "amd64",
       "Account": "ubuntu",
-      "Url": "https://cloud-images.ubuntu.com/bionic/20230530/bionic-server-cloudimg-amd64.img",
-      "Hash": "https://cloud-images.ubuntu.com/bionic/20230530/SHA256SUMS"
+      "Url": "https://cloud-images.ubuntu.com/bionic/20230607/bionic-server-cloudimg-amd64.img",
+      "Hash": "https://cloud-images.ubuntu.com/bionic/20230607/SHA256SUMS"
     },
     {
       "Arch": "arm64",
       "Account": "ubuntu",
-      "Url": "https://cloud-images.ubuntu.com/bionic/20230530/bionic-server-cloudimg-arm64.img",
-      "Hash": "https://cloud-images.ubuntu.com/bionic/20230530/SHA256SUMS"
+      "Url": "https://cloud-images.ubuntu.com/bionic/20230607/bionic-server-cloudimg-arm64.img",
+      "Hash": "https://cloud-images.ubuntu.com/bionic/20230607/SHA256SUMS"
     }
   ]
 }
