@@ -83,7 +83,7 @@ func main() {
 			logger.Info("[DRY-RUN] ", exec.Command("mv", params[0], params[1]).String())
 		} else {
 			logger.Debug(exec.Command("mv", params[0], params[1]).String())
-			if err = os.Rename(params[0], params[1]); err != nil {
+			if err = osutil.MoveFile(params[0], params[1]); err != nil {
 				logger.Error(err)
 				return
 			}
