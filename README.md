@@ -23,7 +23,5 @@ https://docs.openstack.org/image-guide/obtain-images.html
 ## known issues
 * Failed to start sshd service in archlinux:  
   https://gitlab.archlinux.org/archlinux/arch-boxes/-/issues/158
-* Unknown sha256sum for latest centos7.0 image:  
-  https://cloud.centos.org/centos/7/images/sha256sum.txt
 * Timeout 90s for systemd-journal-flush.service on centos-stream8 boot:  
   Failed to start Flush Journal to Persistent Storage.
