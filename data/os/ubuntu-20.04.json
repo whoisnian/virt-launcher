@@ -1,19 +1,19 @@
 {
   "Name": "ubuntu20.04",
-  "Version": "20230915",
+  "Version": "20230922",
   "Upstream": "https://cloud-images.ubuntu.com/focal/",
   "Images": [
     {
       "Arch": "amd64",
       "Account": "ubuntu",
-      "Url": "https://cloud-images.ubuntu.com/focal/20230915/focal-server-cloudimg-amd64.img",
-      "Hash": "https://cloud-images.ubuntu.com/focal/20230915/SHA256SUMS"
+      "Url": "https://cloud-images.ubuntu.com/focal/20230922/focal-server-cloudimg-amd64.img",
+      "Hash": "https://cloud-images.ubuntu.com/focal/20230922/SHA256SUMS"
     },
     {
       "Arch": "arm64",
       "Account": "ubuntu",
-      "Url": "https://cloud-images.ubuntu.com/focal/20230915/focal-server-cloudimg-arm64.img",
-      "Hash": "https://cloud-images.ubuntu.com/focal/20230915/SHA256SUMS"
+      "Url": "https://cloud-images.ubuntu.com/focal/20230922/focal-server-cloudimg-arm64.img",
+      "Hash": "https://cloud-images.ubuntu.com/focal/20230922/SHA256SUMS"
     }
   ]
 }
