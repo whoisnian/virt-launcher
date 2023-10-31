@@ -4,7 +4,6 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/whoisnian/glb/logger"
 	"github.com/whoisnian/virt-launcher/global"
 )
 
@@ -14,16 +13,16 @@ var subCacheDir = []string{"images", "cloud-init", "boot"}
 func Setup() {
 	userCacheDir, err := os.UserCacheDir()
 	if err != nil {
-		logger.Fatal(err)
+		global.LOG.Fatal(err.Error())
 	}
 
 	appCacheDir = filepath.Join(userCacheDir, global.AppName)
-	logger.Debug("Use base cache dir ", appCacheDir)
+	global.LOG.Debug("Use base cache dir " + appCacheDir)
 
 	for _, sub := range subCacheDir {
 		err = os.MkdirAll(filepath.Join(appCacheDir, sub), os.ModePerm)
 		if err != nil {
-			logger.Fatal(err)
+			global.LOG.Fatal(err.Error())
 		}
 	}
 }

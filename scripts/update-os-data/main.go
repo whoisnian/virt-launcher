@@ -12,8 +12,10 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 
+	"github.com/whoisnian/glb/ansi"
 	"github.com/whoisnian/glb/logger"
 	"github.com/whoisnian/virt-launcher/data"
 	"github.com/whoisnian/virt-launcher/image"
@@ -32,42 +34,46 @@ var regMap = map[string]*regexp.Regexp{
 	"ubuntu22.04":    regexp.MustCompile(`href="(\d+)/"`),
 }
 
+var LOG = logger.New(logger.NewNanoHandler(os.Stderr, logger.NewOptions(
+	logger.LevelInfo, ansi.IsSupported(os.Stderr.Fd()), false,
+)))
+
 func main() {
 	files, err := data.FS.ReadDir(data.OsDir)
 	if err != nil {
-		logger.Fatal(err)
+		LOG.Fatal(err.Error())
 	}
-	logger.Info("Found ", len(files), " os files")
+	LOG.Info("Found " + strconv.Itoa(len(files)) + " os files")
 
 	for _, file := range files {
 		if file.IsDir() {
 			continue
 		}
 
-		logger.Info("Check for updates '", file.Name(), "'...")
+		LOG.Info("Check for updates '" + file.Name() + "'...")
 		content, err := data.FS.ReadFile(filepath.Join(data.OsDir, file.Name()))
 		if err != nil {
-			logger.Fatal(err)
+			LOG.Fatal(err.Error())
 		}
 
 		o := &image.Os{}
 		err = json.Unmarshal(content, o)
 		if err != nil {
-			logger.Fatal(err)
+			LOG.Fatal(err.Error())
 		}
 
 		if updateOsData(o) {
-			logger.Info("Update os file: ", file.Name())
+			LOG.Info("Update os file: " + file.Name())
 			fi, err := os.Create(filepath.Join("data", data.OsDir, file.Name()))
 			if err != nil {
-				logger.Fatal(err)
+				LOG.Fatal(err.Error())
 			}
 			defer fi.Close()
 
 			enc := json.NewEncoder(fi)
 			enc.SetIndent("", "  ")
 			if err = enc.Encode(o); err != nil {
-				logger.Fatal(err)
+				LOG.Fatal(err.Error())
 			}
 		}
 	}
@@ -76,14 +82,14 @@ func main() {
 func updateOsData(o *image.Os) bool {
 	reg, ok := regMap[o.Name]
 	if !ok {
-		logger.Fatal("Unknown os name")
+		LOG.Fatal("Unknown os name")
 	}
 
 	latestV := fetchLatestVersion(o.Upstream, reg)
 	if latestV <= o.Version {
 		return false
 	}
-	logger.Info("Found newer version: ", o.Version, " => ", latestV)
+	LOG.Info("Found newer version: " + o.Version + " => " + latestV)
 
 	for i := range o.Images {
 		o.Images[i].Url = strings.ReplaceAll(o.Images[i].Url, o.Version, latestV)
@@ -102,13 +108,13 @@ func updateOsData(o *image.Os) bool {
 func remoteHashFrom(url string, hasher hash.Hash) string {
 	resp, err := http.Get(url)
 	if err != nil {
-		logger.Fatal(err)
+		LOG.Fatal(err.Error())
 	}
 	defer resp.Body.Close()
 
 	_, err = io.CopyBuffer(hasher, resp.Body, make([]byte, 4*1024*1024))
 	if err != nil {
-		logger.Fatal(err)
+		LOG.Fatal(err.Error())
 	}
 	return hex.EncodeToString(hasher.Sum(nil))
 }
@@ -116,7 +122,7 @@ func remoteHashFrom(url string, hasher hash.Hash) string {
 func fetchLatestVersion(upstream string, reg *regexp.Regexp) (version string) {
 	resp, err := http.Get(upstream)
 	if err != nil {
-		logger.Fatal(err)
+		LOG.Fatal(err.Error())
 	}
 	defer resp.Body.Close()
 

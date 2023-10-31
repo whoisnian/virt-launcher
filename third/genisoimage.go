@@ -7,7 +7,6 @@ import (
 	"os/exec"
 	"path/filepath"
 
-	"github.com/whoisnian/glb/logger"
 	"github.com/whoisnian/glb/util/osutil"
 	"github.com/whoisnian/virt-launcher/global"
 )
@@ -22,7 +21,7 @@ func CreateCloudInitIso(cacheDir, isoPath, timeStr string) ([]byte, error) {
 		defer os.RemoveAll(cacheDir)
 	}
 
-	logger.Debug("Start writing cloud-init data files to ", cacheDir)
+	global.LOG.Debug("Start writing cloud-init data files to " + cacheDir)
 	for _, param := range []struct {
 		name string
 		data []byte
@@ -35,13 +34,13 @@ func CreateCloudInitIso(cacheDir, isoPath, timeStr string) ([]byte, error) {
 		}
 	}
 
-	logger.Debug("Start creating cloud-init iso file to ", isoPath)
+	global.LOG.Debug("Start creating cloud-init iso file to " + isoPath)
 	cmd := exec.Command(genisoimageBinary, "-output", isoPath, "-volid", "cidata", "-joliet", "-input-charset", "utf8", "-rational-rock", cacheDir)
 	if global.CFG.DryRun {
-		logger.Info("[DRY-RUN] ", cmd.String())
+		global.LOG.Info("[DRY-RUN] " + cmd.String())
 		return nil, nil
 	} else {
-		logger.Debug(cmd.String())
+		global.LOG.Debug(cmd.String())
 		return cmd.CombinedOutput()
 	}
 }

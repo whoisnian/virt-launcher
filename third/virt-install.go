@@ -3,7 +3,6 @@ package third
 import (
 	"os/exec"
 
-	"github.com/whoisnian/glb/logger"
 	"github.com/whoisnian/virt-launcher/global"
 )
 
@@ -24,10 +23,10 @@ func CreateVM(disk, cdrom string) ([]byte, error) {
 		"--connect", global.CFG.Connect,
 	)
 	if global.CFG.DryRun {
-		logger.Info("[DRY-RUN] ", cmd.String())
+		global.LOG.Info("[DRY-RUN] " + cmd.String())
 		return nil, nil
 	} else {
-		logger.Debug(cmd.String())
+		global.LOG.Debug(cmd.String())
 		return cmd.CombinedOutput()
 	}
 }

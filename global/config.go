@@ -1,6 +1,9 @@
 package global
 
 import (
+	"os"
+
+	"github.com/whoisnian/glb/ansi"
 	"github.com/whoisnian/glb/config"
 	"github.com/whoisnian/glb/logger"
 )
@@ -25,12 +28,22 @@ type Config struct {
 	Connect string `flag:"connect,qemu:///system,Connect to hypervisor with libvirt URI"`
 }
 
-var CFG Config
+var (
+	CFG Config
+	LOG *logger.Logger
+)
 
 func SetupConfig() {
 	err := config.FromCommandLine(&CFG)
 	if err != nil {
-		logger.Fatal(err)
+		panic(err)
 	}
-	logger.SetDebug(CFG.Debug)
+
+	level := logger.LevelInfo
+	if CFG.Debug {
+		level = logger.LevelDebug
+	}
+	LOG = logger.New(logger.NewNanoHandler(os.Stderr, logger.NewOptions(
+		level, ansi.IsSupported(os.Stderr.Fd()), false,
+	)))
 }
