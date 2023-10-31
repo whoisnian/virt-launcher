@@ -7,9 +7,10 @@ import (
 	"path"
 	"path/filepath"
 	"sort"
+	"strconv"
 
-	"github.com/whoisnian/glb/logger"
 	"github.com/whoisnian/virt-launcher/data"
+	"github.com/whoisnian/virt-launcher/global"
 )
 
 var osMap = make(map[string]*Os)
@@ -77,28 +78,28 @@ func ListAll() {
 func Setup() {
 	files, err := data.FS.ReadDir(data.OsDir)
 	if err != nil {
-		logger.Fatal(err)
+		global.LOG.Fatal(err.Error())
 	}
-	logger.Debug("Found ", len(files), " os files")
+	global.LOG.Debug("Found " + strconv.Itoa(len(files)) + " os files")
 
 	for _, file := range files {
 		if file.IsDir() {
 			continue
 		}
 
-		logger.Debug("Read and parse '", file.Name(), "'...")
+		global.LOG.Debug("Read and parse '" + file.Name() + "'...")
 		content, err := data.FS.ReadFile(filepath.Join(data.OsDir, file.Name()))
 		if err != nil {
-			logger.Fatal(err)
+			global.LOG.Fatal(err.Error())
 		}
 
 		o := &Os{}
 		err = json.Unmarshal(content, o)
 		if err != nil {
-			logger.Fatal(err)
+			global.LOG.Fatal(err.Error())
 		}
 		if _, ok := osMap[o.Name]; ok {
-			logger.Fatal("Duplicated os ", o.Name)
+			global.LOG.Fatal("Duplicated os " + o.Name)
 		}
 		osMap[o.Name] = o
 	}

@@ -14,7 +14,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/whoisnian/glb/logger"
+	"github.com/whoisnian/virt-launcher/global"
 )
 
 var hexReg = regexp.MustCompile(`[A-Za-z0-9]{64,128}`)
@@ -31,7 +31,7 @@ func (img *Image) Hasher() (hash.Hash, error) {
 }
 
 func (img *Image) RemoteHash() (string, error) {
-	logger.Debug("Get remote hash from ", img.Hash)
+	global.LOG.Debug("Get remote hash from " + img.Hash)
 	if strings.HasPrefix(img.Hash, "https://") || strings.HasPrefix(img.Hash, "http://") {
 		resp, err := http.Get(img.Hash)
 		if err != nil {
@@ -63,7 +63,7 @@ func (img *Image) LocalHashFrom(filePath string) (string, error) {
 		return "", err
 	}
 
-	logger.Debug("Calc local hash from ", filePath)
+	global.LOG.Debug("Calc local hash from " + filePath)
 	fi, err := os.Open(filePath)
 	if err != nil {
 		return "", err

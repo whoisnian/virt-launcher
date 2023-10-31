@@ -4,7 +4,6 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/whoisnian/glb/logger"
 	"github.com/whoisnian/virt-launcher/global"
 )
 
@@ -12,7 +11,7 @@ func enableDryRun() {
 	if global.CFG.DryRun {
 		return
 	}
-	logger.Warn("Automatically enable dry-run mode")
+	global.LOG.Warn("Automatically enable dry-run mode")
 	global.CFG.DryRun = true
 }
 
@@ -27,10 +26,10 @@ func resolveBinaryPath(binary *string) {
 
 	path, err := exec.LookPath(*binary)
 	if err != nil {
-		logger.Warn("LookPath(", *binary, "): ", err)
+		global.LOG.Warn("LookPath(" + *binary + "): " + err.Error())
 		enableDryRun()
 	} else {
-		logger.Debug("LookPath(", *binary, "): ", path)
+		global.LOG.Debug("LookPath(" + *binary + "): " + path)
 		*binary = path
 	}
 }

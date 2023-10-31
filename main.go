@@ -9,7 +9,6 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/whoisnian/glb/logger"
 	"github.com/whoisnian/glb/util/osutil"
 	"github.com/whoisnian/virt-launcher/cache"
 	"github.com/whoisnian/virt-launcher/global"
@@ -34,33 +33,33 @@ func main() {
 	}
 
 	if global.CFG.Arch == "" {
-		logger.Warn("Automatically detect architecture: ", runtime.GOARCH)
+		global.LOG.Warn("Automatically detect architecture: " + runtime.GOARCH)
 		global.CFG.Arch = runtime.GOARCH
 	}
 	img, err := image.LookupImage(global.CFG.Os, global.CFG.Arch)
 	if err != nil {
-		logger.Error("LookupImage(", global.CFG.Os, ",", global.CFG.Arch, "): ", err)
+		global.LOG.Error("LookupImage(" + global.CFG.Os + "," + global.CFG.Arch + "): " + err.Error())
 		return
 	}
 
 	oriImagePath := cache.Images(img.BaseName())
-	logger.Info("Start downloading image to ", oriImagePath)
+	global.LOG.Info("Start downloading image to " + oriImagePath)
 	if err = img.Download(oriImagePath); err != nil {
-		logger.Error(err)
+		global.LOG.Error(err.Error())
 		return
 	}
 	timeStr := strconv.FormatInt(time.Now().UnixMilli(), 36)
 	finalImageName := fmt.Sprintf("%s.%s.qcow2", global.CFG.Name, timeStr)
 	finalImagePath := cache.Boot(finalImageName)
-	logger.Debug("Start copying file from ", oriImagePath, " to ", finalImagePath)
+	global.LOG.Debug("Start copying file from " + oriImagePath + " to " + finalImagePath)
 	if _, err = osutil.CopyFile(oriImagePath, finalImagePath); err != nil {
-		logger.Error(err)
+		global.LOG.Error(err.Error())
 		return
 	}
 
 	output, err := third.ResizeImage(finalImagePath)
 	if err != nil {
-		logger.Error(string(output))
+		global.LOG.Error(string(output))
 		return
 	}
 
@@ -69,7 +68,7 @@ func main() {
 	cloudIsoPath := cache.Boot(cloudIsoName)
 	output, err = third.CreateCloudInitIso(cloudIsoCacheDir, cloudIsoPath, timeStr)
 	if err != nil {
-		logger.Error(string(output))
+		global.LOG.Error(string(output))
 		return
 	}
 
@@ -80,11 +79,11 @@ func main() {
 		{cloudIsoPath, cdrom},
 	} {
 		if global.CFG.DryRun {
-			logger.Info("[DRY-RUN] ", exec.Command("mv", params[0], params[1]).String())
+			global.LOG.Info("[DRY-RUN] " + exec.Command("mv", params[0], params[1]).String())
 		} else {
-			logger.Debug(exec.Command("mv", params[0], params[1]).String())
+			global.LOG.Debug(exec.Command("mv", params[0], params[1]).String())
 			if err = osutil.MoveFile(params[0], params[1]); err != nil {
-				logger.Error(err)
+				global.LOG.Error(err.Error())
 				return
 			}
 		}
@@ -92,29 +91,29 @@ func main() {
 
 	output, err = third.CreateVM(disk, cdrom)
 	if err != nil {
-		logger.Error(string(output))
+		global.LOG.Error(string(output))
 		return
 	}
 
 	output, err = third.WaitForVMOff()
 	if err != nil {
-		logger.Error(string(output))
+		global.LOG.Error(string(output))
 		return
 	}
 
 	output, err = third.DetachCloudInitIso(cdrom)
 	if err != nil {
-		logger.Error(string(output))
+		global.LOG.Error(string(output))
 		return
 	}
 	defer os.Remove(cdrom)
 
 	output, err = third.StartVM()
 	if err != nil {
-		logger.Error(string(output))
+		global.LOG.Error(string(output))
 		return
 	}
 
-	logger.Info("[NOTE] cloud image default user: ", img.Account)
-	logger.Info("[NOTE] fetch vm ip addr: ", exec.Command("virsh", "--connect", "qemu:///system", "domifaddr", "--domain", global.CFG.Name).String())
+	global.LOG.Info("[NOTE] cloud image default user: " + img.Account)
+	global.LOG.Info("[NOTE] fetch vm ip addr: " + exec.Command("virsh", "--connect", "qemu:///system", "domifaddr", "--domain", global.CFG.Name).String())
 }

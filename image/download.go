@@ -10,8 +10,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/whoisnian/glb/logger"
 	"github.com/whoisnian/glb/util/ioutil"
+	"github.com/whoisnian/virt-launcher/global"
 )
 
 func (img *Image) Download(filePath string) error {
@@ -19,21 +19,21 @@ func (img *Image) Download(filePath string) error {
 	if err != nil {
 		return err
 	}
-	logger.Debug("File remote hash: ", rHash)
+	global.LOG.Debug("File remote hash: " + rHash)
 
 	// check image file exists
 	if _, err := os.Stat(filePath); err == nil {
-		logger.Info("File already exists, start verifying")
+		global.LOG.Info("File already exists, start verifying")
 		lHash, err := img.LocalHashFrom(filePath)
 		if err != nil {
 			return err
 		}
-		logger.Debug("File local hash: ", lHash)
+		global.LOG.Debug("File local hash: " + lHash)
 		if lHash == rHash {
-			logger.Info("Hash verification ok, skip downloading")
+			global.LOG.Info("Hash verification ok, skip downloading")
 			return nil
 		} else {
-			logger.Warn("Hash verification failed, delete local file")
+			global.LOG.Warn("Hash verification failed, delete local file")
 			if err := os.Remove(filePath); err != nil {
 				return err
 			}
@@ -52,9 +52,9 @@ func (img *Image) Download(filePath string) error {
 	if err != nil {
 		return err
 	}
-	logger.Debug("File local hash: ", lHash)
+	global.LOG.Debug("File local hash: " + lHash)
 	if lHash == rHash {
-		logger.Info("Hash verification ok")
+		global.LOG.Info("Hash verification ok")
 		return nil
 	} else {
 		return errors.New("hash verification failed")
@@ -68,7 +68,7 @@ func (img *Image) download(filePath string) error {
 	}
 	defer fi.Close()
 
-	logger.Debug("Start downloading image from ", img.Url)
+	global.LOG.Debug("Start downloading image from " + img.Url)
 	resp, err := http.Get(img.Url)
 	if err != nil {
 		return err
@@ -77,9 +77,9 @@ func (img *Image) download(filePath string) error {
 
 	length, err := strconv.Atoi(resp.Header.Get("content-length"))
 	if err != nil {
-		logger.Debug("Content-Length atoi ", err)
+		global.LOG.Debug("Content-Length atoi " + err.Error())
 	} else {
-		logger.Debug("Get Content-Length ", length)
+		global.LOG.Debug("Get Content-Length " + strconv.Itoa(length))
 	}
 
 	wg := &sync.WaitGroup{}
@@ -106,9 +106,9 @@ func showProgress(wg *sync.WaitGroup, pw *ioutil.ProgressWriter, total int) {
 			continue
 		}
 		if total > 0 {
-			logger.Info(fmt.Sprintf("%3d MiB of %3d MiB downloaded (%d%%)", sum/1024/1024, total/1024/1024, sum*100/total))
+			global.LOG.Info(fmt.Sprintf("%3d MiB of %3d MiB downloaded (%d%%)", sum/1024/1024, total/1024/1024, sum*100/total))
 		} else {
-			logger.Info(fmt.Sprintf("%3d MiB downloaded", sum/1024/1024))
+			global.LOG.Info(fmt.Sprintf("%3d MiB downloaded", sum/1024/1024))
 		}
 		last = time.Now()
 	}
