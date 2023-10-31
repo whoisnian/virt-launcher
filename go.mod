@@ -1,10 +1,7 @@
 module github.com/whoisnian/virt-launcher
 
-go 1.20
+go 1.21.3
 
-require github.com/whoisnian/glb v1.2.1
+require github.com/whoisnian/glb v1.3.2
 
-require (
-	golang.org/x/sys v0.8.0 // indirect
-	golang.org/x/term v0.8.0 // indirect
-)
+require golang.org/x/sys v0.13.0 // indirect
