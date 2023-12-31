@@ -1,13 +1,13 @@
 {
   "Name": "debian10",
-  "Version": "20230917-1506",
+  "Version": "20231228-1609",
   "Upstream": "https://cdimage.debian.org/images/cloud/buster/",
   "Images": [
     {
       "Arch": "amd64",
       "Account": "debian",
-      "Url": "https://cdimage.debian.org/images/cloud/buster/20230917-1506/debian-10-genericcloud-amd64-20230917-1506.qcow2",
-      "Hash": "https://cdimage.debian.org/images/cloud/buster/20230917-1506/SHA512SUMS"
+      "Url": "https://cdimage.debian.org/images/cloud/buster/20231228-1609/debian-10-genericcloud-amd64-20231228-1609.qcow2",
+      "Hash": "https://cdimage.debian.org/images/cloud/buster/20231228-1609/SHA512SUMS"
     }
   ]
 }
