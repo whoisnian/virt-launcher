@@ -12,6 +12,7 @@ import (
 
 var virshBinary = "virsh"
 
+var spaceReg = regexp.MustCompile(`\s+`)
 var stateReg = regexp.MustCompile(`state.state=(\d+)`)
 var stateMap = map[string]string{
 	"0": "none",
@@ -31,7 +32,7 @@ func WaitForVMOff() (output []byte, err error) {
 		return nil, nil
 	}
 
-	for i := 0; i < 30; i++ {
+	for i := 0; i < 20; i++ {
 		cmd := exec.Command(virshBinary, args...)
 		global.LOG.Debug(cmd.String())
 
@@ -39,7 +40,7 @@ func WaitForVMOff() (output []byte, err error) {
 		if err != nil {
 			return output, err
 		}
-		global.LOG.Debug(string(output))
+		global.LOG.Debug(string(spaceReg.ReplaceAll(output, []byte{' '})))
 		matches := stateReg.FindSubmatch(output)
 		if len(matches) < 2 {
 			return output, errors.New("invalid domain state")
@@ -48,7 +49,7 @@ func WaitForVMOff() (output []byte, err error) {
 		if bytes.Equal(matches[1], []byte("5")) {
 			return output, err
 		}
-		time.Sleep(time.Second * 2)
+		time.Sleep(time.Second * 3)
 	}
 	return nil, nil
 }
