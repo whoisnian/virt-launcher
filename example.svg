@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="180em" height="128em">
 <foreignObject width="100%" height="100%">
-<div xmlns="http://www.w3.org/1999/xhtml" style="font-family:monospace;font-size:16px;color:#fcfcfc;background-color:#232627;margin:0;padding:8px;">
+<div xmlns="http://www.w3.org/1999/xhtml" style="font-family:monospace;font-size:16px;line-height:1.2;color:#fcfcfc;background-color:#232627;margin:0;padding:8px;">
 <span>┌─[</span><span style="font-weight:bold;color:#fdbc4b;">nian</span><span style="font-weight:bold;color:#ffffff;">@</span><span style="color:#11d116;">legion</span><span>]─[</span><span style="font-weight:bold;color:#3daee9;">~</span><span>]
 </span><br/>└──&gt;&gt; sudo -E ./virt-launcher -d \ &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/> &#160;-n testing \
 <br/> &#160;-cpu 2 \
