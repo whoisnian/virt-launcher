@@ -1,19 +1,19 @@
 {
   "Name": "centos-stream8",
-  "Version": "20240117.0",
+  "Version": "20240122.1",
   "Upstream": "https://cloud.centos.org/centos/8-stream/x86_64/images/",
   "Images": [
     {
       "Arch": "amd64",
       "Account": "centos",
-      "Url": "https://cloud.centos.org/centos/8-stream/x86_64/images/CentOS-Stream-GenericCloud-8-20240117.0.x86_64.qcow2",
-      "Hash": "https://cloud.centos.org/centos/8-stream/x86_64/images/CentOS-Stream-GenericCloud-8-20240117.0.x86_64.qcow2.SHA256SUM"
+      "Url": "https://cloud.centos.org/centos/8-stream/x86_64/images/CentOS-Stream-GenericCloud-8-20240122.1.x86_64.qcow2",
+      "Hash": "https://cloud.centos.org/centos/8-stream/x86_64/images/CentOS-Stream-GenericCloud-8-20240122.1.x86_64.qcow2.SHA256SUM"
     },
     {
       "Arch": "arm64",
       "Account": "centos",
-      "Url": "https://cloud.centos.org/centos/8-stream/aarch64/images/CentOS-Stream-GenericCloud-8-20240117.0.aarch64.qcow2",
-      "Hash": "https://cloud.centos.org/centos/8-stream/aarch64/images/CentOS-Stream-GenericCloud-8-20240117.0.aarch64.qcow2.SHA256SUM"
+      "Url": "https://cloud.centos.org/centos/8-stream/aarch64/images/CentOS-Stream-GenericCloud-8-20240122.1.aarch64.qcow2",
+      "Hash": "https://cloud.centos.org/centos/8-stream/aarch64/images/CentOS-Stream-GenericCloud-8-20240122.1.aarch64.qcow2.SHA256SUM"
     }
   ]
 }
