@@ -32,6 +32,7 @@ var regMap = map[string]*regexp.Regexp{
 	"ubuntu18.04":    regexp.MustCompile(`href="(\d+)/"`),
 	"ubuntu20.04":    regexp.MustCompile(`href="(\d+)/"`),
 	"ubuntu22.04":    regexp.MustCompile(`href="(\d+)/"`),
+	"ubuntu24.04":    regexp.MustCompile(`href="(\d+)/"`),
 }
 
 var LOG = logger.New(logger.NewNanoHandler(os.Stderr, logger.NewOptions(

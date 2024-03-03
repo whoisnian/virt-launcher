@@ -32,7 +32,8 @@ https://docs.openstack.org/image-guide/obtain-images.html
 * debian12: https://cdimage.debian.org/images/cloud/bookworm/
 * ubuntu18.04: https://cloud-images.ubuntu.com/bionic/
 * ubuntu20.04: https://cloud-images.ubuntu.com/focal/
-* ubuntu22.04: https://cloud-images.ubuntu.com/jammy
+* ubuntu22.04: https://cloud-images.ubuntu.com/jammy/
+* ubuntu24.04: https://cloud-images.ubuntu.com/noble/
 
 ## known issues
 * Failed to start sshd service in archlinux:  
