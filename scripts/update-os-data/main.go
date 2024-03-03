@@ -12,7 +12,6 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
-	"strconv"
 	"strings"
 
 	"github.com/whoisnian/glb/ansi"
@@ -44,14 +43,14 @@ func main() {
 	if err != nil {
 		LOG.Fatal(err.Error())
 	}
-	LOG.Info("Found " + strconv.Itoa(len(files)) + " os files")
+	LOG.Infof("Found %d os files", len(files))
 
 	for _, file := range files {
 		if file.IsDir() {
 			continue
 		}
 
-		LOG.Info("Check for updates '" + file.Name() + "'...")
+		LOG.Infof("Check for updates '%s'...", file.Name())
 		content, err := data.FS.ReadFile(filepath.Join(data.OsDir, file.Name()))
 		if err != nil {
 			LOG.Fatal(err.Error())
@@ -64,7 +63,7 @@ func main() {
 		}
 
 		if updateOsData(o) {
-			LOG.Info("Update os file: " + file.Name())
+			LOG.Infof("Update os file: %s", file.Name())
 			fi, err := os.Create(filepath.Join("data", data.OsDir, file.Name()))
 			if err != nil {
 				LOG.Fatal(err.Error())
@@ -90,7 +89,7 @@ func updateOsData(o *image.Os) bool {
 	if latestV <= o.Version {
 		return false
 	}
-	LOG.Info("Found newer version: " + o.Version + " => " + latestV)
+	LOG.Infof("Found newer version: %s => %s", o.Version, latestV)
 
 	for i := range o.Images {
 		o.Images[i].Url = strings.ReplaceAll(o.Images[i].Url, o.Version, latestV)
