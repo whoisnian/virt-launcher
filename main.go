@@ -29,24 +29,23 @@ func main() {
 	cache.Setup()
 	image.Setup()
 	third.Setup()
-
 	if global.CFG.ListAll {
 		image.ListAll()
 		return
 	}
 
 	if global.CFG.Arch == "" {
-		global.LOG.Warn("Automatically detect architecture: " + runtime.GOARCH)
+		global.LOG.Warnf("Automatically detect architecture: %s", runtime.GOARCH)
 		global.CFG.Arch = runtime.GOARCH
 	}
 	img, err := image.LookupImage(global.CFG.Os, global.CFG.Arch)
 	if err != nil {
-		global.LOG.Error("LookupImage(" + global.CFG.Os + "," + global.CFG.Arch + "): " + err.Error())
+		global.LOG.Errorf("LookupImage(%s,%s): %v", global.CFG.Os, global.CFG.Arch, err)
 		return
 	}
 
 	oriImagePath := cache.Images(img.BaseName())
-	global.LOG.Info("Start downloading image to " + oriImagePath)
+	global.LOG.Infof("Start downloading image to %s", oriImagePath)
 	if err = img.Download(oriImagePath); err != nil {
 		global.LOG.Error(err.Error())
 		return
@@ -54,7 +53,7 @@ func main() {
 	timeStr := strconv.FormatInt(time.Now().UnixMilli(), 36)
 	finalImageName := fmt.Sprintf("%s.%s.qcow2", global.CFG.Name, timeStr)
 	finalImagePath := cache.Boot(finalImageName)
-	global.LOG.Debug("Start copying file from " + oriImagePath + " to " + finalImagePath)
+	global.LOG.Debugf("Start copying file from %s to %s", oriImagePath, finalImagePath)
 	if _, err = osutil.CopyFile(oriImagePath, finalImagePath); err != nil {
 		global.LOG.Error(err.Error())
 		return
@@ -82,7 +81,7 @@ func main() {
 		{cloudIsoPath, cdrom},
 	} {
 		if global.CFG.DryRun {
-			global.LOG.Info("[DRY-RUN] " + exec.Command("mv", params[0], params[1]).String())
+			global.LOG.Infof("[DRY-RUN] %s", exec.Command("mv", params[0], params[1]).String())
 		} else {
 			global.LOG.Debug(exec.Command("mv", params[0], params[1]).String())
 			if err = osutil.MoveFile(params[0], params[1]); err != nil {
@@ -117,6 +116,6 @@ func main() {
 		return
 	}
 
-	global.LOG.Info("[NOTE] cloud image default user: " + img.Account)
-	global.LOG.Info("[NOTE] fetch vm ip addr: " + exec.Command("virsh", "--connect", "qemu:///system", "domifaddr", "--domain", global.CFG.Name).String())
+	global.LOG.Infof("[NOTE] cloud image default user: %s", img.Account)
+	global.LOG.Infof("[NOTE] fetch vm ip addr: %s", exec.Command("virsh", "--connect", "qemu:///system", "domifaddr", "--domain", global.CFG.Name).String())
 }
