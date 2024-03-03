@@ -18,15 +18,18 @@ import (
 
 func main() {
 	global.SetupConfig()
-
-	cache.Setup()
-	image.Setup()
-	third.Setup()
+	global.SetupLogger()
+	global.LOG.Debugf("use config: %+v", global.CFG)
 
 	if global.CFG.Version {
 		fmt.Printf("%s %s(%s)\n", global.AppName, global.Version, global.BuildTime)
 		return
 	}
+
+	cache.Setup()
+	image.Setup()
+	third.Setup()
+
 	if global.CFG.ListAll {
 		image.ListAll()
 		return
