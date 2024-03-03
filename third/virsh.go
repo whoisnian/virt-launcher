@@ -28,7 +28,7 @@ var stateMap = map[string]string{
 func WaitForVMOff() (output []byte, err error) {
 	args := []string{"--connect", "qemu:///system", "domstats", "--state", "--domain", global.CFG.Name}
 	if global.CFG.DryRun {
-		global.LOG.Info("[DRY-RUN] " + exec.Command(virshBinary, args...).String())
+		global.LOG.Infof("[DRY-RUN] %s", exec.Command(virshBinary, args...).String())
 		return nil, nil
 	}
 
@@ -45,7 +45,7 @@ func WaitForVMOff() (output []byte, err error) {
 		if len(matches) < 2 {
 			return output, errors.New("invalid domain state")
 		}
-		global.LOG.Info("Wait for domain off. Current state: " + stateMap[string(matches[1])])
+		global.LOG.Infof("Wait for domain off. Current state: %s", stateMap[string(matches[1])])
 		if bytes.Equal(matches[1], []byte("5")) {
 			return output, err
 		}
@@ -57,7 +57,7 @@ func WaitForVMOff() (output []byte, err error) {
 func DetachCloudInitIso(isoPath string) ([]byte, error) {
 	cmd := exec.Command(virshBinary, "--connect", "qemu:///system", "detach-disk", "--persistent", "--domain", global.CFG.Name, isoPath)
 	if global.CFG.DryRun {
-		global.LOG.Info("[DRY-RUN] " + cmd.String())
+		global.LOG.Infof("[DRY-RUN] %s", cmd.String())
 		return nil, nil
 	} else {
 		global.LOG.Debug(cmd.String())
@@ -68,7 +68,7 @@ func DetachCloudInitIso(isoPath string) ([]byte, error) {
 func StartVM() ([]byte, error) {
 	cmd := exec.Command(virshBinary, "--connect", "qemu:///system", "start", "--domain", global.CFG.Name)
 	if global.CFG.DryRun {
-		global.LOG.Info("[DRY-RUN] " + cmd.String())
+		global.LOG.Infof("[DRY-RUN] %s", cmd.String())
 		return nil, nil
 	} else {
 		global.LOG.Debug(cmd.String())

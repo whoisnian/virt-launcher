@@ -2,7 +2,6 @@ package image
 
 import (
 	"errors"
-	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -19,7 +18,7 @@ func (img *Image) Download(filePath string) error {
 	if err != nil {
 		return err
 	}
-	global.LOG.Debug("File remote hash: " + rHash)
+	global.LOG.Debugf("File remote hash: %s", rHash)
 
 	// check image file exists
 	if _, err := os.Stat(filePath); err == nil {
@@ -28,7 +27,7 @@ func (img *Image) Download(filePath string) error {
 		if err != nil {
 			return err
 		}
-		global.LOG.Debug("File local hash: " + lHash)
+		global.LOG.Debugf("File local hash: %s", lHash)
 		if lHash == rHash {
 			global.LOG.Info("Hash verification ok, skip downloading")
 			return nil
@@ -52,7 +51,7 @@ func (img *Image) Download(filePath string) error {
 	if err != nil {
 		return err
 	}
-	global.LOG.Debug("File local hash: " + lHash)
+	global.LOG.Debugf("File local hash: %s", lHash)
 	if lHash == rHash {
 		global.LOG.Info("Hash verification ok")
 		return nil
@@ -68,7 +67,7 @@ func (img *Image) download(filePath string) error {
 	}
 	defer fi.Close()
 
-	global.LOG.Debug("Start downloading image from " + img.Url)
+	global.LOG.Debugf("Start downloading image from %s", img.Url)
 	resp, err := http.Get(img.Url)
 	if err != nil {
 		return err
@@ -77,9 +76,9 @@ func (img *Image) download(filePath string) error {
 
 	length, err := strconv.Atoi(resp.Header.Get("content-length"))
 	if err != nil {
-		global.LOG.Debug("Content-Length atoi " + err.Error())
+		global.LOG.Debugf("Content-Length atoi %v", err)
 	} else {
-		global.LOG.Debug("Get Content-Length " + strconv.Itoa(length))
+		global.LOG.Debugf("Get Content-Length %d", length)
 	}
 
 	wg := &sync.WaitGroup{}
@@ -106,9 +105,9 @@ func showProgress(wg *sync.WaitGroup, pw *ioutil.ProgressWriter, total int) {
 			continue
 		}
 		if total > 0 {
-			global.LOG.Info(fmt.Sprintf("%3d MiB of %3d MiB downloaded (%d%%)", sum/1024/1024, total/1024/1024, sum*100/total))
+			global.LOG.Infof("%3d MiB of %3d MiB downloaded (%d%%)", sum/1024/1024, total/1024/1024, sum*100/total)
 		} else {
-			global.LOG.Info(fmt.Sprintf("%3d MiB downloaded", sum/1024/1024))
+			global.LOG.Infof("%3d MiB downloaded", sum/1024/1024)
 		}
 		last = time.Now()
 	}

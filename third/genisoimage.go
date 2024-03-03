@@ -21,7 +21,7 @@ func CreateCloudInitIso(cacheDir, isoPath, timeStr string) ([]byte, error) {
 		defer os.RemoveAll(cacheDir)
 	}
 
-	global.LOG.Debug("Start writing cloud-init data files to " + cacheDir)
+	global.LOG.Debugf("Start writing cloud-init data files to %s", cacheDir)
 	for _, param := range []struct {
 		name string
 		data []byte
@@ -34,10 +34,10 @@ func CreateCloudInitIso(cacheDir, isoPath, timeStr string) ([]byte, error) {
 		}
 	}
 
-	global.LOG.Debug("Start creating cloud-init iso file to " + isoPath)
+	global.LOG.Debugf("Start creating cloud-init iso file to %s", isoPath)
 	cmd := exec.Command(genisoimageBinary, "-output", isoPath, "-volid", "cidata", "-joliet", "-input-charset", "utf8", "-rational-rock", cacheDir)
 	if global.CFG.DryRun {
-		global.LOG.Info("[DRY-RUN] " + cmd.String())
+		global.LOG.Infof("[DRY-RUN] %s", cmd.String())
 		return nil, nil
 	} else {
 		global.LOG.Debug(cmd.String())

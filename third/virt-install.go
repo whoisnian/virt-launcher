@@ -23,7 +23,7 @@ func CreateVM(disk, cdrom string) ([]byte, error) {
 		"--connect", global.CFG.Connect,
 	)
 	if global.CFG.DryRun {
-		global.LOG.Info("[DRY-RUN] " + cmd.String())
+		global.LOG.Infof("[DRY-RUN] %s", cmd.String())
 		return nil, nil
 	} else {
 		global.LOG.Debug(cmd.String())

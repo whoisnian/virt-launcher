@@ -1,13 +1,13 @@
 package image
 
 import (
+	"cmp"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"path"
 	"path/filepath"
-	"sort"
-	"strconv"
+	"slices"
 
 	"github.com/whoisnian/virt-launcher/data"
 	"github.com/whoisnian/virt-launcher/global"
@@ -46,13 +46,6 @@ func LookupImage(os string, arch string) (*Image, error) {
 	return nil, errors.New("arch not found")
 }
 
-func max(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
-}
-
 func ListAll() {
 	nameLen, archLen, versionLen := 4, 4, 7
 	list := [][]string{{"name", "arch", "version"}, {"----", "----", "-------"}}
@@ -64,11 +57,11 @@ func ListAll() {
 			list = append(list, []string{o.Name, img.Arch, o.Version})
 		}
 	}
-	sort.Slice(list[2:], func(i, j int) bool {
-		if list[i+2][0] == list[j+2][0] {
-			return list[i+2][1] < list[j+2][1]
+	slices.SortFunc(list[2:], func(a, b []string) int {
+		if a[0] == b[0] {
+			return cmp.Compare(a[1], b[1])
 		}
-		return list[i+2][0] < list[j+2][0]
+		return cmp.Compare(a[0], b[0])
 	})
 	for _, item := range list {
 		fmt.Printf("| %-*s | %-*s | %-*s |\n", nameLen, item[0], archLen, item[1], versionLen, item[2])
@@ -80,14 +73,14 @@ func Setup() {
 	if err != nil {
 		global.LOG.Fatal(err.Error())
 	}
-	global.LOG.Debug("Found " + strconv.Itoa(len(files)) + " os files")
+	global.LOG.Debugf("Found %d os files", len(files))
 
 	for _, file := range files {
 		if file.IsDir() {
 			continue
 		}
 
-		global.LOG.Debug("Read and parse '" + file.Name() + "'...")
+		global.LOG.Debugf("Read and parse '%s'...", file.Name())
 		content, err := data.FS.ReadFile(filepath.Join(data.OsDir, file.Name()))
 		if err != nil {
 			global.LOG.Fatal(err.Error())
@@ -99,7 +92,7 @@ func Setup() {
 			global.LOG.Fatal(err.Error())
 		}
 		if _, ok := osMap[o.Name]; ok {
-			global.LOG.Fatal("Duplicated os " + o.Name)
+			global.LOG.Fatalf("Duplicated os %s", o.Name)
 		}
 		osMap[o.Name] = o
 	}

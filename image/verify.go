@@ -31,7 +31,7 @@ func (img *Image) Hasher() (hash.Hash, error) {
 }
 
 func (img *Image) RemoteHash() (string, error) {
-	global.LOG.Debug("Get remote hash from " + img.Hash)
+	global.LOG.Debugf("Get remote hash from %s", img.Hash)
 	if strings.HasPrefix(img.Hash, "https://") || strings.HasPrefix(img.Hash, "http://") {
 		resp, err := http.Get(img.Hash)
 		if err != nil {
@@ -63,7 +63,7 @@ func (img *Image) LocalHashFrom(filePath string) (string, error) {
 		return "", err
 	}
 
-	global.LOG.Debug("Calc local hash from " + filePath)
+	global.LOG.Debugf("Calc local hash from %s", filePath)
 	fi, err := os.Open(filePath)
 	if err != nil {
 		return "", err

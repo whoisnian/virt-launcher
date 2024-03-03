@@ -26,10 +26,10 @@ func resolveBinaryPath(binary *string) {
 
 	path, err := exec.LookPath(*binary)
 	if err != nil {
-		global.LOG.Warn("LookPath(" + *binary + "): " + err.Error())
+		global.LOG.Warnf("LookPath(%s): %v", *binary, err)
 		enableDryRun()
 	} else {
-		global.LOG.Debug("LookPath(" + *binary + "): " + path)
+		global.LOG.Debugf("LookPath(%s): %s", *binary, path)
 		*binary = path
 	}
 }

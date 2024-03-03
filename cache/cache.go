@@ -4,6 +4,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/whoisnian/glb/util/osutil"
 	"github.com/whoisnian/virt-launcher/global"
 )
 
@@ -17,10 +18,10 @@ func Setup() {
 	}
 
 	appCacheDir = filepath.Join(userCacheDir, global.AppName)
-	global.LOG.Debug("Use base cache dir " + appCacheDir)
+	global.LOG.Debugf("Use base cache dir %s", appCacheDir)
 
 	for _, sub := range subCacheDir {
-		err = os.MkdirAll(filepath.Join(appCacheDir, sub), os.ModePerm)
+		err = os.MkdirAll(filepath.Join(appCacheDir, sub), osutil.DefaultDirMode)
 		if err != nil {
 			global.LOG.Fatal(err.Error())
 		}
