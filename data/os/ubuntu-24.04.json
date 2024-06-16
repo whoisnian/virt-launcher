@@ -1,19 +1,19 @@
 {
   "Name": "ubuntu24.04",
-  "Version": "20240608",
+  "Version": "20240612",
   "Upstream": "https://cloud-images.ubuntu.com/noble/",
   "Images": [
     {
       "Arch": "amd64",
       "Account": "ubuntu",
-      "Url": "https://cloud-images.ubuntu.com/noble/20240608/noble-server-cloudimg-amd64.img",
-      "Hash": "https://cloud-images.ubuntu.com/noble/20240608/SHA256SUMS"
+      "Url": "https://cloud-images.ubuntu.com/noble/20240612/noble-server-cloudimg-amd64.img",
+      "Hash": "https://cloud-images.ubuntu.com/noble/20240612/SHA256SUMS"
     },
     {
       "Arch": "arm64",
       "Account": "ubuntu",
-      "Url": "https://cloud-images.ubuntu.com/noble/20240608/noble-server-cloudimg-arm64.img",
-      "Hash": "https://cloud-images.ubuntu.com/noble/20240608/SHA256SUMS"
+      "Url": "https://cloud-images.ubuntu.com/noble/20240612/noble-server-cloudimg-arm64.img",
+      "Hash": "https://cloud-images.ubuntu.com/noble/20240612/SHA256SUMS"
     }
   ]
 }
