@@ -1,13 +1,13 @@
 {
   "Name": "archlinux",
-  "Version": "20240701.244476",
+  "Version": "20240715.247370",
   "Upstream": "https://geo.mirror.pkgbuild.com/images/",
   "Images": [
     {
       "Arch": "amd64",
       "Account": "arch",
-      "Url": "https://geo.mirror.pkgbuild.com/images/v20240701.244476/Arch-Linux-x86_64-cloudimg-20240701.244476.qcow2",
-      "Hash": "https://geo.mirror.pkgbuild.com/images/v20240701.244476/Arch-Linux-x86_64-cloudimg-20240701.244476.qcow2.SHA256"
+      "Url": "https://geo.mirror.pkgbuild.com/images/v20240715.247370/Arch-Linux-x86_64-cloudimg-20240715.247370.qcow2",
+      "Hash": "https://geo.mirror.pkgbuild.com/images/v20240715.247370/Arch-Linux-x86_64-cloudimg-20240715.247370.qcow2.SHA256"
     }
   ]
 }
