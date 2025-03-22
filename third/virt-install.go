@@ -1,6 +1,7 @@
 package third
 
 import (
+	"context"
 	"os/exec"
 
 	"github.com/whoisnian/virt-launcher/global"
@@ -8,7 +9,7 @@ import (
 
 var virtInstallBinary = "virt-install"
 
-func CreateVM(disk, cdrom string) ([]byte, error) {
+func CreateVM(ctx context.Context, disk, cdrom string) ([]byte, error) {
 	cmd := exec.Command(virtInstallBinary,
 		"--import",
 		"--name", global.CFG.Name,
@@ -23,10 +24,10 @@ func CreateVM(disk, cdrom string) ([]byte, error) {
 		"--connect", global.CFG.Connect,
 	)
 	if global.CFG.DryRun {
-		global.LOG.Infof("[DRY-RUN] %s", cmd.String())
+		global.LOG.Infof(ctx, "[DRY-RUN] %s", cmd.String())
 		return nil, nil
 	} else {
-		global.LOG.Debug(cmd.String())
+		global.LOG.Debug(ctx, cmd.String())
 		return cmd.CombinedOutput()
 	}
 }

@@ -2,6 +2,7 @@ package image
 
 import (
 	"cmp"
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -9,6 +10,7 @@ import (
 	"path/filepath"
 	"slices"
 
+	"github.com/whoisnian/glb/logger"
 	"github.com/whoisnian/virt-launcher/data"
 	"github.com/whoisnian/virt-launcher/global"
 )
@@ -68,31 +70,31 @@ func ListAll() {
 	}
 }
 
-func Setup() {
+func Setup(ctx context.Context) {
 	files, err := data.FS.ReadDir(data.OsDir)
 	if err != nil {
-		global.LOG.Fatal(err.Error())
+		global.LOG.Fatal(ctx, "data.FS.ReadDir", logger.Error(err))
 	}
-	global.LOG.Debugf("Found %d os files", len(files))
+	global.LOG.Debugf(ctx, "found %d os files", len(files))
 
 	for _, file := range files {
 		if file.IsDir() {
 			continue
 		}
 
-		global.LOG.Debugf("Read and parse '%s'...", file.Name())
+		global.LOG.Debugf(ctx, "read and parse '%s'...", file.Name())
 		content, err := data.FS.ReadFile(filepath.Join(data.OsDir, file.Name()))
 		if err != nil {
-			global.LOG.Fatal(err.Error())
+			global.LOG.Fatal(ctx, "data.FS.ReadFile", logger.Error(err))
 		}
 
 		o := &Os{}
 		err = json.Unmarshal(content, o)
 		if err != nil {
-			global.LOG.Fatal(err.Error())
+			global.LOG.Fatal(ctx, "json.Unmarshal", logger.Error(err))
 		}
 		if _, ok := osMap[o.Name]; ok {
-			global.LOG.Fatalf("Duplicated os %s", o.Name)
+			global.LOG.Fatalf(ctx, "duplicated os file %s", o.Name)
 		}
 		osMap[o.Name] = o
 	}

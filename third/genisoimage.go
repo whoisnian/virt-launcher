@@ -2,6 +2,7 @@ package third
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"os"
 	"os/exec"
@@ -13,7 +14,7 @@ import (
 
 var genisoimageBinary = "xorrisofs|genisoimage"
 
-func CreateCloudInitIso(cacheDir, isoPath, timeStr string) ([]byte, error) {
+func CreateCloudInitIso(ctx context.Context, cacheDir, isoPath, timeStr string) ([]byte, error) {
 	if err := os.MkdirAll(cacheDir, os.ModePerm); err != nil {
 		return nil, err
 	}
@@ -21,7 +22,7 @@ func CreateCloudInitIso(cacheDir, isoPath, timeStr string) ([]byte, error) {
 		defer os.RemoveAll(cacheDir)
 	}
 
-	global.LOG.Debugf("Start writing cloud-init data files to %s", cacheDir)
+	global.LOG.Debugf(ctx, "start writing cloud-init data files to %s", cacheDir)
 	for _, param := range []struct {
 		name string
 		data []byte
@@ -34,13 +35,13 @@ func CreateCloudInitIso(cacheDir, isoPath, timeStr string) ([]byte, error) {
 		}
 	}
 
-	global.LOG.Debugf("Start creating cloud-init iso file to %s", isoPath)
+	global.LOG.Debugf(ctx, "start creating cloud-init iso file to %s", isoPath)
 	cmd := exec.Command(genisoimageBinary, "-output", isoPath, "-volid", "cidata", "-joliet", "-input-charset", "utf8", "-rational-rock", cacheDir)
 	if global.CFG.DryRun {
-		global.LOG.Infof("[DRY-RUN] %s", cmd.String())
+		global.LOG.Infof(ctx, "[DRY-RUN] %s", cmd.String())
 		return nil, nil
 	} else {
-		global.LOG.Debug(cmd.String())
+		global.LOG.Debug(ctx, cmd.String())
 		return cmd.CombinedOutput()
 	}
 }
