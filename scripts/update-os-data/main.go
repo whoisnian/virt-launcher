@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"context"
 	"crypto/sha256"
 	"crypto/sha512"
 	"encoding/hex"
@@ -34,95 +35,98 @@ var regMap = map[string]*regexp.Regexp{
 	"ubuntu24.04":    regexp.MustCompile(`href="(\d+)/"`),
 }
 
-var LOG = logger.New(logger.NewNanoHandler(os.Stderr, logger.NewOptions(
-	logger.LevelInfo, ansi.IsSupported(os.Stderr.Fd()), false,
-)))
+var LOG = logger.New(logger.NewNanoHandler(os.Stderr, logger.Options{
+	Level:     logger.LevelInfo,
+	Colorful:  ansi.IsSupported(os.Stderr.Fd()),
+	AddSource: false,
+}))
 
 func main() {
+	ctx := context.Background()
 	files, err := data.FS.ReadDir(data.OsDir)
 	if err != nil {
-		LOG.Fatal(err.Error())
+		LOG.Fatal(ctx, "data.FS.ReadDir", logger.Error(err))
 	}
-	LOG.Infof("Found %d os files", len(files))
+	LOG.Infof(ctx, "found %d os files", len(files))
 
 	for _, file := range files {
 		if file.IsDir() {
 			continue
 		}
 
-		LOG.Infof("Check for updates '%s'...", file.Name())
+		LOG.Infof(ctx, "check for updates '%s'...", file.Name())
 		content, err := data.FS.ReadFile(filepath.Join(data.OsDir, file.Name()))
 		if err != nil {
-			LOG.Fatal(err.Error())
+			LOG.Fatal(ctx, "data.FS.ReadFile", logger.Error(err))
 		}
 
 		o := &image.Os{}
 		err = json.Unmarshal(content, o)
 		if err != nil {
-			LOG.Fatal(err.Error())
+			LOG.Fatal(ctx, "json.Unmarshal", logger.Error(err))
 		}
 
-		if updateOsData(o) {
-			LOG.Infof("Update os file: %s", file.Name())
+		if updateOsData(ctx, o) {
+			LOG.Infof(ctx, "update os file: %s", file.Name())
 			fi, err := os.Create(filepath.Join("data", data.OsDir, file.Name()))
 			if err != nil {
-				LOG.Fatal(err.Error())
+				LOG.Fatal(ctx, "os.Create", logger.Error(err))
 			}
 			defer fi.Close()
 
 			enc := json.NewEncoder(fi)
 			enc.SetIndent("", "  ")
 			if err = enc.Encode(o); err != nil {
-				LOG.Fatal(err.Error())
+				LOG.Fatal(ctx, "json.Encoder.Encode", logger.Error(err))
 			}
 		}
 	}
 }
 
-func updateOsData(o *image.Os) bool {
+func updateOsData(ctx context.Context, o *image.Os) bool {
 	reg, ok := regMap[o.Name]
 	if !ok {
-		LOG.Fatal("Unknown os name")
+		LOG.Fatal(ctx, "unknown os name")
 	}
 
-	latestV := fetchLatestVersion(o.Upstream, reg)
+	latestV := fetchLatestVersion(ctx, o.Upstream, reg)
 	if latestV <= o.Version {
 		return false
 	}
-	LOG.Infof("Found newer version: %s => %s", o.Version, latestV)
+	LOG.Infof(ctx, "found newer version: %s => %s", o.Version, latestV)
 
 	for i := range o.Images {
 		o.Images[i].Url = strings.ReplaceAll(o.Images[i].Url, o.Version, latestV)
 		if strings.HasPrefix(o.Images[i].Hash, "https://") || strings.HasPrefix(o.Images[i].Hash, "http://") {
 			o.Images[i].Hash = strings.ReplaceAll(o.Images[i].Hash, o.Version, latestV)
 		} else if strings.HasPrefix(o.Images[i].Hash, "sha256sum:") {
-			o.Images[i].Hash = "sha256sum:" + remoteHashFrom(o.Images[i].Url, sha256.New())
+			o.Images[i].Hash = "sha256sum:" + remoteHashFrom(ctx, o.Images[i].Url, sha256.New())
 		} else if strings.HasPrefix(o.Images[i].Hash, "sha512sum:") {
-			o.Images[i].Hash = "sha512sum:" + remoteHashFrom(o.Images[i].Url, sha512.New())
+			o.Images[i].Hash = "sha512sum:" + remoteHashFrom(ctx, o.Images[i].Url, sha512.New())
 		}
 	}
 	o.Version = latestV
 	return true
 }
 
-func remoteHashFrom(url string, hasher hash.Hash) string {
+func remoteHashFrom(ctx context.Context, url string, hasher hash.Hash) string {
 	resp, err := http.Get(url)
 	if err != nil {
-		LOG.Fatal(err.Error())
+		LOG.Fatal(ctx, "http.Get", logger.Error(err))
 	}
 	defer resp.Body.Close()
 
 	_, err = io.CopyBuffer(hasher, resp.Body, make([]byte, 4*1024*1024))
 	if err != nil {
-		LOG.Fatal(err.Error())
+		LOG.Fatal(ctx, "io.CopyBuffer", logger.Error(err))
 	}
 	return hex.EncodeToString(hasher.Sum(nil))
 }
 
-func fetchLatestVersion(upstream string, reg *regexp.Regexp) (version string) {
+func fetchLatestVersion(ctx context.Context, upstream string, reg *regexp.Regexp) (version string) {
 	resp, err := http.Get(upstream)
 	if err != nil {
-		LOG.Fatal(err.Error())
+		LOG.Fatal(ctx, "http.Get", logger.Error(err))
 	}
 	defer resp.Body.Close()
 
