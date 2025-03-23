@@ -1,23 +1,24 @@
 package third
 
 import (
+	"context"
 	"os/exec"
 	"strings"
 
 	"github.com/whoisnian/virt-launcher/global"
 )
 
-func enableDryRun() {
+func enableDryRun(ctx context.Context) {
 	if global.CFG.DryRun {
 		return
 	}
-	global.LOG.Warn("Automatically enable dry-run mode")
+	global.LOG.Warn(ctx, "automatically enable dry-run mode")
 	global.CFG.DryRun = true
 }
 
-func resolveBinaryPath(binary *string) {
+func resolveBinaryPath(ctx context.Context, binary *string) {
 	if strings.Contains(*binary, "|") {
-		for _, bin := range strings.Split(*binary, "|") {
+		for bin := range strings.SplitSeq(*binary, "|") {
 			if _, err := exec.LookPath(bin); err == nil {
 				*binary = bin
 			}
@@ -26,17 +27,17 @@ func resolveBinaryPath(binary *string) {
 
 	path, err := exec.LookPath(*binary)
 	if err != nil {
-		global.LOG.Warnf("LookPath(%s): %v", *binary, err)
-		enableDryRun()
+		global.LOG.Warnf(ctx, "exec.LookPath(%s): %v", *binary, err)
+		enableDryRun(ctx)
 	} else {
-		global.LOG.Debugf("LookPath(%s): %s", *binary, path)
+		global.LOG.Debugf(ctx, "exec.LookPath(%s): %s", *binary, path)
 		*binary = path
 	}
 }
 
-func Setup() {
-	resolveBinaryPath(&qemuImgBinary)
-	resolveBinaryPath(&virtInstallBinary)
-	resolveBinaryPath(&genisoimageBinary)
-	resolveBinaryPath(&virshBinary)
+func Setup(ctx context.Context) {
+	resolveBinaryPath(ctx, &qemuImgBinary)
+	resolveBinaryPath(ctx, &virtInstallBinary)
+	resolveBinaryPath(ctx, &genisoimageBinary)
+	resolveBinaryPath(ctx, &virshBinary)
 }

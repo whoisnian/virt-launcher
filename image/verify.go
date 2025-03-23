@@ -2,6 +2,7 @@ package image
 
 import (
 	"bufio"
+	"context"
 	"crypto/sha256"
 	"crypto/sha512"
 	"encoding/hex"
@@ -30,8 +31,8 @@ func (img *Image) Hasher() (hash.Hash, error) {
 	}
 }
 
-func (img *Image) RemoteHash() (string, error) {
-	global.LOG.Debugf("Get remote hash from %s", img.Hash)
+func (img *Image) RemoteHash(ctx context.Context) (string, error) {
+	global.LOG.Debugf(ctx, "get remote hash from %s", img.Hash)
 	if strings.HasPrefix(img.Hash, "https://") || strings.HasPrefix(img.Hash, "http://") {
 		resp, err := http.Get(img.Hash)
 		if err != nil {
@@ -57,13 +58,13 @@ func (img *Image) RemoteHash() (string, error) {
 	return "", errors.New("remote hash not found")
 }
 
-func (img *Image) LocalHashFrom(filePath string) (string, error) {
+func (img *Image) LocalHashFrom(ctx context.Context, filePath string) (string, error) {
+	global.LOG.Debugf(ctx, "calc local hash from %s", filePath)
 	hasher, err := img.Hasher()
 	if err != nil {
 		return "", err
 	}
 
-	global.LOG.Debugf("Calc local hash from %s", filePath)
 	fi, err := os.Open(filePath)
 	if err != nil {
 		return "", err

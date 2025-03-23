@@ -1,6 +1,10 @@
 package global
 
-import "github.com/whoisnian/glb/config"
+import (
+	"context"
+
+	"github.com/whoisnian/glb/config"
+)
 
 var CFG Config
 
@@ -24,8 +28,8 @@ type Config struct {
 	Connect string `flag:"connect,qemu:///system,Connect to hypervisor with libvirt URI"`
 }
 
-func SetupConfig() {
-	err := config.FromCommandLine(&CFG)
+func SetupConfig(_ context.Context) {
+	_, err := config.FromCommandLine(&CFG)
 	if err != nil {
 		panic(err)
 	}

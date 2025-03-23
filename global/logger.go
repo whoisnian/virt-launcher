@@ -1,6 +1,7 @@
 package global
 
 import (
+	"context"
 	"os"
 
 	"github.com/whoisnian/glb/ansi"
@@ -9,14 +10,18 @@ import (
 
 var LOG *logger.Logger
 
-func SetupLogger() {
+func SetupLogger(_ context.Context) {
 	if CFG.Debug {
-		LOG = logger.New(logger.NewNanoHandler(os.Stderr, logger.NewOptions(
-			logger.LevelDebug, ansi.IsSupported(os.Stderr.Fd()), true,
-		)))
+		LOG = logger.New(logger.NewNanoHandler(os.Stderr, logger.Options{
+			Level:     logger.LevelDebug,
+			Colorful:  ansi.IsSupported(os.Stderr.Fd()),
+			AddSource: true,
+		}))
 	} else {
-		LOG = logger.New(logger.NewNanoHandler(os.Stderr, logger.NewOptions(
-			logger.LevelInfo, ansi.IsSupported(os.Stderr.Fd()), false,
-		)))
+		LOG = logger.New(logger.NewNanoHandler(os.Stderr, logger.Options{
+			Level:     logger.LevelInfo,
+			Colorful:  ansi.IsSupported(os.Stderr.Fd()),
+			AddSource: false,
+		}))
 	}
 }
