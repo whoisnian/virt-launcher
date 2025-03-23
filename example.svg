@@ -5,77 +5,82 @@
 </span><br/>└──&gt;&gt; sudo -E ./virt-launcher -d \ &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/> &#160;-n testing \
 <br/> &#160;-cpu 2 \
 <br/> &#160;-mem 4096 \
-<br/> &#160;-s 50G \
+<br/> &#160;-s 40G \
 <br/> &#160;-os debian12 \
 <br/> &#160;-key "$(cat .ssh/id_ed25519.pub)"
-<br/>2024-01-15 00:06:26 <span style="color:#9b59b6;">[D]</span><span> Use base cache dir /home/nian/.cache/virt-launcher
-</span><br/>2024-01-15 00:06:26 <span style="color:#9b59b6;">[D]</span><span> Found 10 os files
-</span><br/>2024-01-15 00:06:26 <span style="color:#9b59b6;">[D]</span><span> Read and parse 'archlinux.json'...
-</span><br/>2024-01-15 00:06:26 <span style="color:#9b59b6;">[D]</span><span> Read and parse 'centos-7.0.json'...
-</span><br/>2024-01-15 00:06:26 <span style="color:#9b59b6;">[D]</span><span> Read and parse 'centos-stream8.json'...
-</span><br/>2024-01-15 00:06:26 <span style="color:#9b59b6;">[D]</span><span> Read and parse 'centos-stream9.json'...
-</span><br/>2024-01-15 00:06:26 <span style="color:#9b59b6;">[D]</span><span> Read and parse 'debian-10.json'...
-</span><br/>2024-01-15 00:06:26 <span style="color:#9b59b6;">[D]</span><span> Read and parse 'debian-11.json'...
-</span><br/>2024-01-15 00:06:26 <span style="color:#9b59b6;">[D]</span><span> Read and parse 'debian-12.json'...
-</span><br/>2024-01-15 00:06:26 <span style="color:#9b59b6;">[D]</span><span> Read and parse 'ubuntu-18.04.json'...
-</span><br/>2024-01-15 00:06:26 <span style="color:#9b59b6;">[D]</span><span> Read and parse 'ubuntu-20.04.json'...
-</span><br/>2024-01-15 00:06:26 <span style="color:#9b59b6;">[D]</span><span> Read and parse 'ubuntu-22.04.json'...
-</span><br/>2024-01-15 00:06:26 <span style="color:#9b59b6;">[D]</span><span> LookPath(qemu-img): /usr/bin/qemu-img
-</span><br/>2024-01-15 00:06:26 <span style="color:#9b59b6;">[D]</span><span> LookPath(virt-install): /usr/bin/virt-install
-</span><br/>2024-01-15 00:06:26 <span style="color:#9b59b6;">[D]</span><span> LookPath(xorrisofs): /usr/bin/xorrisofs
-</span><br/>2024-01-15 00:06:26 <span style="color:#9b59b6;">[D]</span><span> LookPath(virsh): /usr/bin/virsh
-</span><br/>2024-01-15 00:06:26 <span style="color:#f67400;">[W]</span><span> Automatically detect architecture: amd64
-</span><br/>2024-01-15 00:06:26 <span style="color:#11d116;">[I]</span><span> Start downloading image to /home/nian/.cache/virt-launcher/images/debian-12-genericcloud-amd64-20240102-1614.qcow2
-</span><br/>2024-01-15 00:06:26 <span style="color:#9b59b6;">[D]</span><span> Get remote hash from https://cdimage.debian.org/images/cloud/bookworm/20240102-1614/SHA512SUMS
-</span><br/>2024-01-15 00:06:27 <span style="color:#9b59b6;">[D]</span><span> File remote hash: 49cbcfdb3d5401e8c731d33211cff5e1ef884f179a936c7378eeab00c582ace45dd7154ac9e4c059f1bd6c7ae2ce805879cb381a12a1cc493e3a58c847e134c7
-</span><br/>2024-01-15 00:06:27 <span style="color:#9b59b6;">[D]</span><span> Start downloading image from https://cdimage.debian.org/images/cloud/bookworm/20240102-1614/debian-12-genericcloud-amd64-20240102-1614.qcow2
-</span><br/>2024-01-15 00:06:29 <span style="color:#9b59b6;">[D]</span><span> Get Content-Length 280952832
-</span><br/>2024-01-15 00:06:29 <span style="color:#11d116;">[I]</span><span> &#160;&#160;0 MiB of 267 MiB downloaded (0%)
-</span><br/>2024-01-15 00:06:31 <span style="color:#11d116;">[I]</span><span> &#160;&#160;6 MiB of 267 MiB downloaded (2%)
-</span><br/>2024-01-15 00:06:33 <span style="color:#11d116;">[I]</span><span> &#160;56 MiB of 267 MiB downloaded (21%)
-</span><br/>2024-01-15 00:06:35 <span style="color:#11d116;">[I]</span><span> 101 MiB of 267 MiB downloaded (37%)
-</span><br/>2024-01-15 00:06:37 <span style="color:#11d116;">[I]</span><span> 163 MiB of 267 MiB downloaded (60%)
-</span><br/>2024-01-15 00:06:39 <span style="color:#11d116;">[I]</span><span> 213 MiB of 267 MiB downloaded (79%)
-</span><br/>2024-01-15 00:06:41 <span style="color:#11d116;">[I]</span><span> 262 MiB of 267 MiB downloaded (98%)
-</span><br/>2024-01-15 00:06:41 <span style="color:#11d116;">[I]</span><span> 267 MiB of 267 MiB downloaded (100%)
-</span><br/>2024-01-15 00:06:41 <span style="color:#11d116;">[I]</span><span> 267 MiB of 267 MiB downloaded (100%)
-</span><br/>2024-01-15 00:06:41 <span style="color:#9b59b6;">[D]</span><span> Calc local hash from /home/nian/.cache/virt-launcher/images/debian-12-genericcloud-amd64-20240102-1614.qcow2
-</span><br/>2024-01-15 00:06:42 <span style="color:#9b59b6;">[D]</span><span> File local hash: 49cbcfdb3d5401e8c731d33211cff5e1ef884f179a936c7378eeab00c582ace45dd7154ac9e4c059f1bd6c7ae2ce805879cb381a12a1cc493e3a58c847e134c7
-</span><br/>2024-01-15 00:06:42 <span style="color:#11d116;">[I]</span><span> Hash verification ok
-</span><br/>2024-01-15 00:06:42 <span style="color:#9b59b6;">[D]</span><span> Start copying file from /home/nian/.cache/virt-launcher/images/debian-12-genericcloud-amd64-20240102-1614.qcow2 to /home/nian/.cache/virt-launcher/boot/testing.lrdovc7h.qcow2
-</span><br/>2024-01-15 00:06:42 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/qemu-img resize /home/nian/.cache/virt-launcher/boot/testing.lrdovc7h.qcow2 50G
-</span><br/>2024-01-15 00:06:42 <span style="color:#9b59b6;">[D]</span><span> Start writing cloud-init data files to /home/nian/.cache/virt-launcher/cloud-init/testing.lrdovc7h
-</span><br/>2024-01-15 00:06:42 <span style="color:#9b59b6;">[D]</span><span> Start creating cloud-init iso file to /home/nian/.cache/virt-launcher/boot/testing.lrdovc7h.iso
-</span><br/>2024-01-15 00:06:42 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/xorrisofs -output /home/nian/.cache/virt-launcher/boot/testing.lrdovc7h.iso -volid cidata -joliet -input-charset utf8 -rational-rock /home/nian/.cache/virt-launcher/cloud-init/testing.lrdovc7h
-</span><br/>2024-01-15 00:06:42 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/mv /home/nian/.cache/virt-launcher/boot/testing.lrdovc7h.qcow2 /var/lib/libvirt/images/testing.lrdovc7h.qcow2
-</span><br/>2024-01-15 00:06:42 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/mv /home/nian/.cache/virt-launcher/boot/testing.lrdovc7h.iso /var/lib/libvirt/images/testing.lrdovc7h.iso
-</span><br/>2024-01-15 00:06:42 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/virt-install --import --name testing --osinfo debian12 --disk /var/lib/libvirt/images/testing.lrdovc7h.qcow2 --disk /var/lib/libvirt/images/testing.lrdovc7h.iso --vcpus 2 --memory 4096 --virt-type kvm --graphics none --noautoconsole --connect qemu:///system
-</span><br/>2024-01-15 00:06:43 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/virsh --connect qemu:///system domstats --state --domain testing
-</span><br/>2024-01-15 00:06:43 <span style="color:#9b59b6;">[D]</span><span> Domain: 'testing' state.state=1 state.reason=1 &#160;</span><br/>2024-01-15 00:06:43 <span style="color:#11d116;">[I]</span><span> Wait for domain off. Current state: running
-</span><br/>2024-01-15 00:06:46 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/virsh --connect qemu:///system domstats --state --domain testing
-</span><br/>2024-01-15 00:06:46 <span style="color:#9b59b6;">[D]</span><span> Domain: 'testing' state.state=1 state.reason=1 &#160;</span><br/>2024-01-15 00:06:46 <span style="color:#11d116;">[I]</span><span> Wait for domain off. Current state: running
-</span><br/>2024-01-15 00:06:49 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/virsh --connect qemu:///system domstats --state --domain testing
-</span><br/>2024-01-15 00:06:49 <span style="color:#9b59b6;">[D]</span><span> Domain: 'testing' state.state=1 state.reason=1 &#160;</span><br/>2024-01-15 00:06:49 <span style="color:#11d116;">[I]</span><span> Wait for domain off. Current state: running
-</span><br/>2024-01-15 00:06:52 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/virsh --connect qemu:///system domstats --state --domain testing
-</span><br/>2024-01-15 00:06:52 <span style="color:#9b59b6;">[D]</span><span> Domain: 'testing' state.state=1 state.reason=1 &#160;</span><br/>2024-01-15 00:06:52 <span style="color:#11d116;">[I]</span><span> Wait for domain off. Current state: running
-</span><br/>2024-01-15 00:06:55 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/virsh --connect qemu:///system domstats --state --domain testing
-</span><br/>2024-01-15 00:06:55 <span style="color:#9b59b6;">[D]</span><span> Domain: 'testing' state.state=1 state.reason=1 &#160;</span><br/>2024-01-15 00:06:55 <span style="color:#11d116;">[I]</span><span> Wait for domain off. Current state: running
-</span><br/>2024-01-15 00:06:58 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/virsh --connect qemu:///system domstats --state --domain testing
-</span><br/>2024-01-15 00:06:58 <span style="color:#9b59b6;">[D]</span><span> Domain: 'testing' state.state=5 state.reason=1 &#160;</span><br/>2024-01-15 00:06:58 <span style="color:#11d116;">[I]</span><span> Wait for domain off. Current state: shut off
-</span><br/>2024-01-15 00:06:58 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/virsh --connect qemu:///system detach-disk --persistent --domain testing /var/lib/libvirt/images/testing.lrdovc7h.iso
-</span><br/>2024-01-15 00:06:58 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/virsh --connect qemu:///system start --domain testing
-</span><br/>2024-01-15 00:06:59 <span style="color:#11d116;">[I]</span><span> [NOTE] cloud image default user: debian
-</span><br/>2024-01-15 00:06:59 <span style="color:#11d116;">[I]</span><span> [NOTE] fetch vm ip addr: /usr/bin/virsh --connect qemu:///system domifaddr --domain testing
+<br/>2025-03-23 22:52:20 <span style="color:#9b59b6;">[D]</span><span> use config: {Debug:true ListAll:false DryRun:false Version:false Name:d12 Os:debian12 Arch: Size:40G Cpu:2 Mem:4096 Key:ssh-ed25519 AAAAC3NzaC...Ou7rzZgVC0 zhuchangbao1998@gmail.com Pass: Storage:/var/lib/libvirt/images Connect:qemu:///system}
+</span><br/>2025-03-23 22:52:20 <span style="color:#9b59b6;">[D]</span><span> use base cache dir /home/nian/.cache/virt-launcher
+</span><br/>2025-03-23 22:52:20 <span style="color:#9b59b6;">[D]</span><span> found 11 os files
+</span><br/>2025-03-23 22:52:20 <span style="color:#9b59b6;">[D]</span><span> read and parse 'archlinux.json'...
+</span><br/>2025-03-23 22:52:20 <span style="color:#9b59b6;">[D]</span><span> read and parse 'centos-7.0.json'...
+</span><br/>2025-03-23 22:52:20 <span style="color:#9b59b6;">[D]</span><span> read and parse 'centos-stream8.json'...
+</span><br/>2025-03-23 22:52:20 <span style="color:#9b59b6;">[D]</span><span> read and parse 'centos-stream9.json'...
+</span><br/>2025-03-23 22:52:20 <span style="color:#9b59b6;">[D]</span><span> read and parse 'debian-10.json'...
+</span><br/>2025-03-23 22:52:20 <span style="color:#9b59b6;">[D]</span><span> read and parse 'debian-11.json'...
+</span><br/>2025-03-23 22:52:20 <span style="color:#9b59b6;">[D]</span><span> read and parse 'debian-12.json'...
+</span><br/>2025-03-23 22:52:20 <span style="color:#9b59b6;">[D]</span><span> read and parse 'ubuntu-18.04.json'...
+</span><br/>2025-03-23 22:52:20 <span style="color:#9b59b6;">[D]</span><span> read and parse 'ubuntu-20.04.json'...
+</span><br/>2025-03-23 22:52:20 <span style="color:#9b59b6;">[D]</span><span> read and parse 'ubuntu-22.04.json'...
+</span><br/>2025-03-23 22:52:20 <span style="color:#9b59b6;">[D]</span><span> read and parse 'ubuntu-24.04.json'...
+</span><br/>2025-03-23 22:52:20 <span style="color:#9b59b6;">[D]</span><span> exec.LookPath(qemu-img): /usr/bin/qemu-img
+</span><br/>2025-03-23 22:52:20 <span style="color:#9b59b6;">[D]</span><span> exec.LookPath(virt-install): /usr/bin/virt-install
+</span><br/>2025-03-23 22:52:20 <span style="color:#9b59b6;">[D]</span><span> exec.LookPath(xorrisofs): /usr/bin/xorrisofs
+</span><br/>2025-03-23 22:52:20 <span style="color:#9b59b6;">[D]</span><span> exec.LookPath(virsh): /usr/bin/virsh
+</span><br/>2025-03-23 22:52:20 <span style="color:#f67400;">[W]</span><span> automatically detect architecture: amd64
+</span><br/>2025-03-23 22:52:20 <span style="color:#11d116;">[I]</span><span> start downloading image to /home/nian/.cache/virt-launcher/images/debian-12-genericcloud-amd64-20250316-2053.qcow2
+</span><br/>2025-03-23 22:52:20 <span style="color:#9b59b6;">[D]</span><span> get remote hash from https://cdimage.debian.org/images/cloud/bookworm/20250316-2053/SHA512SUMS
+</span><br/>2025-03-23 22:52:21 <span style="color:#9b59b6;">[D]</span><span> file remote hash: 0ea74c246c5eb8c6eb5b8e3b8b5268b16a791dfbc8f0bca27d9d787a3f4c50a7830bfc690e6902dfe78031fb2b2c3892349990d6b26b13112252a81d6f20f792
+</span><br/>2025-03-23 22:52:21 <span style="color:#9b59b6;">[D]</span><span> start downloading image from https://cdimage.debian.org/images/cloud/bookworm/20250316-2053/debian-12-genericcloud-amd64-20250316-2053.qcow2
+</span><br/>2025-03-23 22:52:24 <span style="color:#9b59b6;">[D]</span><span> got content-length 343998464
+</span><br/>2025-03-23 22:52:24 <span style="color:#11d116;">[I]</span><span> &#160;&#160;0 MiB of 328 MiB downloaded (0%)
+</span><br/>2025-03-23 22:52:26 <span style="color:#11d116;">[I]</span><span> &#160;&#160;7 MiB of 328 MiB downloaded (2%)
+</span><br/>2025-03-23 22:52:28 <span style="color:#11d116;">[I]</span><span> &#160;54 MiB of 328 MiB downloaded (16%)
+</span><br/>2025-03-23 22:52:30 <span style="color:#11d116;">[I]</span><span> 111 MiB of 328 MiB downloaded (33%)
+</span><br/>2025-03-23 22:52:32 <span style="color:#11d116;">[I]</span><span> 157 MiB of 328 MiB downloaded (47%)
+</span><br/>2025-03-23 22:52:34 <span style="color:#11d116;">[I]</span><span> 205 MiB of 328 MiB downloaded (62%)
+</span><br/>2025-03-23 22:52:36 <span style="color:#11d116;">[I]</span><span> 248 MiB of 328 MiB downloaded (75%)
+</span><br/>2025-03-23 22:52:38 <span style="color:#11d116;">[I]</span><span> 292 MiB of 328 MiB downloaded (89%)
+</span><br/>2025-03-23 22:52:40 <span style="color:#11d116;">[I]</span><span> 328 MiB of 328 MiB downloaded (100%)
+</span><br/>2025-03-23 22:52:40 <span style="color:#9b59b6;">[D]</span><span> calc local hash from /home/nian/.cache/virt-launcher/images/debian-12-genericcloud-amd64-20250316-2053.qcow2
+</span><br/>2025-03-23 22:52:40 <span style="color:#9b59b6;">[D]</span><span> file local hash: 0ea74c246c5eb8c6eb5b8e3b8b5268b16a791dfbc8f0bca27d9d787a3f4c50a7830bfc690e6902dfe78031fb2b2c3892349990d6b26b13112252a81d6f20f792
+</span><br/>2025-03-23 22:52:40 <span style="color:#11d116;">[I]</span><span> hash verification ok
+</span><br/>2025-03-23 22:52:40 <span style="color:#9b59b6;">[D]</span><span> start copying file from /home/nian/.cache/virt-launcher/images/debian-12-genericcloud-amd64-20250316-2053.qcow2 to /home/nian/.cache/virt-launcher/boot/testing.m8lrbu07.qcow2
+</span><br/>2025-03-23 22:52:41 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/qemu-img resize /home/nian/.cache/virt-launcher/boot/testing.m8lrbu07.qcow2 40G
+</span><br/>2025-03-23 22:52:41 <span style="color:#9b59b6;">[D]</span><span> start writing cloud-init data files to /home/nian/.cache/virt-launcher/cloud-init/testing.m8lrbu07
+</span><br/>2025-03-23 22:52:41 <span style="color:#9b59b6;">[D]</span><span> start creating cloud-init iso file to /home/nian/.cache/virt-launcher/boot/testing.m8lrbu07.iso
+</span><br/>2025-03-23 22:52:41 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/xorrisofs -output /home/nian/.cache/virt-launcher/boot/testing.m8lrbu07.iso -volid cidata -joliet -input-charset utf8 -rational-rock /home/nian/.cache/virt-launcher/cloud-init/testing.m8lrbu07
+</span><br/>2025-03-23 22:52:41 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/mv /home/nian/.cache/virt-launcher/boot/testing.m8lrbu07.qcow2 /var/lib/libvirt/images/testing.m8lrbu07.qcow2
+</span><br/>2025-03-23 22:52:41 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/mv /home/nian/.cache/virt-launcher/boot/testing.m8lrbu07.iso /var/lib/libvirt/images/testing.m8lrbu07.iso
+</span><br/>2025-03-23 22:52:41 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/virt-install --import --name testing --osinfo debian12 --disk /var/lib/libvirt/images/testing.m8lrbu07.qcow2 --disk /var/lib/libvirt/images/testing.m8lrbu07.iso --vcpus 2 --memory 4096 --virt-type kvm --graphics none --noautoconsole --connect qemu:///system
+</span><br/>2025-03-23 22:52:41 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/virsh --connect qemu:///system domstats --state --domain testing
+</span><br/>2025-03-23 22:52:41 <span style="color:#9b59b6;">[D]</span><span> Domain: 'testing' state.state=1 state.reason=1
+</span><br/>2025-03-23 22:52:41 <span style="color:#11d116;">[I]</span><span> wait for domain off. current state: running
+</span><br/>2025-03-23 22:52:44 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/virsh --connect qemu:///system domstats --state --domain testing
+</span><br/>2025-03-23 22:52:44 <span style="color:#9b59b6;">[D]</span><span> Domain: 'testing' state.state=1 state.reason=1
+</span><br/>2025-03-23 22:52:44 <span style="color:#11d116;">[I]</span><span> wait for domain off. current state: running
+</span><br/>2025-03-23 22:52:47 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/virsh --connect qemu:///system domstats --state --domain testing
+</span><br/>2025-03-23 22:52:47 <span style="color:#9b59b6;">[D]</span><span> Domain: 'testing' state.state=1 state.reason=1
+</span><br/>2025-03-23 22:52:47 <span style="color:#11d116;">[I]</span><span> wait for domain off. current state: running
+</span><br/>2025-03-23 22:52:50 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/virsh --connect qemu:///system domstats --state --domain testing
+</span><br/>2025-03-23 22:52:50 <span style="color:#9b59b6;">[D]</span><span> Domain: 'testing' state.state=1 state.reason=1
+</span><br/>2025-03-23 22:52:50 <span style="color:#11d116;">[I]</span><span> wait for domain off. current state: running
+</span><br/>2025-03-23 22:52:53 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/virsh --connect qemu:///system domstats --state --domain testing
+</span><br/>2025-03-23 22:52:53 <span style="color:#9b59b6;">[D]</span><span> Domain: 'testing' state.state=5 state.reason=1
+</span><br/>2025-03-23 22:52:53 <span style="color:#11d116;">[I]</span><span> wait for domain off. current state: shut off
+</span><br/>2025-03-23 22:52:53 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/virsh --connect qemu:///system detach-disk --persistent --domain testing /var/lib/libvirt/images/testing.m8lrbu07.iso
+</span><br/>2025-03-23 22:52:53 <span style="color:#9b59b6;">[D]</span><span> /usr/bin/virsh --connect qemu:///system start --domain testing
+</span><br/>2025-03-23 22:52:53 <span style="color:#11d116;">[I]</span><span> [NOTE] cloud image default user: debian
+</span><br/>2025-03-23 22:52:53 <span style="color:#11d116;">[I]</span><span> [NOTE] fetch vm ip addr: /usr/bin/virsh --connect qemu:///system domifaddr --domain testing
 </span><br/>┌─[<span style="font-weight:bold;color:#fdbc4b;">nian</span><span style="font-weight:bold;color:#ffffff;">@</span><span style="color:#11d116;">legion</span><span>]─[</span><span style="font-weight:bold;color:#3daee9;">~</span><span>]─</span><span style="color:#1abc9c;">[33s]</span><span>
 </span><br/>└──&gt;&gt; /usr/bin/virsh --connect qemu:///system domifaddr --domain testing
-<br/> 名称 &#160;&#160;&#160;&#160;MAC 地址 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;协议 &#160;&#160;&#160;&#160;&#160;&#160;地址
+<br/> Name &#160;&#160;&#160;&#160;&#160;&#160;MAC address &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Protocol &#160;&#160;&#160;&#160;Address
 <br/>-------------------------------------------------------------------------------
-<br/> vnet3 &#160;&#160;&#160;&#160;&#160;52:54:00:68:15:04 &#160;&#160;&#160;ipv4 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;192.168.122.195/24
+<br/> vnet3 &#160;&#160;&#160;&#160;&#160;52:54:00:d1:ae:13 &#160;&#160;&#160;ipv4 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;192.168.122.55/24
 <br/>
 <br/>┌─[<span style="font-weight:bold;color:#fdbc4b;">nian</span><span style="font-weight:bold;color:#ffffff;">@</span><span style="color:#11d116;">legion</span><span>]─[</span><span style="font-weight:bold;color:#3daee9;">~</span><span>]
-</span><br/>└──&gt;&gt; ssh debian@192.168.122.195 -i .ssh/id_ed25519
-<br/>Warning: Permanently added '192.168.122.195' (ED25519) to the list of known hosts.
-<br/>Linux testing 6.1.0-17-cloud-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.69-1 (2023-12-30) x86_64
+</span><br/>└──&gt;&gt; ssh debian@192.168.122.55 -i .ssh/id_ed25519
+<br/>Warning: Permanently added '192.168.122.55' (ED25519) to the list of known hosts.
+<br/>Linux testing 6.1.0-32-cloud-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.129-1 (2025-03-06) x86_64
 <br/>
 <br/>The programs included with the Debian GNU/Linux system are free software;
 <br/>the exact distribution terms for each program are described in the
@@ -92,8 +97,8 @@
 <br/>HOME_URL="https://www.debian.org/"
 <br/>SUPPORT_URL="https://www.debian.org/support"
 <br/>BUG_REPORT_URL="https://bugs.debian.org/"
-<br/><span style="font-weight:bold;color:#1cdc9a;">debian@testing</span><span>:</span><span style="font-weight:bold;color:#3daee9;">~</span><span>$ &#160;</span><br/>logout
-<br/>Shared connection to 192.168.122.195 closed.
+<br/><span style="font-weight:bold;color:#1cdc9a;">debian@testing</span><span>:</span><span style="font-weight:bold;color:#3daee9;">~</span><span>$ exit&#160;</span><br/>logout
+<br/>Shared connection to 192.168.122.55 closed.
 <br/>┌─[<span style="font-weight:bold;color:#fdbc4b;">nian</span><span style="font-weight:bold;color:#ffffff;">@</span><span style="color:#11d116;">legion</span><span>]─[</span><span style="font-weight:bold;color:#3daee9;">~</span><span>]─</span><span style="color:#1abc9c;">[6s]</span><span>
 </span><br/>└──&gt;&gt; <br/>
 </div>
