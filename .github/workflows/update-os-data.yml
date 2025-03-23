@@ -14,14 +14,14 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: "1.22"
+          go-version: "1.24"
           check-latest: true
           cache: true
 
       - name: Update os data
         run: go run scripts/update-os-data/main.go
 
-      - name: Commit and push
+      - name: Commit and push # https://github.com/actions/checkout/pull/1707
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
