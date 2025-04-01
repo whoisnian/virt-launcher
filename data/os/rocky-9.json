@@ -1,0 +1,19 @@
+{
+  "Name": "rocky9",
+  "Version": "9.5-20241118.0",
+  "Upstream": "https://dl.rockylinux.org/pub/rocky/9/images/x86_64/",
+  "Images": [
+    {
+      "Arch": "amd64",
+      "Account": "rocky",
+      "Url": "https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base-9.5-20241118.0.x86_64.qcow2",
+      "Hash": "https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base-9.5-20241118.0.x86_64.qcow2.CHECKSUM"
+    },
+    {
+      "Arch": "arm64",
+      "Account": "rocky",
+      "Url": "https://dl.rockylinux.org/pub/rocky/9/images/aarch64/Rocky-9-GenericCloud-Base-9.5-20241118.0.aarch64.qcow2",
+      "Hash": "https://dl.rockylinux.org/pub/rocky/9/images/aarch64/Rocky-9-GenericCloud-Base-9.5-20241118.0.aarch64.qcow2.CHECKSUM"
+    }
+  ]
+}

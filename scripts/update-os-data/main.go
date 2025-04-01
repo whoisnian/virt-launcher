@@ -22,17 +22,19 @@ import (
 )
 
 var regMap = map[string]*regexp.Regexp{
-	"archlinux":      regexp.MustCompile(`href="v(\d+.\d+)/"`),
-	"centos7.0":      regexp.MustCompile(`href="CentOS-7-x86_64-GenericCloud-(\d+).qcow2"`),
-	"centos-stream8": regexp.MustCompile(`href="CentOS-Stream-GenericCloud-8-(\d+.\d+).x86_64.qcow2"`),
-	"centos-stream9": regexp.MustCompile(`href="CentOS-Stream-GenericCloud-9-(\d+.\d+).x86_64.qcow2"`),
-	"debian10":       regexp.MustCompile(`href="(\d+-\d+)/"`),
-	"debian11":       regexp.MustCompile(`href="(\d+-\d+)/"`),
-	"debian12":       regexp.MustCompile(`href="(\d+-\d+)/"`),
-	"ubuntu18.04":    regexp.MustCompile(`href="(\d+)/"`),
-	"ubuntu20.04":    regexp.MustCompile(`href="(\d+)/"`),
-	"ubuntu22.04":    regexp.MustCompile(`href="(\d+)/"`),
-	"ubuntu24.04":    regexp.MustCompile(`href="(\d+)/"`),
+	"archlinux":       regexp.MustCompile(`href="v(\d+.\d+)/"`),
+	"centos7.0":       regexp.MustCompile(`href="CentOS-7-x86_64-GenericCloud-(\d+).qcow2"`),
+	"centos-stream9":  regexp.MustCompile(`href="CentOS-Stream-GenericCloud-9-(\d+.\d+).x86_64.qcow2"`),
+	"centos-stream10": regexp.MustCompile(`href="CentOS-Stream-GenericCloud-10-(\d+.\d+).x86_64.qcow2"`),
+	"debian11":        regexp.MustCompile(`href="(\d+-\d+)/"`),
+	"debian12":        regexp.MustCompile(`href="(\d+-\d+)/"`),
+	"fedora41":        regexp.MustCompile(`href="Fedora-Cloud-Base-Generic-41-(\d+.\d+).x86_64.qcow2"`),
+	"rocky8":          regexp.MustCompile(`href="Rocky-8-GenericCloud-Base-(\d+.\d+-\d+.\d+).x86_64.qcow2"`),
+	"rocky9":          regexp.MustCompile(`href="Rocky-9-GenericCloud-Base-(\d+.\d+-\d+.\d+).x86_64.qcow2"`),
+	"ubuntu18.04":     regexp.MustCompile(`href="(\d+)/"`),
+	"ubuntu20.04":     regexp.MustCompile(`href="(\d+)/"`),
+	"ubuntu22.04":     regexp.MustCompile(`href="(\d+)/"`),
+	"ubuntu24.04":     regexp.MustCompile(`href="(\d+)/"`),
 }
 
 var LOG = logger.New(logger.NewNanoHandler(os.Stderr, logger.Options{
