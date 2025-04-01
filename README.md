@@ -42,3 +42,10 @@ https://docs.openstack.org/image-guide/obtain-images.html
   https://gitlab.archlinux.org/archlinux/arch-boxes/-/issues/158
 * Timeout 90s for systemd-journal-flush.service on centos-stream8 boot:  
   Failed to start Flush Journal to Persistent Storage.
+
+## todo
+* dependencies => embed static binary (builtin > PATH)
+* os-data runtime cache
+  * --always-fetch
+  * --auto-update
+  * --local-only (cache > builtin)
