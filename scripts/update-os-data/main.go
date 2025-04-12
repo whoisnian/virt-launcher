@@ -22,6 +22,7 @@ import (
 )
 
 var regMap = map[string]*regexp.Regexp{
+	"alpinelinux3.21": regexp.MustCompile(`href="generic_alpine-(\d+.\d+.\d+)-x86_64-bios-cloudinit-r0.qcow2"`),
 	"archlinux":       regexp.MustCompile(`href="v(\d+.\d+)/"`),
 	"centos7.0":       regexp.MustCompile(`href="CentOS-7-x86_64-GenericCloud-(\d+).qcow2"`),
 	"centos-stream9":  regexp.MustCompile(`href="CentOS-Stream-GenericCloud-9-(\d+.\d+).x86_64.qcow2"`),

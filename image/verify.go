@@ -44,7 +44,7 @@ func (img *Image) RemoteHash(ctx context.Context) (string, error) {
 		scanner := bufio.NewScanner(resp.Body)
 		for scanner.Scan() {
 			line := scanner.Text()
-			if !strings.Contains(line, fileName) {
+			if !strings.Contains(line, fileName) && strings.Contains(line, " ") {
 				continue
 			}
 			if res := hexReg.FindString(line); res != "" {

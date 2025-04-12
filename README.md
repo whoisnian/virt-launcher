@@ -23,6 +23,7 @@ sudo -E ./virt-launcher -d \
 
 ## cloud image
 https://docs.openstack.org/image-guide/obtain-images.html
+* alpinelinux3.21: https://dl-cdn.alpinelinux.org/alpine/v3.21/releases/cloud/
 * archlinux: https://geo.mirror.pkgbuild.com/images/
 * centos7.0: https://cloud.centos.org/centos/7/images/
 * centos-stream9: https://cloud.centos.org/centos/9-stream/
