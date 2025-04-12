@@ -33,7 +33,7 @@ func WaitForVMOff(ctx context.Context) (output []byte, err error) {
 		return nil, nil
 	}
 
-	for range 20 {
+	for range 60 {
 		cmd := exec.Command(virshBinary, args...)
 		global.LOG.Debug(ctx, cmd.String())
 
@@ -48,11 +48,11 @@ func WaitForVMOff(ctx context.Context) (output []byte, err error) {
 		}
 		global.LOG.Infof(ctx, "wait for domain off. current state: %s", stateMap[string(matches[1])])
 		if bytes.Equal(matches[1], []byte("5")) {
-			return output, err
+			return output, nil
 		}
 		time.Sleep(time.Second * 3)
 	}
-	return nil, nil
+	return nil, errors.New("timeout waiting for domain off")
 }
 
 func DetachCloudInitIso(ctx context.Context, isoPath string) ([]byte, error) {
