@@ -1,19 +1,19 @@
 {
   "Name": "debian11",
-  "Version": "20250402-2070",
+  "Version": "20250429-2097",
   "Upstream": "https://cdimage.debian.org/images/cloud/bullseye/",
   "Images": [
     {
       "Arch": "amd64",
       "Account": "debian",
-      "Url": "https://cdimage.debian.org/images/cloud/bullseye/20250402-2070/debian-11-genericcloud-amd64-20250402-2070.qcow2",
-      "Hash": "https://cdimage.debian.org/images/cloud/bullseye/20250402-2070/SHA512SUMS"
+      "Url": "https://cdimage.debian.org/images/cloud/bullseye/20250429-2097/debian-11-genericcloud-amd64-20250429-2097.qcow2",
+      "Hash": "https://cdimage.debian.org/images/cloud/bullseye/20250429-2097/SHA512SUMS"
     },
     {
       "Arch": "arm64",
       "Account": "debian",
-      "Url": "https://cdimage.debian.org/images/cloud/bullseye/20250402-2070/debian-11-genericcloud-arm64-20250402-2070.qcow2",
-      "Hash": "https://cdimage.debian.org/images/cloud/bullseye/20250402-2070/SHA512SUMS"
+      "Url": "https://cdimage.debian.org/images/cloud/bullseye/20250429-2097/debian-11-genericcloud-arm64-20250429-2097.qcow2",
+      "Hash": "https://cdimage.debian.org/images/cloud/bullseye/20250429-2097/SHA512SUMS"
     }
   ]
 }
