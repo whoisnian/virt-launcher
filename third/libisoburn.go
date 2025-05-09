@@ -12,13 +12,18 @@ import (
 	"github.com/whoisnian/virt-launcher/global"
 )
 
-var genisoimageBinary = "xorrisofs|genisoimage"
+// https://github.com/virt-manager/virt-manager/blob/d17731aea1fd8f7fa926253cc40a1c777264da07/virtinst/install/installerinject.py#L52
+var xorrisofsBinary = "xorrisofs|genisoimage|mkisofs"
 
-func CreateCloudInitIso(ctx context.Context, cacheDir, isoPath, timeStr string) ([]byte, error) {
-	if err := os.MkdirAll(cacheDir, os.ModePerm); err != nil {
+func setupLibisoburn(ctx context.Context) {
+	resolveBinaryPath(ctx, &xorrisofsBinary)
+}
+
+func CreateCloudInitIso(ctx context.Context, cacheDir, isoPath, instanceID string) ([]byte, error) {
+	if err := os.MkdirAll(cacheDir, osutil.DefaultDirMode); err != nil {
 		return nil, err
 	}
-	if !global.CFG.DryRun {
+	if !global.CFG.Prepare {
 		defer os.RemoveAll(cacheDir)
 	}
 
@@ -27,7 +32,7 @@ func CreateCloudInitIso(ctx context.Context, cacheDir, isoPath, timeStr string) 
 		name string
 		data []byte
 	}{
-		{filepath.Join(cacheDir, "meta-data"), metaDataContent(timeStr)},
+		{filepath.Join(cacheDir, "meta-data"), metaDataContent(instanceID)},
 		{filepath.Join(cacheDir, "user-data"), userDataContent()},
 	} {
 		if err := os.WriteFile(param.name, param.data, osutil.DefaultFileMode); err != nil {
@@ -35,21 +40,15 @@ func CreateCloudInitIso(ctx context.Context, cacheDir, isoPath, timeStr string) 
 		}
 	}
 
-	global.LOG.Debugf(ctx, "start creating cloud-init iso file to %s", isoPath)
-	cmd := exec.Command(genisoimageBinary, "-output", isoPath, "-volid", "cidata", "-joliet", "-input-charset", "utf8", "-rational-rock", cacheDir)
-	if global.CFG.DryRun {
-		global.LOG.Infof(ctx, "[DRY-RUN] %s", cmd.String())
-		return nil, nil
-	} else {
-		global.LOG.Debug(ctx, cmd.String())
-		return cmd.CombinedOutput()
-	}
+	global.LOG.Debugf(ctx, "start writing cloud-init iso file to %s", isoPath)
+	cmd := exec.Command(xorrisofsBinary, "-output", isoPath, "-volid", "cidata", "-joliet", "-input-charset", "utf8", "-rational-rock", cacheDir)
+	return prepareOrCombinedOutput(ctx, cmd)
 }
 
-func metaDataContent(timeStr string) []byte {
+func metaDataContent(instanceID string) []byte {
 	buf := &bytes.Buffer{}
-	buf.WriteString(fmt.Sprintf("instance-id: i-%s\n", timeStr))
-	buf.WriteString(fmt.Sprintf("local-hostname: %s\n", global.CFG.Name))
+	fmt.Fprintf(buf, "instance-id: %s\n", instanceID)
+	fmt.Fprintf(buf, "local-hostname: %s\n", global.CFG.Name)
 	return buf.Bytes()
 }
 
@@ -64,11 +63,11 @@ func userDataContent() []byte {
 	buf.WriteString("  condition: true\n")
 	if global.CFG.Pass != "" {
 		buf.WriteString("ssh_pwauth: true\n")
-		buf.WriteString(fmt.Sprintf("password: %s\n", global.CFG.Pass))
+		fmt.Fprintf(buf, "password: %s\n", global.CFG.Pass)
 	}
 	if global.CFG.Key != "" {
 		buf.WriteString("ssh_authorized_keys:\n")
-		buf.WriteString(fmt.Sprintf("  - %s\n", global.CFG.Key))
+		fmt.Fprintf(buf, "  - %s\n", global.CFG.Key)
 	}
 	return buf.Bytes()
 }
