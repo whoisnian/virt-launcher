@@ -3,6 +3,7 @@ package image
 import (
 	"context"
 	"errors"
+	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -14,27 +15,23 @@ import (
 )
 
 func (img *Image) Download(ctx context.Context, filePath string) error {
-	rHash, err := img.RemoteHash(ctx)
-	if err != nil {
-		return err
-	}
-	global.LOG.Debugf(ctx, "file remote hash: %s", rHash)
+	global.LOG.Debugf(ctx, "file remote hash: %s", img.HashVal)
 
 	// check image file exists
 	if _, err := os.Stat(filePath); err == nil {
 		global.LOG.Info(ctx, "file already exists, start verifying")
-		lHash, err := img.LocalHashFrom(ctx, filePath)
+		local, err := img.LocalHashFrom(ctx, filePath)
 		if err != nil {
-			return err
+			return fmt.Errorf("image.LocalHashFrom: %w", err)
 		}
-		global.LOG.Debugf(ctx, "file local hash: %s", lHash)
-		if lHash == rHash {
+		global.LOG.Debugf(ctx, "file local hash: %s", local)
+		if local == img.HashVal {
 			global.LOG.Info(ctx, "hash verification ok, skip downloading")
 			return nil
 		} else {
 			global.LOG.Warn(ctx, "hash verification failed, delete local file")
 			if err := os.Remove(filePath); err != nil {
-				return err
+				return fmt.Errorf("os.Remove: %w", err)
 			}
 		}
 	} else if !errors.Is(err, os.ErrNotExist) {
@@ -42,17 +39,17 @@ func (img *Image) Download(ctx context.Context, filePath string) error {
 	}
 
 	// download image file
-	if err = img.download(ctx, filePath); err != nil {
+	if err := img.download(ctx, filePath); err != nil {
 		return err
 	}
 
 	// verify image file
-	lHash, err := img.LocalHashFrom(ctx, filePath)
+	local, err := img.LocalHashFrom(ctx, filePath)
 	if err != nil {
 		return err
 	}
-	global.LOG.Debugf(ctx, "file local hash: %s", lHash)
-	if lHash == rHash {
+	global.LOG.Debugf(ctx, "file local hash: %s", local)
+	if local == img.HashVal {
 		global.LOG.Info(ctx, "hash verification ok")
 		return nil
 	} else {
@@ -63,14 +60,14 @@ func (img *Image) Download(ctx context.Context, filePath string) error {
 func (img *Image) download(ctx context.Context, filePath string) error {
 	fi, err := os.Create(filePath)
 	if err != nil {
-		return err
+		return fmt.Errorf("os.Create: %w", err)
 	}
 	defer fi.Close()
 
-	global.LOG.Debugf(ctx, "start downloading image from %s", img.Url)
-	resp, err := http.Get(img.Url)
+	global.LOG.Debugf(ctx, "start downloading image from %s", img.FileUrl)
+	resp, err := http.Get(img.FileUrl)
 	if err != nil {
-		return err
+		return fmt.Errorf("http.Get: %w", err)
 	}
 	defer resp.Body.Close()
 

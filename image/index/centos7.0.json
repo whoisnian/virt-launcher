@@ -1,0 +1,23 @@
+{
+  "Name": "centos7.0",
+  "Version": "2211",
+  "Upstream": "https://cloud.centos.org/centos/7/images/",
+  "Images": [
+    {
+      "Arch": "amd64",
+      "Account": "centos",
+      "FileUrl": "https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-2211.qcow2",
+      "HashUrl": "https://cloud.centos.org/centos/7/images/sha256sum.txt",
+      "HashFmt": "sha256sum:gnu",
+      "HashVal": "284aab2b23d91318f169ff464bce4d53404a15a0618ceb34562838c59af4adea"
+    },
+    {
+      "Arch": "arm64",
+      "Account": "centos",
+      "FileUrl": "https://cloud.centos.org/centos/7/images/CentOS-7-aarch64-GenericCloud-2211.qcow2",
+      "HashUrl": "https://cloud.centos.org/centos/7/images/sha256sum.txt",
+      "HashFmt": "sha256sum:gnu",
+      "HashVal": "6af6f9e596deb6c514d05209ae289369d19bce7ddf02297e9b08a18b5b276847"
+    }
+  ]
+}

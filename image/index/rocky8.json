@@ -1,0 +1,23 @@
+{
+  "Name": "rocky8",
+  "Version": "8.10-20240528.0",
+  "Upstream": "https://dl.rockylinux.org/pub/rocky/8/images/x86_64/",
+  "Images": [
+    {
+      "Arch": "amd64",
+      "Account": "rocky",
+      "FileUrl": "https://dl.rockylinux.org/pub/rocky/8/images/x86_64/Rocky-8-GenericCloud-Base-8.10-20240528.0.x86_64.qcow2",
+      "HashUrl": "https://dl.rockylinux.org/pub/rocky/8/images/x86_64/Rocky-8-GenericCloud-Base-8.10-20240528.0.x86_64.qcow2.CHECKSUM",
+      "HashFmt": "sha256sum:bsd",
+      "HashVal": "e56066c58606191e96184de9a9183a3af33c59bcbd8740d8b10ca054a7a89c14"
+    },
+    {
+      "Arch": "arm64",
+      "Account": "rocky",
+      "FileUrl": "https://dl.rockylinux.org/pub/rocky/8/images/aarch64/Rocky-8-GenericCloud-Base-8.10-20240528.0.aarch64.qcow2",
+      "HashUrl": "https://dl.rockylinux.org/pub/rocky/8/images/aarch64/Rocky-8-GenericCloud-Base-8.10-20240528.0.aarch64.qcow2.CHECKSUM",
+      "HashFmt": "sha256sum:bsd",
+      "HashVal": "946b5b9845aa5e3ed98f1bc6ee9873201712a2aef01b87731aed16857e0ca13f"
+    }
+  ]
+}
