@@ -8,33 +8,39 @@ import (
 )
 
 var virtInstallBinary = "virt-install"
-var archMap = map[string]string{
-	"386":     "i386",
-	"arm":     "arm",
-	"amd64":   "x86_64",
-	"arm64":   "aarch64",
-	"loong64": "loongarch64",
+
+func setupVirtInstall(ctx context.Context) {
+	resolveBinaryPath(ctx, &virtInstallBinary)
 }
 
-func CreateVM(ctx context.Context, disk, cdrom string) ([]byte, error) {
-	cmd := exec.Command(virtInstallBinary,
+var archMap = map[string]string{
+	"386":     "i386",
+	"amd64":   "x86_64",
+	"arm":     "arm",
+	"arm64":   "aarch64",
+	"loong64": "loongarch64",
+	"riscv64": "riscv64",
+}
+
+func CreateVM(ctx context.Context, diskVolume, cdromVolume string) ([]byte, error) {
+	arch, ok := archMap[global.CFG.Arch]
+	if !ok {
+		arch = global.CFG.Arch
+	}
+
+	cmd := exec.Command(virtInstallBinary, "--connect", global.CFG.Connect,
 		"--import",
 		"--name", global.CFG.Name,
 		"--osinfo", global.CFG.Os,
-		"--arch", archMap[global.CFG.Arch],
-		"--disk", disk,
-		"--disk", cdrom,
+		"--arch", arch,
 		"--vcpus", global.CFG.Cpu,
 		"--memory", global.CFG.Mem,
+		"--boot", global.CFG.Boot,
+		"--disk", "vol="+global.CFG.Storage+"/"+diskVolume,
+		"--disk", "source.startupPolicy=optional,vol="+global.CFG.Storage+"/"+cdromVolume,
+		"--network", "network="+global.CFG.Network,
 		"--graphics", "none",
 		"--noautoconsole",
-		"--connect", global.CFG.Connect,
 	)
-	if global.CFG.DryRun {
-		global.LOG.Infof(ctx, "[DRY-RUN] %s", cmd.String())
-		return nil, nil
-	} else {
-		global.LOG.Debug(ctx, cmd.String())
-		return cmd.CombinedOutput()
-	}
+	return prepareOrCombinedOutput(ctx, cmd)
 }
