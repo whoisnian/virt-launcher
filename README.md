@@ -3,21 +3,19 @@
 Launch virtual machine from cloud image using libvirt.
 
 ## dependencies
-* `qemu-img`
-* `virt-install`
 * `virsh`
+* `virt-install`
 
 ## example
 ```sh
-# `sudo` to create file in /var/lib/libvirt/images
-# `-E` to keep HOME env and cache files in $HOME/.cache
-sudo -E ./virt-launcher -d \
+# Add your user to `libvirt` user group to access libvirt daemon.
+./virt-launcher -d \
   -n testing \
-  -cpu 2 \
-  -mem 4096 \
-  -s 50G \
+  -cpu 1 \
+  -mem 1024 \
+  -s 20G \
   -os debian12 \
-  -key "$(cat .ssh/id_ed25519.pub)"
+  -key "$(cat ~/.ssh/id_ed25519.pub)"
 ```
 ![example](./example.svg)
 
