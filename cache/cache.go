@@ -10,8 +10,31 @@ import (
 	"github.com/whoisnian/virt-launcher/global"
 )
 
-var appCacheDir = ""
-var subCacheDir = []string{"images", "cloud-init", "boot"}
+var (
+	appCacheDir string
+
+	Index     = Dir("index")
+	Images    = Dir("images")
+	CloudInit = Dir("cloud-init")
+	Boot      = Dir("boot")
+)
+
+type Dir string
+
+func (dir Dir) FullPath() string {
+	return filepath.Join(appCacheDir, string(dir))
+}
+
+func (dir Dir) Join(elem ...string) string {
+	return filepath.Join(appCacheDir, string(dir), filepath.Join(elem...))
+}
+
+func (dir Dir) Reset() error {
+	if err := os.RemoveAll(dir.FullPath()); err != nil {
+		return err
+	}
+	return os.MkdirAll(dir.FullPath(), osutil.DefaultDirMode)
+}
 
 func Setup(ctx context.Context) {
 	userCacheDir, err := os.UserCacheDir()
@@ -20,22 +43,11 @@ func Setup(ctx context.Context) {
 	}
 
 	appCacheDir = filepath.Join(userCacheDir, global.AppName)
-	global.LOG.Debugf(ctx, "use base cache dir %s", appCacheDir)
+	global.LOG.Debugf(ctx, "use app cache dir %s", appCacheDir)
 
-	for _, sub := range subCacheDir {
-		err = os.MkdirAll(filepath.Join(appCacheDir, sub), osutil.DefaultDirMode)
-		if err != nil {
+	for _, dir := range []Dir{Index, Images, CloudInit, Boot} {
+		if err = os.MkdirAll(dir.FullPath(), osutil.DefaultDirMode); err != nil {
 			global.LOG.Fatal(ctx, "os.MkdirAll", logger.Error(err))
 		}
 	}
-}
-
-func JoinImagesDir(sub string) string {
-	return filepath.Join(appCacheDir, "images", sub)
-}
-func JoinCloudInitDir(sub string) string {
-	return filepath.Join(appCacheDir, "cloud-init", sub)
-}
-func JoinBootDir(sub string) string {
-	return filepath.Join(appCacheDir, "boot", sub)
 }
