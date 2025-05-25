@@ -5,22 +5,22 @@
     {
       "Arch": "amd64",
       "Source": "https://cloud-images.ubuntu.com/focal/",
-      "Version": "20250516",
+      "Version": "20250523",
       "Account": "ubuntu",
-      "FileUrl": "https://cloud-images.ubuntu.com/focal/20250516/focal-server-cloudimg-amd64.img",
-      "HashUrl": "https://cloud-images.ubuntu.com/focal/20250516/SHA256SUMS",
+      "FileUrl": "https://cloud-images.ubuntu.com/focal/20250523/focal-server-cloudimg-amd64.img",
+      "HashUrl": "https://cloud-images.ubuntu.com/focal/20250523/SHA256SUMS",
       "HashFmt": "sha256sum:gnu",
-      "HashVal": "3d5a77f8f6a240cd3478c24cc4d0a11a823236b03868d79a432906c394b835a9"
+      "HashVal": "d175f91c5f6f0bbd54b0b722862bb6eae94a2bd5e1c94a6ffe816cecd020b6de"
     },
     {
       "Arch": "arm64",
       "Source": "https://cloud-images.ubuntu.com/focal/",
-      "Version": "20250516",
+      "Version": "20250523",
       "Account": "ubuntu",
-      "FileUrl": "https://cloud-images.ubuntu.com/focal/20250516/focal-server-cloudimg-arm64.img",
-      "HashUrl": "https://cloud-images.ubuntu.com/focal/20250516/SHA256SUMS",
+      "FileUrl": "https://cloud-images.ubuntu.com/focal/20250523/focal-server-cloudimg-arm64.img",
+      "HashUrl": "https://cloud-images.ubuntu.com/focal/20250523/SHA256SUMS",
       "HashFmt": "sha256sum:gnu",
-      "HashVal": "c1fa8013924407283fbc25af7d50cb3cfd1811d7099bdb624bf699d91b3f1a41"
+      "HashVal": "f915efb356a374353e876493c73229bfcefa54e6398127f0b4c6e8f7c9c1f880"
     }
   ]
 }
