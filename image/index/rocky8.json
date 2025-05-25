@@ -1,10 +1,11 @@
 {
   "Name": "rocky8",
-  "Version": "8.10-20240528.0",
-  "Upstream": "https://dl.rockylinux.org/pub/rocky/8/images/x86_64/",
+  "Upstream": "https://rockylinux.org/download",
   "Images": [
     {
       "Arch": "amd64",
+      "Source": "https://dl.rockylinux.org/pub/rocky/8/images/x86_64/",
+      "Version": "8.10-20240528.0",
       "Account": "rocky",
       "FileUrl": "https://dl.rockylinux.org/pub/rocky/8/images/x86_64/Rocky-8-GenericCloud-Base-8.10-20240528.0.x86_64.qcow2",
       "HashUrl": "https://dl.rockylinux.org/pub/rocky/8/images/x86_64/Rocky-8-GenericCloud-Base-8.10-20240528.0.x86_64.qcow2.CHECKSUM",
@@ -13,6 +14,8 @@
     },
     {
       "Arch": "arm64",
+      "Source": "https://dl.rockylinux.org/pub/rocky/8/images/aarch64/",
+      "Version": "8.10-20240528.0",
       "Account": "rocky",
       "FileUrl": "https://dl.rockylinux.org/pub/rocky/8/images/aarch64/Rocky-8-GenericCloud-Base-8.10-20240528.0.aarch64.qcow2",
       "HashUrl": "https://dl.rockylinux.org/pub/rocky/8/images/aarch64/Rocky-8-GenericCloud-Base-8.10-20240528.0.aarch64.qcow2.CHECKSUM",

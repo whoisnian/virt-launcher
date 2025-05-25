@@ -1,10 +1,11 @@
 {
   "Name": "ubuntu22.04",
-  "Version": "20250516",
-  "Upstream": "https://cloud-images.ubuntu.com/jammy/",
+  "Upstream": "https://cloud-images.ubuntu.com",
   "Images": [
     {
       "Arch": "amd64",
+      "Source": "https://cloud-images.ubuntu.com/jammy/",
+      "Version": "20250516",
       "Account": "ubuntu",
       "FileUrl": "https://cloud-images.ubuntu.com/jammy/20250516/jammy-server-cloudimg-amd64.img",
       "HashUrl": "https://cloud-images.ubuntu.com/jammy/20250516/SHA256SUMS",
@@ -13,6 +14,8 @@
     },
     {
       "Arch": "arm64",
+      "Source": "https://cloud-images.ubuntu.com/jammy/",
+      "Version": "20250516",
       "Account": "ubuntu",
       "FileUrl": "https://cloud-images.ubuntu.com/jammy/20250516/jammy-server-cloudimg-arm64.img",
       "HashUrl": "https://cloud-images.ubuntu.com/jammy/20250516/SHA256SUMS",

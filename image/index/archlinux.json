@@ -1,10 +1,11 @@
 {
   "Name": "archlinux",
-  "Version": "20250415.336224",
-  "Upstream": "https://geo.mirror.pkgbuild.com/images/",
+  "Upstream": "https://gitlab.archlinux.org/archlinux/arch-boxes/",
   "Images": [
     {
       "Arch": "amd64",
+      "Source": "https://geo.mirror.pkgbuild.com/images/",
+      "Version": "20250415.336224",
       "Account": "arch",
       "FileUrl": "https://geo.mirror.pkgbuild.com/images/v20250415.336224/Arch-Linux-x86_64-cloudimg-20250415.336224.qcow2",
       "HashUrl": "https://geo.mirror.pkgbuild.com/images/v20250415.336224/Arch-Linux-x86_64-cloudimg-20250415.336224.qcow2.SHA256",
