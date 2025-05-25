@@ -26,13 +26,14 @@ var dataFS embed.FS
 
 type Distro struct {
 	Name     string // short id from `osinfo-query os`
-	Version  string
 	Upstream string
 	Images   []Image
 }
 
 type Image struct {
 	Arch    string // current supported: amd64 arm64
+	Source  string // check new version from this URL
+	Version string
 	Account string
 	FileUrl string
 	HashUrl string
@@ -163,10 +164,10 @@ func ListAll(w io.Writer) {
 	list := [][]string{}
 	for _, distro := range distroMap {
 		nameLen = max(nameLen, len(distro.Name))
-		versionLen = max(versionLen, len(distro.Version))
 		for _, img := range distro.Images {
 			archLen = max(archLen, len(img.Arch))
-			list = append(list, []string{distro.Name, img.Arch, distro.Version})
+			versionLen = max(versionLen, len(img.Version))
+			list = append(list, []string{distro.Name, img.Arch, img.Version})
 		}
 	}
 	slices.SortFunc(list, func(a, b []string) int {

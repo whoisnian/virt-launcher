@@ -21,20 +21,13 @@ Launch virtual machine from cloud image using libvirt.
 
 ## cloud image
 https://docs.openstack.org/image-guide/obtain-images.html
-* alpinelinux3.21: https://dl-cdn.alpinelinux.org/alpine/v3.21/releases/cloud/
-* archlinux: https://geo.mirror.pkgbuild.com/images/
-* centos7.0: https://cloud.centos.org/centos/7/images/
-* centos-stream9: https://cloud.centos.org/centos/9-stream/
-* centos-stream10: https://cloud.centos.org/centos/10-stream/
-* debian11: https://cdimage.debian.org/images/cloud/bullseye/
-* debian12: https://cdimage.debian.org/images/cloud/bookworm/
-* fedora41: https://download.fedoraproject.org/pub/fedora/linux/releases/41/Cloud/
-* rocky8: https://dl.rockylinux.org/pub/rocky/8/images/
-* rocky9: https://dl.rockylinux.org/pub/rocky/9/images/
-* ubuntu18.04: https://cloud-images.ubuntu.com/bionic/
-* ubuntu20.04: https://cloud-images.ubuntu.com/focal/
-* ubuntu22.04: https://cloud-images.ubuntu.com/jammy/
-* ubuntu24.04: https://cloud-images.ubuntu.com/noble/
+* Alpine Linux: https://alpinelinux.org/cloud/
+* Arch Linux: https://gitlab.archlinux.org/archlinux/arch-boxes/
+* CentOS: https://cloud.centos.org/centos/
+* Debian: https://cdimage.debian.org/images/cloud/
+* Fedora: https://fedoraproject.org/cloud/
+* Rocky Linux: https://rockylinux.org/download
+* Ubuntu: https://cloud-images.ubuntu.com
 
 ## known issues
 * Failed to start sshd service in archlinux:  

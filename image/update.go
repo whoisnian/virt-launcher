@@ -13,25 +13,38 @@ import (
 )
 
 var versionRegexMap = map[string]*regexp.Regexp{
-	"alpinelinux3.21": regexp.MustCompile(`href="generic_alpine-(\d+\.\d+\.\d+)-x86_64-bios-cloudinit-r0\.qcow2"`),
-	"archlinux":       regexp.MustCompile(`href="v(\d+\.\d+)/"`),
-	"centos7.0":       regexp.MustCompile(`href="CentOS-7-x86_64-GenericCloud-(\d+)\.qcow2"`),
-	"centos-stream9":  regexp.MustCompile(`href="CentOS-Stream-GenericCloud-9-(\d+\.\d+)\.x86_64\.qcow2"`),
-	"centos-stream10": regexp.MustCompile(`href="CentOS-Stream-GenericCloud-10-(\d+\.\d+)\.x86_64\.qcow2"`),
-	"debian11":        regexp.MustCompile(`href="(\d+-\d+)/"`),
-	"debian12":        regexp.MustCompile(`href="(\d+-\d+)/"`),
-	"fedora41":        regexp.MustCompile(`href="Fedora-Cloud-Base-Generic-(\d+-\d+\.\d+)\.x86_64\.qcow2"`),
-	"rocky8":          regexp.MustCompile(`href="Rocky-8-GenericCloud-Base-(\d+\.\d+-\d+\.\d+)\.x86_64\.qcow2"`),
-	"rocky9":          regexp.MustCompile(`href="Rocky-9-GenericCloud-Base-(\d+\.\d+-\d+\.\d+)\.x86_64\.qcow2"`),
-	"ubuntu18.04":     regexp.MustCompile(`href="(\d+)/"`),
-	"ubuntu20.04":     regexp.MustCompile(`href="(\d+)/"`),
-	"ubuntu22.04":     regexp.MustCompile(`href="(\d+)/"`),
-	"ubuntu24.04":     regexp.MustCompile(`href="(\d+)/"`),
+	"alpinelinux3.21 (amd64)": regexp.MustCompile(`href="generic_alpine-(\d+\.\d+\.\d+)-x86_64-bios-cloudinit-r0\.qcow2"`),
+	"alpinelinux3.21 (arm64)": regexp.MustCompile(`href="generic_alpine-(\d+\.\d+\.\d+)-aarch64-bios-cloudinit-r0\.qcow2"`),
+	"archlinux (amd64)":       regexp.MustCompile(`href="v(\d+\.\d+)/"`),
+	"centos7.0 (amd64)":       regexp.MustCompile(`href="CentOS-7-x86_64-GenericCloud-(\d+)\.qcow2"`),
+	"centos7.0 (arm64)":       regexp.MustCompile(`href="CentOS-7-aarch64-GenericCloud-(\d+)\.qcow2"`),
+	"centos-stream9 (amd64)":  regexp.MustCompile(`href="CentOS-Stream-GenericCloud-9-(\d+\.\d+)\.x86_64\.qcow2"`),
+	"centos-stream9 (arm64)":  regexp.MustCompile(`href="CentOS-Stream-GenericCloud-9-(\d+\.\d+)\.aarch64\.qcow2"`),
+	"centos-stream10 (amd64)": regexp.MustCompile(`href="CentOS-Stream-GenericCloud-10-(\d+\.\d+)\.x86_64\.qcow2"`),
+	"centos-stream10 (arm64)": regexp.MustCompile(`href="CentOS-Stream-GenericCloud-10-(\d+\.\d+)\.aarch64\.qcow2"`),
+	"debian11 (amd64)":        regexp.MustCompile(`href="(\d+-\d+)/"`),
+	"debian11 (arm64)":        regexp.MustCompile(`href="(\d+-\d+)/"`),
+	"debian12 (amd64)":        regexp.MustCompile(`href="(\d+-\d+)/"`),
+	"debian12 (arm64)":        regexp.MustCompile(`href="(\d+-\d+)/"`),
+	"fedora41 (amd64)":        regexp.MustCompile(`href="Fedora-Cloud-Base-Generic-(\d+-\d+\.\d+)\.x86_64\.qcow2"`),
+	"fedora41 (arm64)":        regexp.MustCompile(`href="Fedora-Cloud-Base-Generic-(\d+-\d+\.\d+)\.aarch64\.qcow2"`),
+	"rocky8 (amd64)":          regexp.MustCompile(`href="Rocky-8-GenericCloud-Base-(\d+\.\d+-\d+\.\d+)\.x86_64\.qcow2"`),
+	"rocky8 (arm64)":          regexp.MustCompile(`href="Rocky-8-GenericCloud-Base-(\d+\.\d+-\d+\.\d+)\.aarch64\.qcow2"`),
+	"rocky9 (amd64)":          regexp.MustCompile(`href="Rocky-9-GenericCloud-Base-(\d+\.\d+-\d+\.\d+)\.x86_64\.qcow2"`),
+	"rocky9 (arm64)":          regexp.MustCompile(`href="Rocky-9-GenericCloud-Base-(\d+\.\d+-\d+\.\d+)\.aarch64\.qcow2"`),
+	"ubuntu18.04 (amd64)":     regexp.MustCompile(`href="(\d+)/"`),
+	"ubuntu18.04 (arm64)":     regexp.MustCompile(`href="(\d+)/"`),
+	"ubuntu20.04 (amd64)":     regexp.MustCompile(`href="(\d+)/"`),
+	"ubuntu20.04 (arm64)":     regexp.MustCompile(`href="(\d+)/"`),
+	"ubuntu22.04 (amd64)":     regexp.MustCompile(`href="(\d+)/"`),
+	"ubuntu22.04 (arm64)":     regexp.MustCompile(`href="(\d+)/"`),
+	"ubuntu24.04 (amd64)":     regexp.MustCompile(`href="(\d+)/"`),
+	"ubuntu24.04 (arm64)":     regexp.MustCompile(`href="(\d+)/"`),
 }
 
-func fetchLatestVersion(os string, upstream string) (version string, err error) {
-	if regex, ok := versionRegexMap[os]; ok {
-		resp, err := http.Get(upstream)
+func fetchLatestVersion(os string, arch string, source string) (version string, err error) {
+	if regex, ok := versionRegexMap[os+" ("+arch+")"]; ok {
+		resp, err := http.Get(source)
 		if err != nil {
 			return "", fmt.Errorf("http.Get: %w", err)
 		}
@@ -54,22 +67,23 @@ func fetchLatestVersion(os string, upstream string) (version string, err error) 
 }
 
 func (distro *Distro) CheckAndUpdate(ctx context.Context) (bool, error) {
-	global.LOG.Infof(ctx, "check for updates of %s...", distro.Name)
-	latestV, err := fetchLatestVersion(distro.Name, distro.Upstream)
-	if err != nil {
-		return false, fmt.Errorf("fetchLatestVersion: %w", err)
-	}
-	if latestV > distro.Version {
-		global.LOG.Infof(ctx, "found newer version: %s => %s", distro.Version, latestV)
-		for i := range distro.Images {
-			distro.Images[i].FileUrl = strings.ReplaceAll(distro.Images[i].FileUrl, distro.Version, latestV)
-			distro.Images[i].HashUrl = strings.ReplaceAll(distro.Images[i].HashUrl, distro.Version, latestV)
+	updated := false
+	for i := range distro.Images {
+		global.LOG.Infof(ctx, "check for updates of %s (%s)...", distro.Name, distro.Images[i].Arch)
+		latestV, err := fetchLatestVersion(distro.Name, distro.Images[i].Arch, distro.Images[i].Source)
+		if err != nil {
+			return false, fmt.Errorf("fetchLatestVersion: %w", err)
+		}
+		if latestV > distro.Images[i].Version {
+			global.LOG.Infof(ctx, "found newer version: %s => %s", distro.Images[i].Version, latestV)
+			distro.Images[i].FileUrl = strings.ReplaceAll(distro.Images[i].FileUrl, distro.Images[i].Version, latestV)
+			distro.Images[i].HashUrl = strings.ReplaceAll(distro.Images[i].HashUrl, distro.Images[i].Version, latestV)
 			if err = distro.Images[i].UpdateHashVal(ctx); err != nil {
 				return false, fmt.Errorf("image.UpdateHashVal: %w", err)
 			}
+			distro.Images[i].Version = latestV
+			updated = true
 		}
-		distro.Version = latestV
-		return true, nil
 	}
-	return false, nil
+	return updated, nil
 }
