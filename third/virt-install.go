@@ -40,6 +40,7 @@ func CreateVM(ctx context.Context, diskVolume, cdromVolume string) ([]byte, erro
 		"--disk", "source.startupPolicy=optional,vol="+global.CFG.Storage+"/"+cdromVolume,
 		"--network", "network="+global.CFG.Network,
 		"--graphics", "none",
+		"--video", "virtio",
 		"--noautoconsole",
 	)
 	return prepareOrCombinedOutput(ctx, cmd)
