@@ -36,3 +36,6 @@ https://docs.openstack.org/image-guide/obtain-images.html
   https://cloud.centos.org/centos/7/images/sha256sum.txt
 * Timeout 90s for systemd-journal-flush.service on centos-stream8 boot:  
   Failed to start Flush Journal to Persistent Storage.
+* Failed to boot centos7.0-arm64 and rocky8-arm64 on x86_64 host:  
+  https://github.com/utmapp/UTM/issues/6427  
+  The old UEFI firmware [edk2-armvirt-202208-3](https://archive.archlinux.org/packages/e/edk2-armvirt/edk2-armvirt-202208-3-any.pkg.tar.zst) may help.
