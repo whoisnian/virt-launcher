@@ -5,7 +5,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"net/http"
 	"regexp"
 	"strings"
 
@@ -44,11 +43,11 @@ var versionRegexMap = map[string]*regexp.Regexp{
 	"ubuntu24.04 (arm64)":     regexp.MustCompile(`href="(\d+)/"`),
 }
 
-func fetchLatestVersion(os string, arch string, source string) (version string, err error) {
+func fetchLatestVersion(ctx context.Context, os string, arch string, source string) (version string, err error) {
 	if regex, ok := versionRegexMap[os+" ("+arch+")"]; ok {
-		resp, err := http.Get(source)
+		resp, err := requestGet(ctx, source)
 		if err != nil {
-			return "", fmt.Errorf("http.Get: %w", err)
+			return "", fmt.Errorf("requestGet: %w", err)
 		}
 		defer resp.Body.Close()
 
@@ -72,7 +71,7 @@ func (distro *Distro) CheckAndUpdate(ctx context.Context) (bool, error) {
 	updated := false
 	for i := range distro.Images {
 		global.LOG.Infof(ctx, "check for updates of %s (%s)...", distro.Name, distro.Images[i].Arch)
-		latestV, err := fetchLatestVersion(distro.Name, distro.Images[i].Arch, distro.Images[i].Source)
+		latestV, err := fetchLatestVersion(ctx, distro.Name, distro.Images[i].Arch, distro.Images[i].Source)
 		if err != nil {
 			return false, fmt.Errorf("fetchLatestVersion: %w", err)
 		}

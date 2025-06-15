@@ -11,7 +11,6 @@ import (
 	"errors"
 	"hash"
 	"io"
-	"net/http"
 	"os"
 	"regexp"
 	"strings"
@@ -110,7 +109,7 @@ func (img *Image) UpdateHashVal(ctx context.Context) error {
 		return err
 	}
 
-	resp, err := http.Get(img.HashUrl)
+	resp, err := requestGet(ctx, img.HashUrl)
 	if err != nil {
 		return err
 	}

@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"net/http"
 	"os"
 	"strconv"
 	"time"
@@ -65,9 +64,9 @@ func (img *Image) download(ctx context.Context, filePath string) error {
 	defer fi.Close()
 
 	global.LOG.Debugf(ctx, "start downloading image from %s", img.FileUrl)
-	resp, err := http.Get(img.FileUrl)
+	resp, err := requestGet(ctx, img.FileUrl)
 	if err != nil {
-		return fmt.Errorf("http.Get: %w", err)
+		return fmt.Errorf("requestGet: %w", err)
 	}
 	defer resp.Body.Close()
 
