@@ -5,12 +5,12 @@
     {
       "Arch": "amd64",
       "Source": "https://geo.mirror.pkgbuild.com/images/",
-      "Version": "20250615.366044",
+      "Version": "20250701.374901",
       "Account": "arch",
-      "FileUrl": "https://geo.mirror.pkgbuild.com/images/v20250615.366044/Arch-Linux-x86_64-cloudimg-20250615.366044.qcow2",
-      "HashUrl": "https://geo.mirror.pkgbuild.com/images/v20250615.366044/Arch-Linux-x86_64-cloudimg-20250615.366044.qcow2.SHA256",
+      "FileUrl": "https://geo.mirror.pkgbuild.com/images/v20250701.374901/Arch-Linux-x86_64-cloudimg-20250701.374901.qcow2",
+      "HashUrl": "https://geo.mirror.pkgbuild.com/images/v20250701.374901/Arch-Linux-x86_64-cloudimg-20250701.374901.qcow2.SHA256",
       "HashFmt": "sha256sum:gnu",
-      "HashVal": "a8fb36fd4a60ac606c99efd01f5ef959612d11748e8b686001b37e29411b00a4"
+      "HashVal": "f9a1968e2d3c4808dc52737c9ef04d666c8cf9f66d438e47162d8dac5bcfadb3"
     }
   ]
 }

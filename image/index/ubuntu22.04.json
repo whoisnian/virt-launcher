@@ -5,22 +5,22 @@
     {
       "Arch": "amd64",
       "Source": "https://cloud-images.ubuntu.com/jammy/",
-      "Version": "20250627",
+      "Version": "20250702",
       "Account": "ubuntu",
-      "FileUrl": "https://cloud-images.ubuntu.com/jammy/20250627/jammy-server-cloudimg-amd64.img",
-      "HashUrl": "https://cloud-images.ubuntu.com/jammy/20250627/SHA256SUMS",
+      "FileUrl": "https://cloud-images.ubuntu.com/jammy/20250702/jammy-server-cloudimg-amd64.img",
+      "HashUrl": "https://cloud-images.ubuntu.com/jammy/20250702/SHA256SUMS",
       "HashFmt": "sha256sum:gnu",
-      "HashVal": "a39ea80ca1012a4edbada9d6fc360de82682ebdb09531a1e1cd013041d221910"
+      "HashVal": "80232fb756d0ba69d3ff4b0f717362d7cb24f55a5f1b4f63e9e09c7f6bed99d2"
     },
     {
       "Arch": "arm64",
       "Source": "https://cloud-images.ubuntu.com/jammy/",
-      "Version": "20250627",
+      "Version": "20250702",
       "Account": "ubuntu",
-      "FileUrl": "https://cloud-images.ubuntu.com/jammy/20250627/jammy-server-cloudimg-arm64.img",
-      "HashUrl": "https://cloud-images.ubuntu.com/jammy/20250627/SHA256SUMS",
+      "FileUrl": "https://cloud-images.ubuntu.com/jammy/20250702/jammy-server-cloudimg-arm64.img",
+      "HashUrl": "https://cloud-images.ubuntu.com/jammy/20250702/SHA256SUMS",
       "HashFmt": "sha256sum:gnu",
-      "HashVal": "e2fa54f5707f9e7ed2f595bdcf0102eb6b221d3a53ffec0ac086e92da58882d9"
+      "HashVal": "7b86a56f8069b7f7ea20dcaa9a9711a03db0bd37118c632474474338792613b6"
     }
   ]
 }
