@@ -5,12 +5,12 @@
     {
       "Arch": "amd64",
       "Source": "https://dl-cdn.alpinelinux.org/alpine/v3.21/releases/cloud/",
-      "Version": "3.21.2",
+      "Version": "3.21.4",
       "Account": "alpine",
-      "FileUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.21/releases/cloud/generic_alpine-3.21.2-x86_64-bios-cloudinit-r0.qcow2",
-      "HashUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.21/releases/cloud/generic_alpine-3.21.2-x86_64-bios-cloudinit-r0.qcow2.sha512",
+      "FileUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.21/releases/cloud/generic_alpine-3.21.4-x86_64-bios-cloudinit-r0.qcow2",
+      "HashUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.21/releases/cloud/generic_alpine-3.21.4-x86_64-bios-cloudinit-r0.qcow2.sha512",
       "HashFmt": "sha512sum:raw",
-      "HashVal": "4256de4984b54d013e492a9ef6ce17d361cc0a522346ae5243b1996891a2574f7922807eeba999c50ac1b50c04115fb4a665b10df52e998002607f9b864aa954"
+      "HashVal": "78609f1279eaea61fb4ebbefe173609dab9e0b1859a269e45171522576dedb66297448488d29ec417b34701c66e58835e0b74ca891279e075854290f259442bf"
     },
     {
       "Arch": "arm64",
