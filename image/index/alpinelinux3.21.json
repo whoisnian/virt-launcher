@@ -15,12 +15,12 @@
     {
       "Arch": "arm64",
       "Source": "https://dl-cdn.alpinelinux.org/alpine/v3.21/releases/cloud/",
-      "Version": "3.21.2",
+      "Version": "3.21.4",
       "Account": "alpine",
-      "FileUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.21/releases/cloud/generic_alpine-3.21.2-aarch64-uefi-cloudinit-r0.qcow2",
-      "HashUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.21/releases/cloud/generic_alpine-3.21.2-aarch64-uefi-cloudinit-r0.qcow2.sha512",
+      "FileUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.21/releases/cloud/generic_alpine-3.21.4-aarch64-uefi-cloudinit-r0.qcow2",
+      "HashUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.21/releases/cloud/generic_alpine-3.21.4-aarch64-uefi-cloudinit-r0.qcow2.sha512",
       "HashFmt": "sha512sum:raw",
-      "HashVal": "7f6439edaaf9fc208e4aede2c7e920adeb43ad0c8641164e3a9184809150357f426c99881c1157510833c5ab95f184e23dce2216ea9d591d3b479c3fe90ab9c8"
+      "HashVal": "cca8959e1a6584d3f0495074aa4014ae35ebc7bac4b4c52691d8f33a955719ead1cc3e9722629042d40e0302778a9cf370d9b5d7defda9a8e26c1c755dfb17f3"
     }
   ]
 }

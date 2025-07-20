@@ -13,9 +13,9 @@ import (
 
 var versionRegexMap = map[string]*regexp.Regexp{
 	"alpinelinux3.21 (amd64)": regexp.MustCompile(`href="generic_alpine-(\d+\.\d+\.\d+)-x86_64-bios-cloudinit-r0\.qcow2"`),
-	"alpinelinux3.21 (arm64)": regexp.MustCompile(`href="generic_alpine-(\d+\.\d+\.\d+)-aarch64-bios-cloudinit-r0\.qcow2"`),
+	"alpinelinux3.21 (arm64)": regexp.MustCompile(`href="generic_alpine-(\d+\.\d+\.\d+)-aarch64-uefi-cloudinit-r0\.qcow2"`),
 	"alpinelinux3.22 (amd64)": regexp.MustCompile(`href="generic_alpine-(\d+\.\d+\.\d+)-x86_64-bios-cloudinit-r0\.qcow2"`),
-	"alpinelinux3.22 (arm64)": regexp.MustCompile(`href="generic_alpine-(\d+\.\d+\.\d+)-aarch64-bios-cloudinit-r0\.qcow2"`),
+	"alpinelinux3.22 (arm64)": regexp.MustCompile(`href="generic_alpine-(\d+\.\d+\.\d+)-aarch64-uefi-cloudinit-r0\.qcow2"`),
 	"archlinux (amd64)":       regexp.MustCompile(`href="v(\d+\.\d+)/"`),
 	"centos7.0 (amd64)":       regexp.MustCompile(`href="CentOS-7-x86_64-GenericCloud-(\d+)\.qcow2"`),
 	"centos7.0 (arm64)":       regexp.MustCompile(`href="CentOS-7-aarch64-GenericCloud-(\d+)\.qcow2"`),
