@@ -5,22 +5,22 @@
     {
       "Arch": "amd64",
       "Source": "https://cdimage.debian.org/images/cloud/bullseye/",
-      "Version": "20250703-2162",
+      "Version": "20250801-2191",
       "Account": "debian",
-      "FileUrl": "https://cdimage.debian.org/images/cloud/bullseye/20250703-2162/debian-11-genericcloud-amd64-20250703-2162.qcow2",
-      "HashUrl": "https://cdimage.debian.org/images/cloud/bullseye/20250703-2162/SHA512SUMS",
+      "FileUrl": "https://cdimage.debian.org/images/cloud/bullseye/20250801-2191/debian-11-genericcloud-amd64-20250801-2191.qcow2",
+      "HashUrl": "https://cdimage.debian.org/images/cloud/bullseye/20250801-2191/SHA512SUMS",
       "HashFmt": "sha512sum:gnu",
-      "HashVal": "e60b2201a9924a23cfd520cc9e5d9424330240d41b5f5be1d7c6962d649d849c7df5ab69036d707a4e211d4b1171a8110eaeffaaefc7001f83dd403dd9dece5b"
+      "HashVal": "e2813485b079f437bec5ec61adaa896cd6f11e5b525042442f8ccb50bf04ae4288e8ebb583922de0e17577a7689835b3618d1876278b3351b32fdfdf723766c6"
     },
     {
       "Arch": "arm64",
       "Source": "https://cdimage.debian.org/images/cloud/bullseye/",
-      "Version": "20250703-2162",
+      "Version": "20250801-2191",
       "Account": "debian",
-      "FileUrl": "https://cdimage.debian.org/images/cloud/bullseye/20250703-2162/debian-11-genericcloud-arm64-20250703-2162.qcow2",
-      "HashUrl": "https://cdimage.debian.org/images/cloud/bullseye/20250703-2162/SHA512SUMS",
+      "FileUrl": "https://cdimage.debian.org/images/cloud/bullseye/20250801-2191/debian-11-genericcloud-arm64-20250801-2191.qcow2",
+      "HashUrl": "https://cdimage.debian.org/images/cloud/bullseye/20250801-2191/SHA512SUMS",
       "HashFmt": "sha512sum:gnu",
-      "HashVal": "6830c6555971a28b01a54240ea91710b81569a9abe91569fc9ab36fc8552f100be975762299543765651bce4219bc52f2b28c10a318cbcd7ae04644d0ec3d29e"
+      "HashVal": "9be88f9e9e5d32a08a9b8de619423e19d3245843762c33711a050efab030e58c724929ecb764d9f85d9914e11e619e599486782c0c87f265c988a50b53895b8a"
     }
   ]
 }
