@@ -5,22 +5,22 @@
     {
       "Arch": "amd64",
       "Source": "https://cloud-images.ubuntu.com/noble/",
-      "Version": "20250725",
+      "Version": "20250805",
       "Account": "ubuntu",
-      "FileUrl": "https://cloud-images.ubuntu.com/noble/20250725/noble-server-cloudimg-amd64.img",
-      "HashUrl": "https://cloud-images.ubuntu.com/noble/20250725/SHA256SUMS",
+      "FileUrl": "https://cloud-images.ubuntu.com/noble/20250805/noble-server-cloudimg-amd64.img",
+      "HashUrl": "https://cloud-images.ubuntu.com/noble/20250805/SHA256SUMS",
       "HashFmt": "sha256sum:gnu",
-      "HashVal": "9611c5a9d6c43e60090305c58a1aeb5d9f1f0c0bec409004185e6284755322d1"
+      "HashVal": "834af9cd766d1fd86eca156db7dff34c3713fbbc7f5507a3269be2a72d2d1820"
     },
     {
       "Arch": "arm64",
       "Source": "https://cloud-images.ubuntu.com/noble/",
-      "Version": "20250725",
+      "Version": "20250805",
       "Account": "ubuntu",
-      "FileUrl": "https://cloud-images.ubuntu.com/noble/20250725/noble-server-cloudimg-arm64.img",
-      "HashUrl": "https://cloud-images.ubuntu.com/noble/20250725/SHA256SUMS",
+      "FileUrl": "https://cloud-images.ubuntu.com/noble/20250805/noble-server-cloudimg-arm64.img",
+      "HashUrl": "https://cloud-images.ubuntu.com/noble/20250805/SHA256SUMS",
       "HashFmt": "sha256sum:gnu",
-      "HashVal": "7afae09463e8758a768322113e57f8c56eb1fad379caa04477d7e661cd556b79"
+      "HashVal": "6177a7958f0168e38ca58c13961bdc613d71b9771148add03bc4ad637eb01b8d"
     }
   ]
 }
