@@ -62,20 +62,28 @@ func CreateVM(ctx context.Context, diskVolume, cdromVolume string) ([]byte, erro
 		}
 	}
 
-	cmd := exec.Command(virtInstallBinary, "--connect", global.CFG.Connect,
+	args := []string{
+		"--connect", global.CFG.Connect,
 		"--import",
 		"--name", global.CFG.Name,
 		"--osinfo", string(os),
 		"--arch", arch,
 		"--vcpus", global.CFG.Cpu,
 		"--memory", global.CFG.Mem,
-		"--boot", global.CFG.Boot,
-		"--disk", "vol="+global.CFG.Storage+"/"+diskVolume,
-		"--disk", "source.startupPolicy=optional,vol="+global.CFG.Storage+"/"+cdromVolume,
-		"--network", "network="+global.CFG.Network,
+		"--disk", "vol=" + global.CFG.Storage + "/" + diskVolume,
+		"--disk", "source.startupPolicy=optional,vol=" + global.CFG.Storage + "/" + cdromVolume,
+		"--network", "network=" + global.CFG.Network,
 		"--graphics", "none",
 		"--video", "virtio",
 		"--noautoconsole",
-	)
+	}
+	if global.CFG.Boot != "" {
+		args = append(args, "--boot", global.CFG.Boot)
+	}
+	if global.CFG.Cpum != "" {
+		args = append(args, "--cpu", global.CFG.Cpum)
+	}
+
+	cmd := exec.Command(virtInstallBinary, args...)
 	return prepareOrCombinedOutput(ctx, cmd)
 }

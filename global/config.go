@@ -20,7 +20,8 @@ type Config struct {
 	Os   string `flag:"os,,The distribution name of cloud image"`
 	Arch string `flag:"arch,,The architecture of cloud image"`
 	Size string `flag:"s,20G,Resize guest vm disk image to"`
-	Boot string `flag:"boot,hd,Boot options for the guest vm"`
+	Boot string `flag:"boot,,Boot options for the guest vm"`
+	Cpum string `flag:"cpum,,CPU model and features for the guest vm"`
 	Cpu  string `flag:"cpu,1,Number of vCPUs for the guest vm"`
 	Mem  string `flag:"mem,1024,Memory allocated to the guest vm"`
 	Key  string `flag:"key,,Authorized keys for default user"`
