@@ -36,6 +36,11 @@ https://docs.openstack.org/image-guide/obtain-images.html
   https://cloud.centos.org/centos/7/images/sha256sum.txt
 * Timeout 90s for systemd-journal-flush.service on centos-stream8 boot:  
   Failed to start Flush Journal to Persistent Storage.
+* Timeout 3-4 minutes for cloud-init detecting datasource in alpinelinux if using FakeIP DNS:  
+  [https://github.com/canonical/cloud-init/blob/main/cloudinit/util.py](https://github.com/canonical/cloud-init/blob/eb43d8e2d15809571b7ff7834ba1fc3584a05991/cloudinit/util.py#L1295)  
+  `does-not-exist.example.com`, `example.invalid`, and `__cloud_init_expected_not_found__` should not be resolved by DNS server.
 * Failed to boot centos7.0-arm64 and rocky8-arm64 on x86_64 host:  
   https://github.com/utmapp/UTM/issues/6427  
-  The old UEFI firmware [edk2-armvirt-202208-3](https://archive.archlinux.org/packages/e/edk2-armvirt/edk2-armvirt-202208-3-any.pkg.tar.zst) may help.
+  The old UEFI firmware [edk2-armvirt-202208-3](https://archive.archlinux.org/packages/e/edk2-armvirt/edk2-armvirt-202208-3-any.pkg.tar.zst) and `--boot loader=/tmp/edk2-armvirt/QEMU_CODE.fd,loader.readonly=yes,loader.type=pflash,nvram.template=/tmp/edk2-armvirt/QEMU_VARS.fd,loader_secure=no` may help.
+* Failed to boot ubuntu20.04-arm64 and ubuntu18.04-arm64 on x86_64 host after upgrade to qemu 10+:  
+  Specify CPU model instead of default `maximum` may help, e.g. `-cpum cortex-a72`.
