@@ -5,22 +5,22 @@
     {
       "Arch": "amd64",
       "Source": "https://dl-cdn.alpinelinux.org/alpine/v3.22/releases/cloud/",
-      "Version": "3.22.3",
+      "Version": "3.22.4",
       "Account": "alpine",
-      "FileUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.22/releases/cloud/generic_alpine-3.22.3-x86_64-bios-cloudinit-r0.qcow2",
-      "HashUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.22/releases/cloud/generic_alpine-3.22.3-x86_64-bios-cloudinit-r0.qcow2.sha512",
+      "FileUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.22/releases/cloud/generic_alpine-3.22.4-x86_64-bios-cloudinit-r0.qcow2",
+      "HashUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.22/releases/cloud/generic_alpine-3.22.4-x86_64-bios-cloudinit-r0.qcow2.sha512",
       "HashFmt": "sha512sum:raw",
-      "HashVal": "3553aaf4916a1b5b889b9ab0f43a7fb5cc54adbe83a117d84e9489cee4d5e71aba99f92861c64628f4915584b2622d0444a11a7fdd65f85fac7769bbde154911"
+      "HashVal": "bd3d6abd4f63ecf03a92bb263598f31b78b2b2dd8d2fc303e9b2c5d169d67c17bb0b5e4558df9e7214fce3b804ba51f80cb9cfb655495a524526cbb1b8bba840"
     },
     {
       "Arch": "arm64",
       "Source": "https://dl-cdn.alpinelinux.org/alpine/v3.22/releases/cloud/",
-      "Version": "3.22.3",
+      "Version": "3.22.4",
       "Account": "alpine",
-      "FileUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.22/releases/cloud/generic_alpine-3.22.3-aarch64-uefi-cloudinit-r0.qcow2",
-      "HashUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.22/releases/cloud/generic_alpine-3.22.3-aarch64-uefi-cloudinit-r0.qcow2.sha512",
+      "FileUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.22/releases/cloud/generic_alpine-3.22.4-aarch64-uefi-cloudinit-r0.qcow2",
+      "HashUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.22/releases/cloud/generic_alpine-3.22.4-aarch64-uefi-cloudinit-r0.qcow2.sha512",
       "HashFmt": "sha512sum:raw",
-      "HashVal": "778a1a9c39b1120fab1871266b386156b3c37e7c6a1e4df0b2b266d72dfdc99301beb89b7dd0d20ec7c1242c45eb40fbabe01efb6406348463731f7d48362772"
+      "HashVal": "f0d8aa9b254d8461fc316fa3a77578ec6a580f4c72da03ec85150123d4ee78fc1bb950bba846458f29e5ec5218bf6b5cc5a7f33f55c9af1d620dd686040e596a"
     }
   ]
 }
