@@ -5,22 +5,22 @@
     {
       "Arch": "amd64",
       "Source": "https://cdimage.debian.org/images/cloud/bookworm/",
-      "Version": "20260502-2466",
+      "Version": "20260510-2474",
       "Account": "debian",
-      "FileUrl": "https://cdimage.debian.org/images/cloud/bookworm/20260502-2466/debian-12-genericcloud-amd64-20260502-2466.qcow2",
-      "HashUrl": "https://cdimage.debian.org/images/cloud/bookworm/20260502-2466/SHA512SUMS",
+      "FileUrl": "https://cdimage.debian.org/images/cloud/bookworm/20260510-2474/debian-12-genericcloud-amd64-20260510-2474.qcow2",
+      "HashUrl": "https://cdimage.debian.org/images/cloud/bookworm/20260510-2474/SHA512SUMS",
       "HashFmt": "sha512sum:gnu",
-      "HashVal": "70ca7caa3711e7ad373a3e936149655901cbeefc56cb8ff5afb1c29d06a9d072dfc37afc842fd3249342b84e2a413993130cc22f800dedcf600218f4c7687c61"
+      "HashVal": "a7dc90b7a8e4c17273d7429f2b77b4c30b143b17166dfe896ef05c2a8cad0356931fe0c27af543b6a13940a61e74cba2d6b23ba0904536952e28b14b1c7662db"
     },
     {
       "Arch": "arm64",
       "Source": "https://cdimage.debian.org/images/cloud/bookworm/",
-      "Version": "20260502-2466",
+      "Version": "20260510-2474",
       "Account": "debian",
-      "FileUrl": "https://cdimage.debian.org/images/cloud/bookworm/20260502-2466/debian-12-genericcloud-arm64-20260502-2466.qcow2",
-      "HashUrl": "https://cdimage.debian.org/images/cloud/bookworm/20260502-2466/SHA512SUMS",
+      "FileUrl": "https://cdimage.debian.org/images/cloud/bookworm/20260510-2474/debian-12-genericcloud-arm64-20260510-2474.qcow2",
+      "HashUrl": "https://cdimage.debian.org/images/cloud/bookworm/20260510-2474/SHA512SUMS",
       "HashFmt": "sha512sum:gnu",
-      "HashVal": "f5aee894bbcf5f532d17a4a8dd375140dd3290df0b90f07befd3bcd0d0456daaba22de10ac2a45b896d23d474a81202d9be7c81ea6bbb9551a857b88ece548d6"
+      "HashVal": "429a8b76b88bc2d9f039795600f1d90aa16b308e1ca501e7e16efa0b84db2a99b3d50b9957631f93a54df0d616cde0e19ec255069eab2a0e7f621a750242fdc5"
     }
   ]
 }
