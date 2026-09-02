@@ -12,12 +12,12 @@ import (
 )
 
 var versionRegexMap = map[string]*regexp.Regexp{
-	"alpinelinux3.21 (amd64)": regexp.MustCompile(`href="generic_alpine-(\d+\.\d+\.\d+)-x86_64-bios-cloudinit-r0\.qcow2"`),
-	"alpinelinux3.21 (arm64)": regexp.MustCompile(`href="generic_alpine-(\d+\.\d+\.\d+)-aarch64-uefi-cloudinit-r0\.qcow2"`),
 	"alpinelinux3.22 (amd64)": regexp.MustCompile(`href="generic_alpine-(\d+\.\d+\.\d+)-x86_64-bios-cloudinit-r0\.qcow2"`),
 	"alpinelinux3.22 (arm64)": regexp.MustCompile(`href="generic_alpine-(\d+\.\d+\.\d+)-aarch64-uefi-cloudinit-r0\.qcow2"`),
 	"alpinelinux3.23 (amd64)": regexp.MustCompile(`href="generic_alpine-(\d+\.\d+\.\d+)-x86_64-bios-cloudinit-r0\.qcow2"`),
 	"alpinelinux3.23 (arm64)": regexp.MustCompile(`href="generic_alpine-(\d+\.\d+\.\d+)-aarch64-uefi-cloudinit-r0\.qcow2"`),
+	"alpinelinux3.24 (amd64)": regexp.MustCompile(`href="generic_alpine-(\d+\.\d+\.\d+)-x86_64-bios-cloudinit-r0\.qcow2"`),
+	"alpinelinux3.24 (arm64)": regexp.MustCompile(`href="generic_alpine-(\d+\.\d+\.\d+)-aarch64-uefi-cloudinit-r0\.qcow2"`),
 	"archlinux (amd64)":       regexp.MustCompile(`href="v(\d+\.\d+)/"`),
 	"centos7.0 (amd64)":       regexp.MustCompile(`href="CentOS-7-x86_64-GenericCloud-(\d+)\.qcow2"`),
 	"centos7.0 (arm64)":       regexp.MustCompile(`href="CentOS-7-aarch64-GenericCloud-(\d+)\.qcow2"`),
@@ -25,18 +25,14 @@ var versionRegexMap = map[string]*regexp.Regexp{
 	"centos-stream9 (arm64)":  regexp.MustCompile(`href="CentOS-Stream-GenericCloud-9-(\d+\.\d+)\.aarch64\.qcow2"`),
 	"centos-stream10 (amd64)": regexp.MustCompile(`href="CentOS-Stream-GenericCloud-10-(\d+\.\d+)\.x86_64\.qcow2"`),
 	"centos-stream10 (arm64)": regexp.MustCompile(`href="CentOS-Stream-GenericCloud-10-(\d+\.\d+)\.aarch64\.qcow2"`),
-	"debian11 (amd64)":        regexp.MustCompile(`href="(\d+-\d+)/"`),
-	"debian11 (arm64)":        regexp.MustCompile(`href="(\d+-\d+)/"`),
 	"debian12 (amd64)":        regexp.MustCompile(`href="(\d+-\d+)/"`),
 	"debian12 (arm64)":        regexp.MustCompile(`href="(\d+-\d+)/"`),
 	"debian13 (amd64)":        regexp.MustCompile(`href="(\d+-\d+)/"`),
 	"debian13 (arm64)":        regexp.MustCompile(`href="(\d+-\d+)/"`),
-	"fedora41 (amd64)":        regexp.MustCompile(`href="Fedora-Cloud-Base-Generic-(\d+-\d+\.\d+)\.x86_64\.qcow2"`),
-	"fedora41 (arm64)":        regexp.MustCompile(`href="Fedora-Cloud-Base-Generic-(\d+-\d+\.\d+)\.aarch64\.qcow2"`),
-	"fedora42 (amd64)":        regexp.MustCompile(`href="Fedora-Cloud-Base-Generic-(\d+-\d+\.\d+)\.x86_64\.qcow2"`),
-	"fedora42 (arm64)":        regexp.MustCompile(`href="Fedora-Cloud-Base-Generic-(\d+-\d+\.\d+)\.aarch64\.qcow2"`),
 	"fedora43 (amd64)":        regexp.MustCompile(`href="Fedora-Cloud-Base-Generic-(\d+-\d+\.\d+)\.x86_64\.qcow2"`),
 	"fedora43 (arm64)":        regexp.MustCompile(`href="Fedora-Cloud-Base-Generic-(\d+-\d+\.\d+)\.aarch64\.qcow2"`),
+	"fedora44 (amd64)":        regexp.MustCompile(`href="Fedora-Cloud-Base-Generic-(\d+-\d+\.\d+)\.x86_64\.qcow2"`),
+	"fedora44 (arm64)":        regexp.MustCompile(`href="Fedora-Cloud-Base-Generic-(\d+-\d+\.\d+)\.aarch64\.qcow2"`),
 	"rocky8 (amd64)":          regexp.MustCompile(`href="Rocky-8-GenericCloud-Base-(\d+\.\d+-\d+\.\d+)\.x86_64\.qcow2"`),
 	"rocky8 (arm64)":          regexp.MustCompile(`href="Rocky-8-GenericCloud-Base-(\d+\.\d+-\d+\.\d+)\.aarch64\.qcow2"`),
 	"rocky9 (amd64)":          regexp.MustCompile(`href="Rocky-9-GenericCloud-Base-(\d+\.\d+-\d+\.\d+)\.x86_64\.qcow2"`),
@@ -49,6 +45,8 @@ var versionRegexMap = map[string]*regexp.Regexp{
 	"ubuntu22.04 (arm64)":     regexp.MustCompile(`href="(\d+)/"`),
 	"ubuntu24.04 (amd64)":     regexp.MustCompile(`href="(\d+)/"`),
 	"ubuntu24.04 (arm64)":     regexp.MustCompile(`href="(\d+)/"`),
+	"ubuntu26.04 (amd64)":     regexp.MustCompile(`href="(\d+)/"`),
+	"ubuntu26.04 (arm64)":     regexp.MustCompile(`href="(\d+)/"`),
 }
 
 func fetchLatestVersion(ctx context.Context, os string, arch string, source string) (version string, err error) {

@@ -1,0 +1,26 @@
+{
+  "Name": "fedora44",
+  "Upstream": "https://fedoraproject.org/cloud/",
+  "Images": [
+    {
+      "Arch": "amd64",
+      "Source": "https://download.fedoraproject.org/pub/fedora/linux/releases/44/Cloud/x86_64/images/",
+      "Version": "44-1.7",
+      "Account": "fedora",
+      "FileUrl": "https://download.fedoraproject.org/pub/fedora/linux/releases/44/Cloud/x86_64/images/Fedora-Cloud-Base-Generic-44-1.7.x86_64.qcow2",
+      "HashUrl": "https://download.fedoraproject.org/pub/fedora/linux/releases/44/Cloud/x86_64/images/Fedora-Cloud-44-1.7-x86_64-CHECKSUM",
+      "HashFmt": "sha256sum:bsd",
+      "HashVal": "28680fe5b371a5a82ebf43a31926e086a168e59949d03969c5093e7071f90b7f"
+    },
+    {
+      "Arch": "arm64",
+      "Source": "https://download.fedoraproject.org/pub/fedora/linux/releases/44/Cloud/aarch64/images/",
+      "Version": "44-1.7",
+      "Account": "fedora",
+      "FileUrl": "https://download.fedoraproject.org/pub/fedora/linux/releases/44/Cloud/aarch64/images/Fedora-Cloud-Base-Generic-44-1.7.aarch64.qcow2",
+      "HashUrl": "https://download.fedoraproject.org/pub/fedora/linux/releases/44/Cloud/aarch64/images/Fedora-Cloud-44-1.7-aarch64-CHECKSUM",
+      "HashFmt": "sha256sum:bsd",
+      "HashVal": "55c60a3b80d3616a08705afd0459e75fe9f03c54aba7a46e4002a41a72fa0d5b"
+    }
+  ]
+}

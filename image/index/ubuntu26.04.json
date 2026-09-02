@@ -1,0 +1,26 @@
+{
+  "Name": "ubuntu26.04",
+  "Upstream": "https://cloud-images.ubuntu.com",
+  "Images": [
+    {
+      "Arch": "amd64",
+      "Source": "https://cloud-images.ubuntu.com/resolute/",
+      "Version": "20260823",
+      "Account": "ubuntu",
+      "FileUrl": "https://cloud-images.ubuntu.com/resolute/20260823/resolute-server-cloudimg-amd64.img",
+      "HashUrl": "https://cloud-images.ubuntu.com/resolute/20260823/SHA256SUMS",
+      "HashFmt": "sha256sum:gnu",
+      "HashVal": "8196be9d7958059cb56c6c75c80fdf6cee8a8885bc149ea791d7db1c7ef93035"
+    },
+    {
+      "Arch": "arm64",
+      "Source": "https://cloud-images.ubuntu.com/resolute/",
+      "Version": "20260823",
+      "Account": "ubuntu",
+      "FileUrl": "https://cloud-images.ubuntu.com/resolute/20260823/resolute-server-cloudimg-arm64.img",
+      "HashUrl": "https://cloud-images.ubuntu.com/resolute/20260823/SHA256SUMS",
+      "HashFmt": "sha256sum:gnu",
+      "HashVal": "00e2d9f09373125eb9040952ae3b8d5553fe3df8f5004c08838473a1f61b74bf"
+    }
+  ]
+}

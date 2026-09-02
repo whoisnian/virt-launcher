@@ -1,0 +1,26 @@
+{
+  "Name": "alpinelinux3.24",
+  "Upstream": "https://alpinelinux.org/cloud/",
+  "Images": [
+    {
+      "Arch": "amd64",
+      "Source": "https://dl-cdn.alpinelinux.org/alpine/v3.24/releases/cloud/",
+      "Version": "3.24.1",
+      "Account": "alpine",
+      "FileUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/releases/cloud/generic_alpine-3.24.1-x86_64-bios-cloudinit-r0.qcow2",
+      "HashUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/releases/cloud/generic_alpine-3.24.1-x86_64-bios-cloudinit-r0.qcow2.sha512",
+      "HashFmt": "sha512sum:raw",
+      "HashVal": "8d756f6fc7653daa4fb4e2e213d8a66007bcb1e5a846e28891af62c47b90685c694486c2746099ad99e9e8f5278db76b69d11dfe1e9361aa4c8406df16929a9c"
+    },
+    {
+      "Arch": "arm64",
+      "Source": "https://dl-cdn.alpinelinux.org/alpine/v3.24/releases/cloud/",
+      "Version": "3.24.1",
+      "Account": "alpine",
+      "FileUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/releases/cloud/generic_alpine-3.24.1-aarch64-uefi-cloudinit-r0.qcow2",
+      "HashUrl": "https://dl-cdn.alpinelinux.org/alpine/v3.24/releases/cloud/generic_alpine-3.24.1-aarch64-uefi-cloudinit-r0.qcow2.sha512",
+      "HashFmt": "sha512sum:raw",
+      "HashVal": "c80b2693236ac0c1d92078e5e6eb69edd015feac363811a4952a4366c6815a53a644d17b1e4de8302c52e6c8a7e197dbf1fb74c3bb64bfea096334c7c8a3b5ca"
+    }
+  ]
+}
