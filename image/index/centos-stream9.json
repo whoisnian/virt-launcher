@@ -5,22 +5,22 @@
     {
       "Arch": "amd64",
       "Source": "https://cloud.centos.org/centos/9-stream/x86_64/images/",
-      "Version": "20261013.0",
+      "Version": "20261023.1",
       "Account": "cloud-user",
-      "FileUrl": "https://cloud.centos.org/centos/9-stream/x86_64/images/CentOS-Stream-GenericCloud-9-20261013.0.x86_64.qcow2",
-      "HashUrl": "https://cloud.centos.org/centos/9-stream/x86_64/images/CentOS-Stream-GenericCloud-9-20261013.0.x86_64.qcow2.SHA256SUM",
+      "FileUrl": "https://cloud.centos.org/centos/9-stream/x86_64/images/CentOS-Stream-GenericCloud-9-20261023.1.x86_64.qcow2",
+      "HashUrl": "https://cloud.centos.org/centos/9-stream/x86_64/images/CentOS-Stream-GenericCloud-9-20261023.1.x86_64.qcow2.SHA256SUM",
       "HashFmt": "sha256sum:bsd",
-      "HashVal": "6178901e812a08e1c36e5adac2992be65a409dfb61812a6b630b2488fc0644b3"
+      "HashVal": "c705412b3b80cace91f1a205c685fc1da168637fed4f3fce022c2147d5276d18"
     },
     {
       "Arch": "arm64",
       "Source": "https://cloud.centos.org/centos/9-stream/aarch64/images/",
-      "Version": "20261013.0",
+      "Version": "20261023.1",
       "Account": "cloud-user",
-      "FileUrl": "https://cloud.centos.org/centos/9-stream/aarch64/images/CentOS-Stream-GenericCloud-9-20261013.0.aarch64.qcow2",
-      "HashUrl": "https://cloud.centos.org/centos/9-stream/aarch64/images/CentOS-Stream-GenericCloud-9-20261013.0.aarch64.qcow2.SHA256SUM",
+      "FileUrl": "https://cloud.centos.org/centos/9-stream/aarch64/images/CentOS-Stream-GenericCloud-9-20261023.1.aarch64.qcow2",
+      "HashUrl": "https://cloud.centos.org/centos/9-stream/aarch64/images/CentOS-Stream-GenericCloud-9-20261023.1.aarch64.qcow2.SHA256SUM",
       "HashFmt": "sha256sum:bsd",
-      "HashVal": "188381f48cb49a4a8bd54540587e6d3eb02bafbac7719d7c27960bf982e7a382"
+      "HashVal": "72d7efb6e1692f7faa28e41e74e404192c38e4a97b65b4cfcfe4d71d813739b5"
     }
   ]
 }

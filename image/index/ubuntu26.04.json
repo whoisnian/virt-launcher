@@ -5,22 +5,22 @@
     {
       "Arch": "amd64",
       "Source": "https://cloud-images.ubuntu.com/resolute/",
-      "Version": "20260927",
+      "Version": "20261016",
       "Account": "ubuntu",
-      "FileUrl": "https://cloud-images.ubuntu.com/resolute/20260927/resolute-server-cloudimg-amd64.img",
-      "HashUrl": "https://cloud-images.ubuntu.com/resolute/20260927/SHA256SUMS",
+      "FileUrl": "https://cloud-images.ubuntu.com/resolute/20261016/resolute-server-cloudimg-amd64.img",
+      "HashUrl": "https://cloud-images.ubuntu.com/resolute/20261016/SHA256SUMS",
       "HashFmt": "sha256sum:gnu",
-      "HashVal": "8800651811af9a85465ad1d552add729947bb16488dddb4a9b5305a3d97332b2"
+      "HashVal": "5645d0318ad21f643ebb1ac4567514620e9893380b07b0201fda163baa5b7eb5"
     },
     {
       "Arch": "arm64",
       "Source": "https://cloud-images.ubuntu.com/resolute/",
-      "Version": "20260927",
+      "Version": "20261016",
       "Account": "ubuntu",
-      "FileUrl": "https://cloud-images.ubuntu.com/resolute/20260927/resolute-server-cloudimg-arm64.img",
-      "HashUrl": "https://cloud-images.ubuntu.com/resolute/20260927/SHA256SUMS",
+      "FileUrl": "https://cloud-images.ubuntu.com/resolute/20261016/resolute-server-cloudimg-arm64.img",
+      "HashUrl": "https://cloud-images.ubuntu.com/resolute/20261016/SHA256SUMS",
       "HashFmt": "sha256sum:gnu",
-      "HashVal": "63a93bd5a8d76e33b15ceb5daa3657bd79be804748051ab178e643b0f5da22e7"
+      "HashVal": "8eb876c2ccc4b6ff89e4a65d511815923b285e04503ba465809bf587f763da24"
     }
   ]
 }
