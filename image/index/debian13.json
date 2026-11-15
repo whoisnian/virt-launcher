@@ -5,22 +5,22 @@
     {
       "Arch": "amd64",
       "Source": "https://cdimage.debian.org/images/cloud/trixie/",
-      "Version": "20261103-2651",
+      "Version": "20261111-2659",
       "Account": "debian",
-      "FileUrl": "https://cdimage.debian.org/images/cloud/trixie/20261103-2651/debian-13-genericcloud-amd64-20261103-2651.qcow2",
-      "HashUrl": "https://cdimage.debian.org/images/cloud/trixie/20261103-2651/SHA512SUMS",
+      "FileUrl": "https://cdimage.debian.org/images/cloud/trixie/20261111-2659/debian-13-genericcloud-amd64-20261111-2659.qcow2",
+      "HashUrl": "https://cdimage.debian.org/images/cloud/trixie/20261111-2659/SHA512SUMS",
       "HashFmt": "sha512sum:gnu",
-      "HashVal": "d25999de0770d4cde1be72c299ba3ad94eac7ea8fd4d18f8cc86c69df69337e2e8a91d64465a9bfd8f2a78c566fcbcb0842eacc91c09efdef72d719d9f13b535"
+      "HashVal": "3247873136ba09b060fab45e9c115239f81c1d401fce00b8fa9b872013f7135d6a40b12462ab5ac03b9fa4ed5955dd0e8d1c900109a939ad7a0a4dafe7dea47b"
     },
     {
       "Arch": "arm64",
       "Source": "https://cdimage.debian.org/images/cloud/trixie/",
-      "Version": "20261103-2651",
+      "Version": "20261111-2659",
       "Account": "debian",
-      "FileUrl": "https://cdimage.debian.org/images/cloud/trixie/20261103-2651/debian-13-genericcloud-arm64-20261103-2651.qcow2",
-      "HashUrl": "https://cdimage.debian.org/images/cloud/trixie/20261103-2651/SHA512SUMS",
+      "FileUrl": "https://cdimage.debian.org/images/cloud/trixie/20261111-2659/debian-13-genericcloud-arm64-20261111-2659.qcow2",
+      "HashUrl": "https://cdimage.debian.org/images/cloud/trixie/20261111-2659/SHA512SUMS",
       "HashFmt": "sha512sum:gnu",
-      "HashVal": "5d3ecec46fd29605db4084388a1e2eb82fd19a80202898f962840ea73793261de721e505e3877c829ae86c37fdd2f6c205b0b3b1337a89d0d4b98d9081adc0c2"
+      "HashVal": "4a166ab9a73f27857896b799dff913199ea982e2379889340e60734ba43bea83840c1317f6257a9a8ca466b2293862181a597edc5cdb5d19d4cb704a85b4130a"
     }
   ]
 }
