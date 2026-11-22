@@ -5,22 +5,22 @@
     {
       "Arch": "amd64",
       "Source": "https://dl.rockylinux.org/pub/rocky/9/images/x86_64/",
-      "Version": "9.8-20260525.0",
+      "Version": "9.9-20261112.0",
       "Account": "rocky",
-      "FileUrl": "https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base-9.8-20260525.0.x86_64.qcow2",
-      "HashUrl": "https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base-9.8-20260525.0.x86_64.qcow2.CHECKSUM",
+      "FileUrl": "https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base-9.9-20261112.0.x86_64.qcow2",
+      "HashUrl": "https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base-9.9-20261112.0.x86_64.qcow2.CHECKSUM",
       "HashFmt": "sha256sum:bsd",
-      "HashVal": "92c206cc6f790c61583247eefe87890f8828420662c17cacf247cec78ab4eec8"
+      "HashVal": "4f88f4209de50813d8054ab97309e7169a580206a0c4ea04f375d36c4846d50e"
     },
     {
       "Arch": "arm64",
       "Source": "https://dl.rockylinux.org/pub/rocky/9/images/aarch64/",
-      "Version": "9.8-20260525.0",
+      "Version": "9.9-20261112.0",
       "Account": "rocky",
-      "FileUrl": "https://dl.rockylinux.org/pub/rocky/9/images/aarch64/Rocky-9-GenericCloud-Base-9.8-20260525.0.aarch64.qcow2",
-      "HashUrl": "https://dl.rockylinux.org/pub/rocky/9/images/aarch64/Rocky-9-GenericCloud-Base-9.8-20260525.0.aarch64.qcow2.CHECKSUM",
+      "FileUrl": "https://dl.rockylinux.org/pub/rocky/9/images/aarch64/Rocky-9-GenericCloud-Base-9.9-20261112.0.aarch64.qcow2",
+      "HashUrl": "https://dl.rockylinux.org/pub/rocky/9/images/aarch64/Rocky-9-GenericCloud-Base-9.9-20261112.0.aarch64.qcow2.CHECKSUM",
       "HashFmt": "sha256sum:bsd",
-      "HashVal": "24692a444f1f0b8bb95375c38c8b43f8099a115347623691be2c330b40c8a1fe"
+      "HashVal": "5fe11a8bb45c1e7e8b51f4dd9bb21c7b79aef29dffcfa61b52b9a82ac1cd1c38"
     }
   ]
 }
